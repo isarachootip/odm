@@ -1,0 +1,421 @@
+import { prisma } from "./prisma";
+import * as line from "@line/bot-sdk";
+import { put } from "@vercel/blob";
+import { downloadLineContent } from "./line-content";
+import { analyzePaymentSlip } from "./gemini-vision";
+
+type TempData = {
+    name?: string;
+    phone?: string;
+    deliveryType?: string;
+    location?: string;
+};
+
+type CartSession = {
+    id: string;
+    lineUserId: string;
+    items: any;
+    state: string | null;
+    tempData: any;
+    orderId: string | null;
+};
+
+/**
+ * Handle checkout conversation flow
+ */
+export async function handleCheckoutFlow(
+    userId: string,
+    userMessage: string,
+    client: line.messagingApi.MessagingApiClient,
+    replyToken: string
+): Promise<boolean> {
+    // Get cart session
+    const session = await prisma.cartSession.findUnique({
+        where: { lineUserId: userId }
+    });
+
+    if (!session || !session.state) {
+        return false; // Not in checkout flow
+    }
+
+    try {
+        switch (session.state) {
+            case "AWAITING_NAME":
+                await handleNameInput(session as any, userMessage, client, replyToken);
+                return true;
+
+            case "AWAITING_PHONE":
+                await handlePhoneInput(session as any, userMessage, client, replyToken);
+                return true;
+
+            case "AWAITING_DELIVERY_TYPE":
+                await handleDeliveryTypeInput(session as any, userMessage, client, replyToken);
+                return true;
+
+            case "AWAITING_LOCATION":
+                await handleLocationInput(session as any, userMessage, client, replyToken);
+                return true;
+
+            default:
+                return false;
+        }
+    } catch (error) {
+        console.error("Error in checkout flow:", error);
+        await client.replyMessage({
+            replyToken,
+            messages: [{ type: "text", text: "เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง" }]
+        });
+        return true;
+    }
+}
+
+/**
+ * Start checkout process
+ */
+export async function startCheckout(
+    userId: string,
+    client: line.messagingApi.MessagingApiClient,
+    replyToken: string
+): Promise<void> {
+    const session = await prisma.cartSession.findUnique({
+        where: { lineUserId: userId }
+    });
+
+    if (!session || !session.items || (session.items as any[]).length === 0) {
+        await client.replyMessage({
+            replyToken,
+            messages: [{
+                type: "text",
+                text: "🛒 ตะกร้าสินค้าว่างเปล่า\nกรุณาเลือกสินค้าก่อนดำเนินการสั่งซื้อ"
+            }]
+        });
+        return;
+    }
+
+    // Update state to start asking for name
+    await prisma.cartSession.update({
+        where: { lineUserId: userId },
+        data: {
+            state: "AWAITING_NAME",
+            tempData: {}
+        }
+    });
+
+    await client.replyMessage({
+        replyToken,
+        messages: [{
+            type: "text",
+            text: "📝 เริ่มกระบวนการสั่งซื้อ\n\nกรุณาแจ้ง **ชื่อ** ของคุณ:"
+        }]
+    });
+}
+
+async function handleNameInput(
+    session: CartSession,
+    name: string,
+    client: line.messagingApi.MessagingApiClient,
+    replyToken: string
+): Promise<void> {
+    if (!name || name.length < 2) {
+        await client.replyMessage({
+            replyToken,
+            messages: [{ type: "text", text: "กรุณาระบุชื่อที่ถูกต้อง (อย่างน้อย 2 ตัวอักษร)" }]
+        });
+        return;
+    }
+
+    const tempData = { ...session.tempData, name };
+
+    await prisma.cartSession.update({
+        where: { id: session.id },
+        data: {
+            state: "AWAITING_PHONE",
+            tempData
+        }
+    });
+
+    await client.replyMessage({
+        replyToken,
+        messages: [{
+            type: "text",
+            text: `สวัสดีคุณ ${name} 👋\n\nกรุณาแจ้ง **เบอร์โทรศัพท์** ของคุณ:`
+        }]
+    });
+}
+
+async function handlePhoneInput(
+    session: CartSession,
+    phone: string,
+    client: line.messagingApi.MessagingApiClient,
+    replyToken: string
+): Promise<void> {
+    // Simple phone validation (10 digits)
+    const cleanPhone = phone.replace(/[^0-9]/g, "");
+    if (cleanPhone.length !== 10) {
+        await client.replyMessage({
+            replyToken,
+            messages: [{ type: "text", text: "⚠️ กรุณาระบุเบอร์โทรศัพท์ 10 หลัก (เช่น 0812345678)" }]
+        });
+        return;
+    }
+
+    const tempData = { ...session.tempData, phone: cleanPhone };
+
+    await prisma.cartSession.update({
+        where: { id: session.id },
+        data: {
+            state: "AWAITING_DELIVERY_TYPE",
+            tempData
+        }
+    });
+
+    await client.replyMessage({
+        replyToken,
+        messages: [{
+            type: "text",
+            text: `📞 เบอร์โทร: ${cleanPhone}\n\nคุณต้องการ:\n\n✅ พิมพ์ "รับเอง" - มารับที่ร้าน\n🚚 พิมพ์ "จัดส่ง" - ส่งให้ที่สถานที่`
+        }]
+    });
+}
+
+async function handleDeliveryTypeInput(
+    session: CartSession,
+    input: string,
+    client: line.messagingApi.MessagingApiClient,
+    replyToken: string
+): Promise<void> {
+    const message = input.toLowerCase();
+
+    if (message.includes("รับเอง") || message.includes("pickup")) {
+        // Customer will pickup
+        const tempData = { ...session.tempData, deliveryType: "PICKUP" };
+        await createOrderFromSession(session, tempData, client, replyToken);
+    } else if (message.includes("จัดส่ง") || message.includes("delivery") || message.includes("ส่ง")) {
+        // Need to ask for location
+        const tempData = { ...session.tempData, deliveryType: "DELIVERY" };
+
+        await prisma.cartSession.update({
+            where: { id: session.id },
+            data: {
+                state: "AWAITING_LOCATION",
+                tempData
+            }
+        });
+
+        await client.replyMessage({
+            replyToken,
+            messages: [{
+                type: "text",
+                text: "🚚 จัดส่ง\n\nกรุณาระบุ **สถานที่จัดส่ง**\n(ตัวอย่าง: ห้องประชุม3 ตึกหน้า)"
+            }]
+        });
+    } else {
+        await client.replyMessage({
+            replyToken,
+            messages: [{
+                type: "text",
+                text: "กรุณาเลือก:\n- พิมพ์ **รับเอง** หรือ\n- พิมพ์ **จัดส่ง**"
+            }]
+        });
+    }
+}
+
+async function handleLocationInput(
+    session: CartSession,
+    location: string,
+    client: line.messagingApi.MessagingApiClient,
+    replyToken: string
+): Promise<void> {
+    if (!location || location.length < 3) {
+        await client.replyMessage({
+            replyToken,
+            messages: [{ type: "text", text: "กรุณาระบุสถานที่จัดส่งให้ชัดเจน" }]
+        });
+        return;
+    }
+
+    const tempData = { ...session.tempData, location };
+    await createOrderFromSession(session, tempData, client, replyToken);
+}
+
+/**
+ * Create Order from session data
+ */
+async function createOrderFromSession(
+    session: CartSession,
+    tempData: TempData,
+    client: line.messagingApi.MessagingApiClient,
+    replyToken: string
+): Promise<void> {
+    const cartItems = session.items as any[];
+
+    // Calculate total
+    const total = cartItems.reduce((sum: number, item: any) => sum + (item.price * item.quantity), 0);
+
+    // Create order
+    const order = await prisma.order.create({
+        data: {
+            lineUserId: session.lineUserId,
+            customerName: tempData.name!,
+            customerPhone: tempData.phone!,
+            deliveryType: tempData.deliveryType!,
+            deliveryLocation: tempData.location || null,
+            total,
+            status: "PENDING",
+            items: {
+                create: cartItems.map((item: any) => ({
+                    productId: item.productId,
+                    quantity: item.quantity,
+                    price: item.price
+                }))
+            }
+        }
+    });
+
+    // Update session
+    await prisma.cartSession.update({
+        where: { id: session.id },
+        data: {
+            state: "AWAITING_PAYMENT",
+            orderId: order.id
+        }
+    });
+
+    // Send confirmation
+    const itemsList = cartItems.map((item: any) =>
+        `▫️ ${item.name} x${item.quantity} = ${item.price * item.quantity} บาท`
+    ).join("\n");
+
+    const deliveryInfo = tempData.deliveryType === "PICKUP"
+        ? "🏪 รับเองที่ร้าน"
+        : `🚚 จัดส่งที่: ${tempData.location}`;
+
+    await client.replyMessage({
+        replyToken,
+        messages: [{
+            type: "text",
+            text: `✅ สร้าง Order สำเร็จ!\n\n📦 Order ID: ${order.id.substring(0, 8)}\n👤 ชื่อ: ${tempData.name}\n📞 เบอร์: ${tempData.phone}\n${deliveryInfo}\n\n🛒 รายการสินค้า:\n${itemsList}\n\n💰 รวมทั้งหมด: ${total} บาท\n\n━━━━━━━━━━━━━━━\n💳 ขั้นตอนต่อไป:\nกรุณาโอนเงินจำนวน **${total} บาท**\nแล้ว**ส่งภาพหลักฐานการโอน (Slip)** กลับมาที่นี่\n\nระบบจะตรวจสอบอัตโนมัติและออกหมายเลขคิวให้คุณ 🎫`
+        }]
+    });
+}
+
+/**
+ * Handle Payment Slip Image
+ */
+export async function handlePaymentSlip(
+    userId: string,
+    messageId: string,
+    client: line.messagingApi.MessagingApiClient,
+    replyToken: string
+): Promise<boolean> {
+    const session = await prisma.cartSession.findUnique({
+        where: { lineUserId: userId }
+    });
+
+    if (!session || session.state !== "AWAITING_PAYMENT" || !session.orderId) {
+        return false;
+    }
+
+    try {
+        // 2. Download Image
+        const imageBuffer = await downloadLineContent(messageId);
+
+        // 3. Upload to Blob
+        const blob = await put(`slips/${session.orderId}.jpg`, imageBuffer, {
+            access: 'public',
+            token: process.env.BLOB_READ_WRITE_TOKEN
+        });
+
+        // 4. Analyze with Gemini
+        console.log("Analyzing slip with Gemini...");
+        const analysis = await analyzePaymentSlip(imageBuffer);
+
+        console.log("Analysis Result:", analysis);
+
+        // 5. Verify Amount
+        const order = await prisma.order.findUnique({
+            where: { id: session.orderId }
+        });
+
+        if (!order) throw new Error("Order not found");
+
+        const orderTotal = Number(order.total);
+        const isAmountMatch = Math.abs(analysis.amount - orderTotal) < 1.0; // Tolerance 1 baht
+
+        if (!isAmountMatch && analysis.confidence === "high") {
+            await client.replyMessage({
+                replyToken,
+                messages: [{
+                    type: "text",
+                    text: `⚠️ ยอดเงินในสลิป (${analysis.amount} บาท) ไม่ตรงกับยอดสั่งซื้อ (${orderTotal} บาท)\n\nกรุณาตรวจสอบและส่งสลิปที่ถูกต้องอีกครั้ง`
+                }]
+            });
+            return true;
+        }
+
+        if (analysis.isSlip && (isAmountMatch || analysis.confidence === "low")) {
+            // 6. Generate Queue Number
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            const count = await prisma.order.count({
+                where: {
+                    status: { in: ['PAID', 'PROCESSING', 'SHIPPED', 'COMPLETED'] },
+                    updatedAt: { gte: today }
+                }
+            });
+
+            const queueNumber = count + 1;
+
+            // 7. Update Order
+            await prisma.order.update({
+                where: { id: order.id },
+                data: {
+                    status: 'PAID',
+                    queueNumber,
+                    paymentSlipUrl: blob.url,
+                    paymentVerifiedAt: new Date()
+                }
+            });
+
+            // 8. Clear Session State
+            await prisma.cartSession.update({
+                where: { id: session.id },
+                data: {
+                    state: null,
+                    items: [], // Clear cart
+                    orderId: null,
+                    tempData: {}
+                }
+            });
+
+            // 9. Reply Success
+            await client.replyMessage({
+                replyToken,
+                messages: [{
+                    type: "text",
+                    text: `✅ ตรวจสอบสลิปเรียบร้อย!\n\n🎫 **คิวที่: ${queueNumber}**\n\nระบบได้รับยอดเงิน ${orderTotal} บาทแล้ว\nกำลังจัดเตรียมสินค้าสำหรับคุณ\nขอบคุณที่ใช้บริการค่ะ 🙏`
+                }]
+            });
+
+        } else {
+            await client.replyMessage({
+                replyToken,
+                messages: [{
+                    type: "text",
+                    text: `⚠️ ระบบไม่แน่ใจว่าเป็นสลิปที่ถูกต้องหรือไม่\n\nกรุณาส่งสลิปที่ชัดเจนอีกครั้ง หรือติดต่อพนักงาน`
+                }]
+            });
+        }
+
+        return true;
+
+    } catch (error) {
+        console.error("Error handling payment slip:", error);
+        await client.replyMessage({
+            replyToken,
+            messages: [{ type: "text", text: "เกิดข้อผิดพลาดในการตรวจสอบสลิป กรุณาลองใหม่อีกครั้ง" }]
+        });
+        return true;
+    }
+}

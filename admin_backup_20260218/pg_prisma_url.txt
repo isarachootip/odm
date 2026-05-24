@@ -1,0 +1,1 @@
+postgresql://neondb_owner:npg_yZnoLR05TqQW@ep-weathered-cake-a142l6vv-pooler.ap-southeast-1.aws.neon.tech/neondb?connect_timeout=15&sslmode=require

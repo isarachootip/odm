@@ -1,0 +1,203 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_URL")
+}
+
+model Product {
+  id             String           @id @default(cuid())
+  name           String
+  description    String?
+  costPrice      Decimal          @default(0)
+  price          Decimal          @default(0)
+  promotionPrice Decimal?
+  promotionStart DateTime?
+  promotionEnd   DateTime?
+  inventory      Int              @default(0)
+  images         String[]
+  specifications Json?
+  categoryId     String
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  CartItem       CartItem[]
+  OrderItem      OrderItem[]
+  Category       Category         @relation(fields: [categoryId], references: [id])
+  variants       ProductVariant[]
+  WishlistItem   WishlistItem[]
+}
+
+model ProductVariant {
+  id        String   @id @default(cuid())
+  productId String
+  name      String
+  price     Decimal?
+  stock     Int      @default(0)
+  sku       String?
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model Order {
+  id               String      @id @default(cuid())
+  queueNumber      Int?        // Auto-generated when status becomes PAID
+  userId           String?
+  customerName     String?     // For LINE orders without user account
+  customerPhone    String?     // Customer phone number
+  lineUserId       String?     // LINE User ID for order tracking
+  deliveryType     String?     // "PICKUP" or "DELIVERY"
+  deliveryLocation String?     // e.g., "ห้องประชุม3 ตึกหน้า"
+  status           OrderStatus @default(PENDING)
+  total            Decimal
+  shippingAddress  String?
+  paymentSlipUrl     String?     // URL to payment slip image
+  paymentVerifiedAt  DateTime?   // When payment was verified
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+  User             User?       @relation(fields: [userId], references: [id])
+  items            OrderItem[]
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  productId String
+  quantity  Int
+  price     Decimal
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  Product   Product @relation(fields: [productId], references: [id])
+}
+
+model Category {
+  id             String     @id @default(cuid())
+  name           String
+  slug           String     @unique
+  image          String?
+  parentId       String?
+  Category       Category?  @relation("CategoryToCategory", fields: [parentId], references: [id])
+  other_Category Category[] @relation("CategoryToCategory")
+  Product        Product[]
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?
+  role          Role      @default(CUSTOMER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  accounts      Account[]
+  Address       Address[]
+  Cart          Cart?
+  Order         Order[]
+  sessions      Session[]
+  Wishlist      Wishlist?
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Address {
+  id        String  @id
+  userId    String
+  label     String?
+  address   String
+  city      String?
+  zipcode   String?
+  lat       Float?
+  lng       Float?
+  isDefault Boolean @default(false)
+  User      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Cart {
+  id        String     @id
+  userId    String?    @unique
+  updatedAt DateTime
+  User      User?      @relation(fields: [userId], references: [id])
+  CartItem  CartItem[]
+}
+
+model CartItem {
+  id        String  @id
+  cartId    String
+  productId String
+  quantity  Int     @default(1)
+  Cart      Cart    @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  Product   Product @relation(fields: [productId], references: [id])
+}
+
+model Wishlist {
+  id           String         @id
+  userId       String         @unique
+  User         User           @relation(fields: [userId], references: [id])
+  WishlistItem WishlistItem[]
+}
+
+model WishlistItem {
+  id         String   @id
+  wishlistId String
+  productId  String
+  createdAt  DateTime @default(now())
+  Product    Product  @relation(fields: [productId], references: [id])
+  Wishlist   Wishlist @relation(fields: [wishlistId], references: [id], onDelete: Cascade)
+}
+
+model CartSession {
+  id         String   @id @default(cuid())
+  lineUserId String   @unique
+  items      Json     // Array of {productId, quantity, price, name}
+  state      String?  // Conversation state: AWAITING_NAME, AWAITING_PHONE, etc.
+  tempData   Json?    // Temporary data: {name, phone, deliveryType, location}
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  PROCESSING
+  SHIPPED
+  COMPLETED
+  CANCELLED
+}
+
+enum Role {
+  CUSTOMER
+  ADMIN
+}

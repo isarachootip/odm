@@ -1,0 +1,14 @@
+[
+  {
+    "id": "cml7llfxt0000y997ynk30xby",
+    "paymentType": "PROMPTPAY",
+    "promptpayNumber": "0636395619",
+    "bankName": null,
+    "accountName": "Joy Cafe Settings",
+    "accountNumber": null,
+    "qrImageUrl": null,
+    "isDefault": true,
+    "createdAt": "2026-02-04T05:39:34.769Z",
+    "updatedAt": "2026-02-04T05:39:34.769Z"
+  }
+]

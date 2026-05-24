@@ -1,0 +1,610 @@
+[
+  {
+    "id": "cml508z09000ltxu0iujmfrow",
+    "name": "Americano (อเมริกาโน่ เย็น)",
+    "description": null,
+    "costPrice": "0",
+    "price": "30",
+    "promotionPrice": null,
+    "promotionStart": null,
+    "promotionEnd": null,
+    "inventory": 0,
+    "images": [
+      "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/crop%20750x750%20%285%29-eiyYVkgo3gAcdN5cPPtPY6qcoabVL5.png"
+    ],
+    "specifications": null,
+    "categoryId": "cml508yap0001txu00ua8lljc",
+    "createdAt": "2026-02-02T10:06:28.665Z",
+    "updatedAt": "2026-02-02T10:44:35.277Z",
+    "variants": []
+  },
+  {
+    "id": "cml508yy3000htxu0c44ipdz8",
+    "name": "Black Tea (ชาดำ ร้อน)",
+    "description": null,
+    "costPrice": "0",
+    "price": "25",
+    "promotionPrice": null,
+    "promotionStart": null,
+    "promotionEnd": null,
+    "inventory": 0,
+    "images": [
+      "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/%E0%B8%8A%E0%B8%B2%E0%B8%94%E0%B8%B3%E0%B8%A3%E0%B9%89%E0%B8%AD%E0%B8%99-HWVdSVCMonSioE6AIzGzh1uRityr8y.png"
+    ],
+    "specifications": null,
+    "categoryId": "cml508y110000txu0xoqoyaxm",
+    "createdAt": "2026-02-02T10:06:28.587Z",
+    "updatedAt": "2026-02-02T10:46:18.550Z",
+    "variants": []
+  },
+  {
+    "id": "cml508z25000ptxu0e56tnycf",
+    "name": "Cappuccino (คาปูชิโน่ เย็น)",
+    "description": null,
+    "costPrice": "0",
+    "price": "30",
+    "promotionPrice": null,
+    "promotionStart": null,
+    "promotionEnd": null,
+    "inventory": 0,
+    "images": [
+      "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/cappuccino_cold-0Eyk2e2kI5MNv38a7MWsU7VcFIzYrN.jpg"
+    ],
+    "specifications": null,
+    "categoryId": "cml508yap0001txu00ua8lljc",
+    "createdAt": "2026-02-02T10:06:28.734Z",
+    "updatedAt": "2026-02-02T10:48:28.447Z",
+    "variants": []
+  },
+  {
+    "id": "cml508yuu000btxu0c56vm1mu",
+    "name": "Cappuccino (คาปูชิโน่ ร้อน)",
+    "description": null,
+    "costPrice": "0",
+    "price": "25",
+    "promotionPrice": null,
+    "promotionStart": null,
+    "promotionEnd": null,
+    "inventory": 0,
+    "images": [
+      "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/%E0%B8%84%E0%B8%B2%E0%B8%9B%E0%B8%B9%E0%B8%8A%E0%B8%B4%E0%B9%82%E0%B8%99%E0%B8%A3%E0%B9%89%E0%B8%AD%E0%B8%99-RDInvdGOwUBt362XDKLrJBBu5p4YKY.png"
+    ],
+    "specifications": null,
+    "categoryId": "cml508y110000txu0xoqoyaxm",
+    "createdAt": "2026-02-02T10:06:28.470Z",
+    "updatedAt": "2026-02-02T10:50:17.402Z",
+    "variants": []
+  },
+  {
+    "id": "cml508yz3000jtxu0hlfqu6oh",
+    "name": "Cocoa (โกโก้ ร้อน)",
+    "description": null,
+    "costPrice": "0",
+    "price": "25",
+    "promotionPrice": null,
+    "promotionStart": null,
+    "promotionEnd": null,
+    "inventory": 0,
+    "images": [
+      "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/%E0%B9%82%E0%B8%81%E0%B9%82%E0%B8%81%E0%B9%89%E0%B8%A3%E0%B9%89%E0%B8%AD%E0%B8%99-lJ3aQPRjf7pjeBhRKxRB4OCfr23V2i.png"
+    ],
+    "specifications": null,
+    "categoryId": "cml508y110000txu0xoqoyaxm",
+    "createdAt": "2026-02-02T10:06:28.623Z",
+    "updatedAt": "2026-02-02T10:52:02.114Z",
+    "variants": []
+  },
+  {
+    "id": "cml508z16000ntxu0x8cacrbf",
+    "name": "Espresso (เอสเพรสโซ เย็น)",
+    "description": null,
+    "costPrice": "0",
+    "price": "30",
+    "promotionPrice": null,
+    "promotionStart": null,
+    "promotionEnd": null,
+    "inventory": 0,
+    "images": [
+      "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/espresso_cold.jpg"
+    ],
+    "specifications": null,
+    "categoryId": "cml508yap0001txu00ua8lljc",
+    "createdAt": "2026-02-02T10:06:28.698Z",
+    "updatedAt": "2026-02-02T11:02:03.002Z",
+    "variants": []
+  },
+  {
+    "id": "cml508z9u0015txu000c8k2hb",
+    "name": "Coconut Matcha (มัทฉะมะพร้าว)",
+    "description": null,
+    "costPrice": "0",
+    "price": "45",
+    "promotionPrice": null,
+    "promotionStart": null,
+    "promotionEnd": null,
+    "inventory": 0,
+    "images": [
+      "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/matcha%20coconut_cold.jpg"
+    ],
+    "specifications": null,
+    "categoryId": "cml508yg50002txu0w28ggxol",
+    "createdAt": "2026-02-02T10:06:29.010Z",
+    "updatedAt": "2026-02-02T10:56:41.569Z",
+    "variants": []
+  },
+  {
+    "id": "cml508z61000xtxu0rbn87j1h",
+    "name": "Coconut Americano (อเมริกาโน่มะพร้าว)",
+    "description": null,
+    "costPrice": "0",
+    "price": "45",
+    "promotionPrice": null,
+    "promotionStart": null,
+    "promotionEnd": null,
+    "inventory": 0,
+    "images": [
+      "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/americano%20coconut_cold.jpg"
+    ],
+    "specifications": null,
+    "categoryId": "cml508yap0001txu00ua8lljc",
+    "createdAt": "2026-02-02T10:06:28.873Z",
+    "updatedAt": "2026-02-02T11:01:52.748Z",
+    "variants": []
+  },
+  {
+    "id": "cml508ysi0007txu0mwvhg0y5",
+    "name": "Espresso (เอสเพรสโซ่ ร้อน)",
+    "description": null,
+    "costPrice": "0",
+    "price": "25",
+    "promotionPrice": null,
+    "promotionStart": null,
+    "promotionEnd": null,
+    "inventory": 0,
+    "images": [
+      "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/espresso_hot.jpg"
+    ],
+    "specifications": null,
+    "categoryId": "cml508y110000txu0xoqoyaxm",
+    "createdAt": "2026-02-02T10:06:28.386Z",
+    "updatedAt": "2026-02-02T11:02:38.953Z",
+    "variants": []
+  },
+  {
+    "id": "cml508z53000vtxu0tmlb34mi",
+    "name": "Honey Americano (อเมริกาโน่น้ำผึ้ง)",
+    "description": null,
+    "costPrice": "0",
+    "price": "45",
+    "promotionPrice": null,
+    "promotionStart": null,
+    "promotionEnd": null,
+    "inventory": 0,
+    "images": [
+      "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/%E0%B8%AD%E0%B9%80%E0%B8%A1%E0%B8%A3%E0%B8%B4%E0%B8%81%E0%B8%B2%E0%B9%82%E0%B8%99%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%9C%E0%B8%B6%E0%B9%89%E0%B8%87-VMO9bi2VEMLGO3wJCTmPCVeRmwbWgE.png"
+    ],
+    "specifications": null,
+    "categoryId": "cml508yap0001txu00ua8lljc",
+    "createdAt": "2026-02-02T10:06:28.839Z",
+    "updatedAt": "2026-02-02T11:07:29.332Z",
+    "variants": []
+  },
+  {
+    "id": "cml508zc80019txu0cuclg4e8",
+    "name": "Honey Lemon Matcha (มัทฉะน้ำผึ้งมะนาว)",
+    "description": null,
+    "costPrice": "0",
+    "price": "45",
+    "promotionPrice": null,
+    "promotionStart": null,
+    "promotionEnd": null,
+    "inventory": 0,
+    "images": [
+      "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/matcha_honney.png"
+    ],
+    "specifications": null,
+    "categoryId": "cml508yg50002txu0w28ggxol",
+    "createdAt": "2026-02-02T10:06:29.096Z",
+    "updatedAt": "2026-02-02T11:08:14.621Z",
+    "variants": []
+  },
+  {
+    "id": "cml508zd6001btxu0eev5hkms",
+    "name": "Lemon Tea (ชามะนาว)",
+    "description": null,
+    "costPrice": "0",
+    "price": "30",
+    "promotionPrice": null,
+    "promotionStart": null,
+    "promotionEnd": null,
+    "inventory": 0,
+    "images": [
+      "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/tea%20lemon_cold.jpg"
+    ],
+    "specifications": null,
+    "categoryId": "cml508yg50002txu0w28ggxol",
+    "createdAt": "2026-02-02T10:06:29.131Z",
+    "updatedAt": "2026-02-02T11:08:57.912Z",
+    "variants": []
+  },
+  {
+    "id": "cml508z8v0013txu0drne65bh",
+    "name": "Matcha Latte (มัทฉะลาเต้)",
+    "description": null,
+    "costPrice": "0",
+    "price": "45",
+    "promotionPrice": null,
+    "promotionStart": null,
+    "promotionEnd": null,
+    "inventory": 0,
+    "images": [
+      "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/matcha%20latte_cold.jpg"
+    ],
+    "specifications": null,
+    "categoryId": "cml508yg50002txu0w28ggxol",
+    "createdAt": "2026-02-02T10:06:28.975Z",
+    "updatedAt": "2026-02-02T11:09:26.475Z",
+    "variants": []
+  },
+  {
+    "id": "cml508z34000rtxu0iz95ljd5",
+    "name": "Latte (ลาเต้ เย็น)",
+    "description": null,
+    "costPrice": "0",
+    "price": "30",
+    "promotionPrice": null,
+    "promotionStart": null,
+    "promotionEnd": null,
+    "inventory": 0,
+    "images": [
+      "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/latte_cold.jpg"
+    ],
+    "specifications": null,
+    "categoryId": "cml508yap0001txu00ua8lljc",
+    "createdAt": "2026-02-02T10:06:28.768Z",
+    "updatedAt": "2026-02-02T11:16:10.080Z",
+    "variants": []
+  },
+  {
+    "id": "cml508yto0009txu0mdivrww4",
+    "name": "Latte (ลาเต้ ร้อน)",
+    "description": null,
+    "costPrice": "0",
+    "price": "25",
+    "promotionPrice": null,
+    "promotionStart": null,
+    "promotionEnd": null,
+    "inventory": 0,
+    "images": [
+      "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/latte_hot.jpg"
+    ],
+    "specifications": null,
+    "categoryId": "cml508y110000txu0xoqoyaxm",
+    "createdAt": "2026-02-02T10:06:28.428Z",
+    "updatedAt": "2026-02-02T11:16:32.351Z",
+    "variants": []
+  },
+  {
+    "id": "cml508z46000ttxu0l8k7nc31",
+    "name": "Mocha (มอคค่า เย็น)",
+    "description": null,
+    "costPrice": "0",
+    "price": "30",
+    "promotionPrice": null,
+    "promotionStart": null,
+    "promotionEnd": null,
+    "inventory": 0,
+    "images": [
+      "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/%E0%B8%A1%E0%B8%AD%E0%B8%84%E0%B8%84%E0%B9%88%E0%B8%B2%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99-4z3MjX2n0tKCHATbrqXWgHeXiskHR9.png"
+    ],
+    "specifications": null,
+    "categoryId": "cml508yap0001txu00ua8lljc",
+    "createdAt": "2026-02-02T10:06:28.806Z",
+    "updatedAt": "2026-02-02T11:17:14.301Z",
+    "variants": []
+  },
+  {
+    "id": "cml508yvs000dtxu0nm8ooxje",
+    "name": "Mocha (มอคค่า ร้อน)",
+    "description": null,
+    "costPrice": "0",
+    "price": "25",
+    "promotionPrice": null,
+    "promotionStart": null,
+    "promotionEnd": null,
+    "inventory": 0,
+    "images": [
+      "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/%E0%B8%A1%E0%B8%AD%E0%B8%84%E0%B8%84%E0%B9%88%E0%B8%B2%E0%B8%A3%E0%B9%89%E0%B8%AD%E0%B8%99-hmyZSNl7gZiW6OYm1GiX2BOReMFH4J.png"
+    ],
+    "specifications": null,
+    "categoryId": "cml508y110000txu0xoqoyaxm",
+    "createdAt": "2026-02-02T10:06:28.505Z",
+    "updatedAt": "2026-02-02T11:18:00.632Z",
+    "variants": []
+  },
+  {
+    "id": "cml508zgz001jtxu060cga2qx",
+    "name": "ฺBlack Tea(ชาดำเย็น)",
+    "description": null,
+    "costPrice": "0",
+    "price": "30",
+    "promotionPrice": null,
+    "promotionStart": null,
+    "promotionEnd": null,
+    "inventory": 0,
+    "images": [
+      "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/%E0%B8%8A%E0%B8%B2%E0%B8%94%E0%B8%B3%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99-hvYiuOI2R16TWo6GjKbb3t8TORpwEd.png"
+    ],
+    "specifications": null,
+    "categoryId": "cml508yg50002txu0w28ggxol",
+    "createdAt": "2026-02-02T10:06:29.267Z",
+    "updatedAt": "2026-02-02T11:18:59.550Z",
+    "variants": []
+  },
+  {
+    "id": "cml508zf2001ftxu0awv2kfsq",
+    "name": "Red Lemon Soda (แดงโซดามะนาว)",
+    "description": null,
+    "costPrice": "0",
+    "price": "30",
+    "promotionPrice": null,
+    "promotionStart": null,
+    "promotionEnd": null,
+    "inventory": 0,
+    "images": [
+      "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/%E0%B8%8A%E0%B8%B2%E0%B8%A1%E0%B8%B0%E0%B8%99%E0%B8%B2%E0%B8%A7%202-5CXoH4gDSgnTfEU0thiHdZ2W3BAIFT.png"
+    ],
+    "specifications": null,
+    "categoryId": "cml508yld0003txu05ovfywua",
+    "createdAt": "2026-02-02T10:06:29.198Z",
+    "updatedAt": "2026-02-02T11:20:56.093Z",
+    "variants": []
+  },
+  {
+    "id": "cml508ze4001dtxu0kkg4x3yx",
+    "name": "Red Soda (แดงโซดา)",
+    "description": null,
+    "costPrice": "0",
+    "price": "30",
+    "promotionPrice": null,
+    "promotionStart": null,
+    "promotionEnd": null,
+    "inventory": 0,
+    "images": [
+      "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/%E0%B9%81%E0%B8%94%E0%B8%87%E0%B9%82%E0%B8%A7%E0%B8%94%E0%B8%B2-cw0YMPoCi3CWx5ZQ0FcriUyCs64BCP.png"
+    ],
+    "specifications": null,
+    "categoryId": "cml508yld0003txu05ovfywua",
+    "createdAt": "2026-02-02T10:06:29.164Z",
+    "updatedAt": "2026-02-02T11:21:48.792Z",
+    "variants": []
+  },
+  {
+    "id": "cml508zb10017txu0pyib8cxe",
+    "name": "Yuzu Matcha (มัทฉะส้มยูสุ)",
+    "description": null,
+    "costPrice": "0",
+    "price": "45",
+    "promotionPrice": null,
+    "promotionStart": null,
+    "promotionEnd": null,
+    "inventory": 0,
+    "images": [
+      "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/macha_yusu-zGQavvLfUZDx8GPewe3VisgJoF5i1w.png"
+    ],
+    "specifications": null,
+    "categoryId": "cml508yg50002txu0w28ggxol",
+    "createdAt": "2026-02-02T10:06:29.053Z",
+    "updatedAt": "2026-02-02T11:23:13.889Z",
+    "variants": []
+  },
+  {
+    "id": "cml508ywq000ftxu023skzx15",
+    "name": "Thai Milk Tea (ชาไทยนม ร้อน)",
+    "description": null,
+    "costPrice": "0",
+    "price": "25",
+    "promotionPrice": null,
+    "promotionStart": null,
+    "promotionEnd": null,
+    "inventory": 0,
+    "images": [
+      "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/%E0%B8%8A%E0%B8%B2%E0%B9%84%E0%B8%97%E0%B8%A2%E0%B8%A3%E0%B9%89%E0%B8%AD%E0%B8%99-lkCHuCMsbZC8UBzZ73VLAhpPJ3kqka.png"
+    ],
+    "specifications": null,
+    "categoryId": "cml508y110000txu0xoqoyaxm",
+    "createdAt": "2026-02-02T10:06:28.539Z",
+    "updatedAt": "2026-02-02T11:23:44.376Z",
+    "variants": []
+  },
+  {
+    "id": "cml508zg1001htxu0cpw2ajis",
+    "name": "Yuzu Soda (ส้มยูสุโซดา)",
+    "description": null,
+    "costPrice": "0",
+    "price": "30",
+    "promotionPrice": null,
+    "promotionStart": null,
+    "promotionEnd": null,
+    "inventory": 0,
+    "images": [
+      "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/%E0%B8%AA%E0%B9%89%E0%B8%A1%E0%B8%A2%E0%B8%B8%E0%B8%8B%E0%B8%B8%E0%B9%82%E0%B8%8B%E0%B8%94%E0%B8%B2-eDJ0K8lbmn1PL99oXoLdSXCw2dmwOO.png"
+    ],
+    "specifications": null,
+    "categoryId": "cml508yld0003txu05ovfywua",
+    "createdAt": "2026-02-02T10:06:29.233Z",
+    "updatedAt": "2026-02-02T11:25:20.895Z",
+    "variants": []
+  },
+  {
+    "id": "cml508z6y000ztxu0fbr8o0x8",
+    "name": "Americano Yuzu (อเมริกาโน่ส้มยูสุ)",
+    "description": null,
+    "costPrice": "0",
+    "price": "45",
+    "promotionPrice": null,
+    "promotionStart": null,
+    "promotionEnd": null,
+    "inventory": 0,
+    "images": [
+      "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/crop%20750x750%20%287%29-EIStAozcpXSTwkpsku5AL2WE2MFtgx.png"
+    ],
+    "specifications": null,
+    "categoryId": "cml508yap0001txu00ua8lljc",
+    "createdAt": "2026-02-02T10:06:28.907Z",
+    "updatedAt": "2026-02-02T10:43:20.837Z",
+    "variants": []
+  },
+  {
+    "id": "cml508yq50005txu04ljocjlk",
+    "name": "Americano (อเมริกาโน่ ร้อน)",
+    "description": null,
+    "costPrice": "0",
+    "price": "25",
+    "promotionPrice": null,
+    "promotionStart": null,
+    "promotionEnd": null,
+    "inventory": 0,
+    "images": [
+      "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/%E0%B8%AD%E0%B9%80%E0%B8%A1%E0%B8%A3%E0%B8%B4%E0%B8%81%E0%B8%B2%E0%B9%82%E0%B8%99%E0%B8%A3%E0%B9%89%E0%B8%AD%E0%B8%99-mjzxYQFoX1CZPGtSY2aF4VRGv6KQWm.png"
+    ],
+    "specifications": null,
+    "categoryId": "cml508y110000txu0xoqoyaxm",
+    "createdAt": "2026-02-02T10:06:28.300Z",
+    "updatedAt": "2026-02-02T10:45:32.859Z",
+    "variants": []
+  },
+  {
+    "id": "cml508zj2001ntxu0s22w5m5q",
+    "name": "Cocoa Ice (โกโก้ เย็น)",
+    "description": null,
+    "costPrice": "0",
+    "price": "30",
+    "promotionPrice": null,
+    "promotionStart": null,
+    "promotionEnd": null,
+    "inventory": 0,
+    "images": [
+      "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/%E0%B9%82%E0%B8%81%E0%B9%82%E0%B8%81%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99-aGje7hzyDBkU2e3dBQBtbRpv6H5Gkh.png"
+    ],
+    "specifications": null,
+    "categoryId": "cml508yg50002txu0w28ggxol",
+    "createdAt": "2026-02-02T10:06:29.343Z",
+    "updatedAt": "2026-02-02T10:52:53.493Z",
+    "variants": []
+  },
+  {
+    "id": "cml508zk0001ptxu0mnqpcjku",
+    "name": "Pink Milk (นมชมพู)",
+    "description": null,
+    "costPrice": "0",
+    "price": "30",
+    "promotionPrice": null,
+    "promotionStart": null,
+    "promotionEnd": null,
+    "inventory": 0,
+    "images": [
+      "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/%E0%B8%99%E0%B8%A1%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%992.png"
+    ],
+    "specifications": null,
+    "categoryId": "cml508yg50002txu0w28ggxol",
+    "createdAt": "2026-02-02T10:06:29.377Z",
+    "updatedAt": "2026-02-02T11:19:44.190Z",
+    "variants": []
+  },
+  {
+    "id": "cml508z7x0011txu00ozd3dzu",
+    "name": "Pure Matcha (เพียวมัทฉะ)",
+    "description": null,
+    "costPrice": "0",
+    "price": "45",
+    "promotionPrice": null,
+    "promotionStart": null,
+    "promotionEnd": null,
+    "inventory": 0,
+    "images": [
+      "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/%E0%B8%94%E0%B8%B5%E0%B9%84%E0%B8%8B%E0%B8%99%E0%B9%8C%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%A2%E0%B8%B1%E0%B8%87%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%84%E0%B8%94%E0%B9%89%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%20%2811%29-tlo2dkvW5fV4prODojwWm1rcpKgXHD.png"
+    ],
+    "specifications": null,
+    "categoryId": "cml508yg50002txu0w28ggxol",
+    "createdAt": "2026-02-02T10:06:28.942Z",
+    "updatedAt": "2026-02-02T11:20:23.230Z",
+    "variants": []
+  },
+  {
+    "id": "cml508zhz001ltxu0ndvhr058",
+    "name": "Thai Milk Tea Ice (ชาไทยนมเย็น)",
+    "description": null,
+    "costPrice": "0",
+    "price": "30",
+    "promotionPrice": null,
+    "promotionStart": null,
+    "promotionEnd": null,
+    "inventory": 0,
+    "images": [
+      "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/%E0%B8%8A%E0%B8%B2%E0%B9%84%E0%B8%97%E0%B8%A2%E0%B8%99%E0%B8%A1%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99-oOsUqsYpQnUEigDbpRlWseGAQO4W3v.png"
+    ],
+    "specifications": null,
+    "categoryId": "cml508yg50002txu0w28ggxol",
+    "createdAt": "2026-02-02T10:06:29.304Z",
+    "updatedAt": "2026-02-02T11:22:31.463Z",
+    "variants": []
+  },
+  {
+    "id": "cml5zmljb0001ar0z448idumr",
+    "name": "Mocha frappe (มอคค่า ปั่น)",
+    "description": null,
+    "costPrice": "0",
+    "price": "35",
+    "promotionPrice": null,
+    "promotionStart": null,
+    "promotionEnd": null,
+    "inventory": 0,
+    "images": [
+      "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/%E0%B8%A1%E0%B8%AD%E0%B8%84%E0%B8%84%E0%B9%88%E0%B8%B2%E0%B8%9B%E0%B8%B1%E0%B9%88%E0%B8%99-N2jm3pVUhMLp9Nf2EDWYxcoYvqELnW.png"
+    ],
+    "specifications": null,
+    "categoryId": "cml538yf60000ya5pnjwvmfoi",
+    "createdAt": "2026-02-03T02:36:50.739Z",
+    "updatedAt": "2026-02-03T02:36:50.739Z",
+    "variants": []
+  },
+  {
+    "id": "cml5znc3j0001ffhyodwa4h8m",
+    "name": "Espresso frappe (เอสเพรสโซ ปั่น)",
+    "description": null,
+    "costPrice": "0",
+    "price": "35",
+    "promotionPrice": null,
+    "promotionStart": null,
+    "promotionEnd": null,
+    "inventory": 0,
+    "images": [
+      "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/Espresso%E0%B8%9B%E0%B8%B1%E0%B9%88%E0%B8%992-w3uRCwlaRAa8iTW6zaGAyQRUIGCl08.png"
+    ],
+    "specifications": null,
+    "categoryId": "cml538yf60000ya5pnjwvmfoi",
+    "createdAt": "2026-02-03T02:37:25.164Z",
+    "updatedAt": "2026-02-03T02:50:32.363Z",
+    "variants": []
+  },
+  {
+    "id": "cml605lwm00022azm3if2ie0b",
+    "name": "Cappuccino frappe (คาปูชิโน่ ปั่น)",
+    "description": null,
+    "costPrice": "0",
+    "price": "35",
+    "promotionPrice": null,
+    "promotionStart": null,
+    "promotionEnd": null,
+    "inventory": 0,
+    "images": [
+      "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/%E0%B8%84%E0%B8%B2%E0%B8%9B%E0%B8%B9%E0%B8%9B%E0%B8%B1%E0%B9%88%E0%B8%99-8vPKLbkUhGrfqwRrl6fhQlAVkQCqrW.png"
+    ],
+    "specifications": null,
+    "categoryId": "cml538yf60000ya5pnjwvmfoi",
+    "createdAt": "2026-02-03T02:51:37.677Z",
+    "updatedAt": "2026-02-03T02:51:58.640Z",
+    "variants": []
+  }
+]

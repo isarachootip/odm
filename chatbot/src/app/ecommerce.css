@@ -1,0 +1,118 @@
+:root {
+    /* Common Colors */
+    --bg-color: #ffffff;
+    --text-color: #1a1a1a;
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(200, 200, 200, 0.3);
+
+    /* Food Zone (Warm) */
+    --food-primary: #ff6b35;
+    /* Vital Orange */
+    --food-secondary: #4caf50;
+    /* Fresh Green */
+    --food-bg: linear-gradient(135deg, #fff5f2 0%, #f0fff4 100%);
+
+    /* Non-Food Zone (Cool) */
+    --nonfood-primary: #004e92;
+    /* Deep Blue */
+    --nonfood-secondary: # silver;
+    /* Metallic Silver */
+    --nonfood-bg: linear-gradient(135deg, #f0f7ff 0%, #f8f9fa 100%);
+
+    --transition-smooth: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    overflow-x: hidden;
+}
+
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 2rem;
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.05);
+    transition: var(--transition-smooth);
+}
+
+.glass-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Grid System */
+.auto-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 1rem 0;
+}
+
+@media (max-width: 768px) {
+    .auto-grid {
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 1.5rem;
+    }
+}
+
+/* Header Refinement - More Compact */
+.zone-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    /* Changed from end to center for compactness */
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+    /* Reduced from 4rem */
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.zone-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    /* Reduced slightly */
+    font-weight: 950;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: #000;
+    text-transform: uppercase;
+}
+
+/* Animations Logic */
+.animate-in {
+    animation: slideUp 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

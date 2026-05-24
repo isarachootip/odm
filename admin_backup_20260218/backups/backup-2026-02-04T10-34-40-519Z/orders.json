@@ -1,0 +1,2146 @@
+[
+  {
+    "id": "cml50apmd0000vbn3jczpfw4g",
+    "userId": null,
+    "status": "PROCESSING",
+    "total": "165",
+    "shippingAddress": null,
+    "createdAt": "2026-01-27T07:14:49.804Z",
+    "updatedAt": "2026-02-02T10:07:49.813Z",
+    "queueNumber": 50,
+    "customerName": "แบงค์ รวย",
+    "customerPhone": "081-234-5678",
+    "customerDepartment": null,
+    "lineUserId": "Uy9vdu7",
+    "deliveryType": "DELIVERY",
+    "deliveryLocation": "ห้องประชุมใหญ่ ชั้น 1",
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50apme0002vbn32voncyt3",
+        "orderId": "cml50apmd0000vbn3jczpfw4g",
+        "productId": "cml508zf2001ftxu0awv2kfsq",
+        "quantity": 2,
+        "price": "30",
+        "options": null
+      },
+      {
+        "id": "cml50apme0003vbn31nnrds4w",
+        "orderId": "cml50apmd0000vbn3jczpfw4g",
+        "productId": "cml508zd6001btxu0eev5hkms",
+        "quantity": 2,
+        "price": "30",
+        "options": null
+      },
+      {
+        "id": "cml50apme0004vbn301apwwe4",
+        "orderId": "cml50apmd0000vbn3jczpfw4g",
+        "productId": "cml508zc80019txu0cuclg4e8",
+        "quantity": 1,
+        "price": "45",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50apw20005vbn3rzpacxll",
+    "userId": null,
+    "status": "PROCESSING",
+    "total": "150",
+    "shippingAddress": null,
+    "createdAt": "2026-01-29T12:41:49.807Z",
+    "updatedAt": "2026-02-02T10:07:50.162Z",
+    "queueNumber": 30,
+    "customerName": "ภูมิ รักเรียน",
+    "customerPhone": "084-567-8901",
+    "customerDepartment": null,
+    "lineUserId": "U1ci6nw",
+    "deliveryType": "PICKUP",
+    "deliveryLocation": null,
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50apw20007vbn3hjnxqa87",
+        "orderId": "cml50apw20005vbn3rzpacxll",
+        "productId": "cml508zc80019txu0cuclg4e8",
+        "quantity": 2,
+        "price": "45",
+        "options": null
+      },
+      {
+        "id": "cml50apw20008vbn3v8c5whua",
+        "orderId": "cml50apw20005vbn3rzpacxll",
+        "productId": "cml508zgz001jtxu060cga2qx",
+        "quantity": 2,
+        "price": "30",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50aq1d0009vbn3m4x9mvjl",
+    "userId": null,
+    "status": "PAID",
+    "total": "25",
+    "shippingAddress": null,
+    "createdAt": "2026-02-01T07:28:49.807Z",
+    "updatedAt": "2026-02-02T10:07:50.353Z",
+    "queueNumber": 19,
+    "customerName": "ภูมิ รักเรียน",
+    "customerPhone": "086-789-0123",
+    "customerDepartment": null,
+    "lineUserId": "Ubokca",
+    "deliveryType": "PICKUP",
+    "deliveryLocation": null,
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50aq1d000bvbn3p4zsjh6x",
+        "orderId": "cml50aq1d0009vbn3m4x9mvjl",
+        "productId": "cml508ywq000ftxu023skzx15",
+        "quantity": 1,
+        "price": "25",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50aq6g000cvbn3quijb2yg",
+    "userId": null,
+    "status": "SHIPPED",
+    "total": "60",
+    "shippingAddress": null,
+    "createdAt": "2026-01-27T10:16:49.807Z",
+    "updatedAt": "2026-02-02T10:07:50.536Z",
+    "queueNumber": 24,
+    "customerName": "นก น้อย",
+    "customerPhone": "065-678-9012",
+    "customerDepartment": null,
+    "lineUserId": "U3tooeu",
+    "deliveryType": "DELIVERY",
+    "deliveryLocation": "Pantry ชั้น 4",
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50aq6g000evbn35k54a1o6",
+        "orderId": "cml50aq6g000cvbn3quijb2yg",
+        "productId": "cml508zg1001htxu0cpw2ajis",
+        "quantity": 1,
+        "price": "30",
+        "options": null
+      },
+      {
+        "id": "cml50aq6g000fvbn3ooplcen8",
+        "orderId": "cml50aq6g000cvbn3quijb2yg",
+        "productId": "cml508zk0001ptxu0mnqpcjku",
+        "quantity": 1,
+        "price": "30",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50aqc0000gvbn3r9mhop7x",
+    "userId": null,
+    "status": "PAID",
+    "total": "105",
+    "shippingAddress": null,
+    "createdAt": "2026-02-01T09:38:49.807Z",
+    "updatedAt": "2026-02-02T10:07:50.737Z",
+    "queueNumber": 34,
+    "customerName": "ปอนด์ โต",
+    "customerPhone": "086-789-0123",
+    "customerDepartment": null,
+    "lineUserId": "Ud577t",
+    "deliveryType": "PICKUP",
+    "deliveryLocation": null,
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50aqc0000ivbn3y2f5p770",
+        "orderId": "cml50aqc0000gvbn3r9mhop7x",
+        "productId": "cml508z8v0013txu0drne65bh",
+        "quantity": 1,
+        "price": "45",
+        "options": null
+      },
+      {
+        "id": "cml50aqc0000jvbn3f63hrr1u",
+        "orderId": "cml50aqc0000gvbn3r9mhop7x",
+        "productId": "cml508z09000ltxu0iujmfrow",
+        "quantity": 1,
+        "price": "30",
+        "options": null
+      },
+      {
+        "id": "cml50aqc0000kvbn3g6mxtht2",
+        "orderId": "cml50aqc0000gvbn3r9mhop7x",
+        "productId": "cml508zk0001ptxu0mnqpcjku",
+        "quantity": 1,
+        "price": "30",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50aqhw000lvbn3d8qv2ery",
+    "userId": null,
+    "status": "CANCELLED",
+    "total": "50",
+    "shippingAddress": null,
+    "createdAt": "2026-02-02T10:34:49.807Z",
+    "updatedAt": "2026-02-02T10:07:50.948Z",
+    "queueNumber": null,
+    "customerName": "บอล กลม",
+    "customerPhone": "095-678-9012",
+    "customerDepartment": null,
+    "lineUserId": "Ueam20m",
+    "deliveryType": "DELIVERY",
+    "deliveryLocation": "แผนกบัญชี ชั้น 2",
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50aqhw000nvbn3l0a67bqj",
+        "orderId": "cml50aqhw000lvbn3d8qv2ery",
+        "productId": "cml508yto0009txu0mdivrww4",
+        "quantity": 2,
+        "price": "25",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50aqna000ovbn3ked33w44",
+    "userId": null,
+    "status": "COMPLETED",
+    "total": "70",
+    "shippingAddress": null,
+    "createdAt": "2026-01-28T06:41:49.807Z",
+    "updatedAt": "2026-02-02T10:07:51.143Z",
+    "queueNumber": 41,
+    "customerName": "นก น้อย",
+    "customerPhone": "084-567-8901",
+    "customerDepartment": null,
+    "lineUserId": "Usyd25",
+    "deliveryType": "PICKUP",
+    "deliveryLocation": null,
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50aqna000qvbn3mr8ur47q",
+        "orderId": "cml50aqna000ovbn3ked33w44",
+        "productId": "cml508yuu000btxu0c56vm1mu",
+        "quantity": 1,
+        "price": "25",
+        "options": null
+      },
+      {
+        "id": "cml50aqna000rvbn3ud8ceai8",
+        "orderId": "cml50aqna000ovbn3ked33w44",
+        "productId": "cml508z9u0015txu000c8k2hb",
+        "quantity": 1,
+        "price": "45",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50aqtm000svbn3uckjifir",
+    "userId": null,
+    "status": "SHIPPED",
+    "total": "120",
+    "shippingAddress": null,
+    "createdAt": "2026-01-30T10:19:49.807Z",
+    "updatedAt": "2026-02-02T10:07:51.370Z",
+    "queueNumber": 49,
+    "customerName": "ปาล์ม สูง",
+    "customerPhone": "062-789-0123",
+    "customerDepartment": null,
+    "lineUserId": "Uoqhyj",
+    "deliveryType": "DELIVERY",
+    "deliveryLocation": "Pantry ชั้น 4",
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50aqtm000uvbn3a4auxr7c",
+        "orderId": "cml50aqtm000svbn3uckjifir",
+        "productId": "cml508zj2001ntxu0s22w5m5q",
+        "quantity": 1,
+        "price": "30",
+        "options": null
+      },
+      {
+        "id": "cml50aqtm000vvbn3yt4esrwo",
+        "orderId": "cml50aqtm000svbn3uckjifir",
+        "productId": "cml508zd6001btxu0eev5hkms",
+        "quantity": 1,
+        "price": "30",
+        "options": null
+      },
+      {
+        "id": "cml50aqtm000wvbn3hbpinwi1",
+        "orderId": "cml50aqtm000svbn3uckjifir",
+        "productId": "cml508zf2001ftxu0awv2kfsq",
+        "quantity": 2,
+        "price": "30",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50ar21000xvbn38y5yc4mc",
+    "userId": null,
+    "status": "SHIPPED",
+    "total": "80",
+    "shippingAddress": null,
+    "createdAt": "2026-01-31T11:51:49.807Z",
+    "updatedAt": "2026-02-02T10:07:51.673Z",
+    "queueNumber": 29,
+    "customerName": "บอล กลม",
+    "customerPhone": "065-678-9012",
+    "customerDepartment": null,
+    "lineUserId": "U8ke3as",
+    "deliveryType": "PICKUP",
+    "deliveryLocation": null,
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50ar21000zvbn313881q99",
+        "orderId": "cml50ar21000xvbn38y5yc4mc",
+        "productId": "cml508z09000ltxu0iujmfrow",
+        "quantity": 1,
+        "price": "30",
+        "options": null
+      },
+      {
+        "id": "cml50ar210010vbn3p5e6juos",
+        "orderId": "cml50ar21000xvbn38y5yc4mc",
+        "productId": "cml508yuu000btxu0c56vm1mu",
+        "quantity": 2,
+        "price": "25",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50ar8m0011vbn3jvgp12gz",
+    "userId": null,
+    "status": "PENDING",
+    "total": "180",
+    "shippingAddress": null,
+    "createdAt": "2026-01-28T12:36:49.807Z",
+    "updatedAt": "2026-02-02T10:07:51.910Z",
+    "queueNumber": null,
+    "customerName": "ปอนด์ โต",
+    "customerPhone": "092-345-6789",
+    "customerDepartment": null,
+    "lineUserId": "Uqni3pf",
+    "deliveryType": "PICKUP",
+    "deliveryLocation": null,
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50ar8m0013vbn38oksc2ui",
+        "orderId": "cml50ar8m0011vbn3jvgp12gz",
+        "productId": "cml508ze4001dtxu0kkg4x3yx",
+        "quantity": 1,
+        "price": "30",
+        "options": null
+      },
+      {
+        "id": "cml50ar8m0014vbn37n4vpqu5",
+        "orderId": "cml50ar8m0011vbn3jvgp12gz",
+        "productId": "cml508z61000xtxu0rbn87j1h",
+        "quantity": 2,
+        "price": "45",
+        "options": null
+      },
+      {
+        "id": "cml50ar8m0015vbn33awaiw1u",
+        "orderId": "cml50ar8m0011vbn3jvgp12gz",
+        "productId": "cml508z09000ltxu0iujmfrow",
+        "quantity": 2,
+        "price": "30",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50arfx0016vbn32ykp2uvt",
+    "userId": null,
+    "status": "COMPLETED",
+    "total": "25",
+    "shippingAddress": null,
+    "createdAt": "2026-01-31T04:03:49.807Z",
+    "updatedAt": "2026-02-02T10:07:52.174Z",
+    "queueNumber": 23,
+    "customerName": "ปอนด์ โต",
+    "customerPhone": "094-901-2345",
+    "customerDepartment": null,
+    "lineUserId": "U666wnt",
+    "deliveryType": "DELIVERY",
+    "deliveryLocation": "ห้องประชุมใหญ่ ชั้น 1",
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50arfx0018vbn39lue2yv9",
+        "orderId": "cml50arfx0016vbn32ykp2uvt",
+        "productId": "cml508ysi0007txu0mwvhg0y5",
+        "quantity": 1,
+        "price": "25",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50arlu0019vbn3qzq0y1as",
+    "userId": null,
+    "status": "PAID",
+    "total": "60",
+    "shippingAddress": null,
+    "createdAt": "2026-02-01T10:10:49.807Z",
+    "updatedAt": "2026-02-02T10:07:52.387Z",
+    "queueNumber": 47,
+    "customerName": "สุดา เก่งกาจ",
+    "customerPhone": "083-890-1234",
+    "customerDepartment": null,
+    "lineUserId": "Ul9f1l9",
+    "deliveryType": "DELIVERY",
+    "deliveryLocation": "ห้องรับแขก ชั้น 1",
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50arlu001bvbn31ltvvfus",
+        "orderId": "cml50arlu0019vbn3qzq0y1as",
+        "productId": "cml508z46000ttxu0l8k7nc31",
+        "quantity": 2,
+        "price": "30",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50arq2001cvbn3pnxup6jr",
+    "userId": null,
+    "status": "COMPLETED",
+    "total": "140",
+    "shippingAddress": null,
+    "createdAt": "2026-02-02T07:19:49.807Z",
+    "updatedAt": "2026-02-02T10:07:52.538Z",
+    "queueNumber": 14,
+    "customerName": "แบงค์ รวย",
+    "customerPhone": "081-234-5678",
+    "customerDepartment": null,
+    "lineUserId": "U7b34qk",
+    "deliveryType": "DELIVERY",
+    "deliveryLocation": "Pantry ชั้น 4",
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50arq2001evbn3rkg6u59p",
+        "orderId": "cml50arq2001cvbn3pnxup6jr",
+        "productId": "cml508z09000ltxu0iujmfrow",
+        "quantity": 2,
+        "price": "30",
+        "options": null
+      },
+      {
+        "id": "cml50arq2001fvbn30wwcki21",
+        "orderId": "cml50arq2001cvbn3pnxup6jr",
+        "productId": "cml508z34000rtxu0iz95ljd5",
+        "quantity": 1,
+        "price": "30",
+        "options": null
+      },
+      {
+        "id": "cml50arq2001gvbn34x27cfjc",
+        "orderId": "cml50arq2001cvbn3pnxup6jr",
+        "productId": "cml508yq50005txu04ljocjlk",
+        "quantity": 2,
+        "price": "25",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50arwt001hvbn31uj0xir8",
+    "userId": null,
+    "status": "COMPLETED",
+    "total": "60",
+    "shippingAddress": null,
+    "createdAt": "2026-01-28T09:31:49.807Z",
+    "updatedAt": "2026-02-02T10:07:52.781Z",
+    "queueNumber": 34,
+    "customerName": "แบงค์ รวย",
+    "customerPhone": "065-678-9012",
+    "customerDepartment": null,
+    "lineUserId": "Uaq5ad7",
+    "deliveryType": "DELIVERY",
+    "deliveryLocation": "ห้องผู้จัดการ ตึก B",
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50arwt001jvbn3yywmm53q",
+        "orderId": "cml50arwt001hvbn31uj0xir8",
+        "productId": "cml508z34000rtxu0iz95ljd5",
+        "quantity": 1,
+        "price": "30",
+        "options": null
+      },
+      {
+        "id": "cml50arwt001kvbn3opfrbf55",
+        "orderId": "cml50arwt001hvbn31uj0xir8",
+        "productId": "cml508z34000rtxu0iz95ljd5",
+        "quantity": 1,
+        "price": "30",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50as2h001lvbn3xeyfgd94",
+    "userId": null,
+    "status": "PAID",
+    "total": "25",
+    "shippingAddress": null,
+    "createdAt": "2026-02-02T11:30:49.807Z",
+    "updatedAt": "2026-02-02T10:07:52.985Z",
+    "queueNumber": 34,
+    "customerName": "แอน มั่นใจ",
+    "customerPhone": "065-678-9012",
+    "customerDepartment": null,
+    "lineUserId": "Upev1bf",
+    "deliveryType": "PICKUP",
+    "deliveryLocation": null,
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50as2h001nvbn3wgo37wqq",
+        "orderId": "cml50as2h001lvbn3xeyfgd94",
+        "productId": "cml508yq50005txu04ljocjlk",
+        "quantity": 1,
+        "price": "25",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50as6z001ovbn39vnol3ha",
+    "userId": null,
+    "status": "CANCELLED",
+    "total": "120",
+    "shippingAddress": null,
+    "createdAt": "2026-01-29T10:12:49.807Z",
+    "updatedAt": "2026-02-02T10:07:53.148Z",
+    "queueNumber": null,
+    "customerName": "ปิยะ ขยัน",
+    "customerPhone": "086-789-0123",
+    "customerDepartment": null,
+    "lineUserId": "Uxzzx1i",
+    "deliveryType": "DELIVERY",
+    "deliveryLocation": "โต๊ะ 204 ตึกหน้า",
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50as6z001qvbn3qrywqh64",
+        "orderId": "cml50as6z001ovbn39vnol3ha",
+        "productId": "cml508zd6001btxu0eev5hkms",
+        "quantity": 2,
+        "price": "30",
+        "options": null
+      },
+      {
+        "id": "cml50as6z001rvbn3dqb5gxlz",
+        "orderId": "cml50as6z001ovbn39vnol3ha",
+        "productId": "cml508zk0001ptxu0mnqpcjku",
+        "quantity": 2,
+        "price": "30",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50asd4001svbn3yoftcm8d",
+    "userId": null,
+    "status": "CANCELLED",
+    "total": "110",
+    "shippingAddress": null,
+    "createdAt": "2026-01-29T12:11:49.807Z",
+    "updatedAt": "2026-02-02T10:07:53.369Z",
+    "queueNumber": null,
+    "customerName": "มิ้นต์ หอม",
+    "customerPhone": "093-234-5678",
+    "customerDepartment": null,
+    "lineUserId": "U622o5c",
+    "deliveryType": "DELIVERY",
+    "deliveryLocation": "ห้อง IT ชั้น 5",
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50asd4001uvbn3mxqswu9c",
+        "orderId": "cml50asd4001svbn3yoftcm8d",
+        "productId": "cml508yvs000dtxu0nm8ooxje",
+        "quantity": 2,
+        "price": "25",
+        "options": null
+      },
+      {
+        "id": "cml50asd4001vvbn3arhhf9x4",
+        "orderId": "cml50asd4001svbn3yoftcm8d",
+        "productId": "cml508z16000ntxu0x8cacrbf",
+        "quantity": 2,
+        "price": "30",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50asjf001wvbn3icbws63v",
+    "userId": null,
+    "status": "PAID",
+    "total": "130",
+    "shippingAddress": null,
+    "createdAt": "2026-01-28T05:14:49.807Z",
+    "updatedAt": "2026-02-02T10:07:53.596Z",
+    "queueNumber": 49,
+    "customerName": "มิ้นต์ หอม",
+    "customerPhone": "086-789-0123",
+    "customerDepartment": null,
+    "lineUserId": "Uiqkocn",
+    "deliveryType": "PICKUP",
+    "deliveryLocation": null,
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50asjf001yvbn3pjc2v52g",
+        "orderId": "cml50asjf001wvbn3icbws63v",
+        "productId": "cml508z46000ttxu0l8k7nc31",
+        "quantity": 1,
+        "price": "30",
+        "options": null
+      },
+      {
+        "id": "cml50asjf001zvbn343zz0yu4",
+        "orderId": "cml50asjf001wvbn3icbws63v",
+        "productId": "cml508yz3000jtxu0hlfqu6oh",
+        "quantity": 2,
+        "price": "25",
+        "options": null
+      },
+      {
+        "id": "cml50asjf0020vbn3plg6ost7",
+        "orderId": "cml50asjf001wvbn3icbws63v",
+        "productId": "cml508ywq000ftxu023skzx15",
+        "quantity": 2,
+        "price": "25",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50aspb0021vbn3f7myhus3",
+    "userId": null,
+    "status": "PROCESSING",
+    "total": "140",
+    "shippingAddress": null,
+    "createdAt": "2026-01-30T02:02:49.807Z",
+    "updatedAt": "2026-02-02T10:07:53.807Z",
+    "queueNumber": 22,
+    "customerName": "ออม เงิน",
+    "customerPhone": "061-012-3456",
+    "customerDepartment": null,
+    "lineUserId": "Uxqaoqp",
+    "deliveryType": "PICKUP",
+    "deliveryLocation": null,
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50aspb0023vbn3hkzioepd",
+        "orderId": "cml50aspb0021vbn3f7myhus3",
+        "productId": "cml508zhz001ltxu0ndvhr058",
+        "quantity": 2,
+        "price": "30",
+        "options": null
+      },
+      {
+        "id": "cml50aspb0024vbn3bpg658l6",
+        "orderId": "cml50aspb0021vbn3f7myhus3",
+        "productId": "cml508zj2001ntxu0s22w5m5q",
+        "quantity": 1,
+        "price": "30",
+        "options": null
+      },
+      {
+        "id": "cml50aspb0025vbn3b1z2rkce",
+        "orderId": "cml50aspb0021vbn3f7myhus3",
+        "productId": "cml508yvs000dtxu0nm8ooxje",
+        "quantity": 2,
+        "price": "25",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50asv40026vbn3ok1lv3el",
+    "userId": null,
+    "status": "CANCELLED",
+    "total": "120",
+    "shippingAddress": null,
+    "createdAt": "2026-01-30T02:40:49.808Z",
+    "updatedAt": "2026-02-02T10:07:54.016Z",
+    "queueNumber": null,
+    "customerName": "นก น้อย",
+    "customerPhone": "082-123-4567",
+    "customerDepartment": null,
+    "lineUserId": "Uyj6von",
+    "deliveryType": "PICKUP",
+    "deliveryLocation": null,
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50asv40028vbn317p62lb3",
+        "orderId": "cml50asv40026vbn3ok1lv3el",
+        "productId": "cml508z9u0015txu000c8k2hb",
+        "quantity": 1,
+        "price": "45",
+        "options": null
+      },
+      {
+        "id": "cml50asv40029vbn3n6mqvaew",
+        "orderId": "cml50asv40026vbn3ok1lv3el",
+        "productId": "cml508z46000ttxu0l8k7nc31",
+        "quantity": 1,
+        "price": "30",
+        "options": null
+      },
+      {
+        "id": "cml50asv4002avbn3fmewi61r",
+        "orderId": "cml50asv40026vbn3ok1lv3el",
+        "productId": "cml508z61000xtxu0rbn87j1h",
+        "quantity": 1,
+        "price": "45",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50at19002bvbn37t1cg8xa",
+    "userId": null,
+    "status": "SHIPPED",
+    "total": "160",
+    "shippingAddress": null,
+    "createdAt": "2026-01-29T03:00:49.808Z",
+    "updatedAt": "2026-02-02T10:07:54.237Z",
+    "queueNumber": 38,
+    "customerName": "ออม เงิน",
+    "customerPhone": "085-456-7890",
+    "customerDepartment": null,
+    "lineUserId": "Uq3m5ya",
+    "deliveryType": "DELIVERY",
+    "deliveryLocation": "แผนก HR ชั้น 3",
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50at19002dvbn3og4oq3ho",
+        "orderId": "cml50at19002bvbn37t1cg8xa",
+        "productId": "cml508yq50005txu04ljocjlk",
+        "quantity": 2,
+        "price": "25",
+        "options": null
+      },
+      {
+        "id": "cml50at19002evbn3ac5ankc1",
+        "orderId": "cml50at19002bvbn37t1cg8xa",
+        "productId": "cml508z09000ltxu0iujmfrow",
+        "quantity": 2,
+        "price": "30",
+        "options": null
+      },
+      {
+        "id": "cml50at19002fvbn3pxkyt23t",
+        "orderId": "cml50at19002bvbn37t1cg8xa",
+        "productId": "cml508yto0009txu0mdivrww4",
+        "quantity": 2,
+        "price": "25",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50at7s002gvbn3av2a3cfm",
+    "userId": null,
+    "status": "PROCESSING",
+    "total": "80",
+    "shippingAddress": null,
+    "createdAt": "2026-01-31T07:57:49.808Z",
+    "updatedAt": "2026-02-02T10:07:54.472Z",
+    "queueNumber": 30,
+    "customerName": "แอน มั่นใจ",
+    "customerPhone": "065-678-9012",
+    "customerDepartment": null,
+    "lineUserId": "U6zreg",
+    "deliveryType": "PICKUP",
+    "deliveryLocation": null,
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50at7s002ivbn3gf2iqrag",
+        "orderId": "cml50at7s002gvbn3av2a3cfm",
+        "productId": "cml508z09000ltxu0iujmfrow",
+        "quantity": 1,
+        "price": "30",
+        "options": null
+      },
+      {
+        "id": "cml50at7s002jvbn3bfc1bqnw",
+        "orderId": "cml50at7s002gvbn3av2a3cfm",
+        "productId": "cml508yto0009txu0mdivrww4",
+        "quantity": 2,
+        "price": "25",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50ate3002kvbn3xxev1zdc",
+    "userId": null,
+    "status": "COMPLETED",
+    "total": "115",
+    "shippingAddress": null,
+    "createdAt": "2026-01-29T05:25:49.808Z",
+    "updatedAt": "2026-02-02T10:07:54.699Z",
+    "queueNumber": 5,
+    "customerName": "ปาล์ม สูง",
+    "customerPhone": "082-123-4567",
+    "customerDepartment": null,
+    "lineUserId": "Utjy6a4",
+    "deliveryType": "PICKUP",
+    "deliveryLocation": null,
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50ate3002mvbn3jmbp66zo",
+        "orderId": "cml50ate3002kvbn3xxev1zdc",
+        "productId": "cml508yto0009txu0mdivrww4",
+        "quantity": 1,
+        "price": "25",
+        "options": null
+      },
+      {
+        "id": "cml50ate3002nvbn3hqszagb8",
+        "orderId": "cml50ate3002kvbn3xxev1zdc",
+        "productId": "cml508z8v0013txu0drne65bh",
+        "quantity": 2,
+        "price": "45",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50atjn002ovbn3jxti0xnn",
+    "userId": null,
+    "status": "PROCESSING",
+    "total": "55",
+    "shippingAddress": null,
+    "createdAt": "2026-01-28T05:06:49.808Z",
+    "updatedAt": "2026-02-02T10:07:54.899Z",
+    "queueNumber": 20,
+    "customerName": "ทอม วิลเลียมส์",
+    "customerPhone": "065-678-9012",
+    "customerDepartment": null,
+    "lineUserId": "U7pgofd",
+    "deliveryType": "DELIVERY",
+    "deliveryLocation": "แผนกขาย ชั้น 2",
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50atjn002qvbn3o6nacfr1",
+        "orderId": "cml50atjn002ovbn3jxti0xnn",
+        "productId": "cml508z34000rtxu0iz95ljd5",
+        "quantity": 1,
+        "price": "30",
+        "options": null
+      },
+      {
+        "id": "cml50atjn002rvbn3eeeb3z3j",
+        "orderId": "cml50atjn002ovbn3jxti0xnn",
+        "productId": "cml508ysi0007txu0mwvhg0y5",
+        "quantity": 1,
+        "price": "25",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50atpe002svbn3893759pj",
+    "userId": null,
+    "status": "CANCELLED",
+    "total": "115",
+    "shippingAddress": null,
+    "createdAt": "2026-01-29T04:21:49.808Z",
+    "updatedAt": "2026-02-02T10:07:55.107Z",
+    "queueNumber": null,
+    "customerName": "สมชาย ใจดี",
+    "customerPhone": "081-234-5678",
+    "customerDepartment": null,
+    "lineUserId": "Uf2nkzb",
+    "deliveryType": "PICKUP",
+    "deliveryLocation": null,
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50atpe002uvbn3hy12lzgx",
+        "orderId": "cml50atpe002svbn3893759pj",
+        "productId": "cml508z6y000ztxu0fbr8o0x8",
+        "quantity": 2,
+        "price": "45",
+        "options": null
+      },
+      {
+        "id": "cml50atpe002vvbn3szyody40",
+        "orderId": "cml50atpe002svbn3893759pj",
+        "productId": "cml508yz3000jtxu0hlfqu6oh",
+        "quantity": 1,
+        "price": "25",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50atx2002wvbn35yyezm64",
+    "userId": null,
+    "status": "CANCELLED",
+    "total": "170",
+    "shippingAddress": null,
+    "createdAt": "2026-02-02T11:50:49.808Z",
+    "updatedAt": "2026-02-02T10:07:55.383Z",
+    "queueNumber": null,
+    "customerName": "แอน มั่นใจ",
+    "customerPhone": "094-901-2345",
+    "customerDepartment": null,
+    "lineUserId": "Uoa7oll",
+    "deliveryType": "PICKUP",
+    "deliveryLocation": null,
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50atx2002yvbn3fg6phxov",
+        "orderId": "cml50atx2002wvbn35yyezm64",
+        "productId": "cml508yq50005txu04ljocjlk",
+        "quantity": 2,
+        "price": "25",
+        "options": null
+      },
+      {
+        "id": "cml50atx2002zvbn3crefm5h9",
+        "orderId": "cml50atx2002wvbn35yyezm64",
+        "productId": "cml508z16000ntxu0x8cacrbf",
+        "quantity": 1,
+        "price": "30",
+        "options": null
+      },
+      {
+        "id": "cml50atx20030vbn3kz1osawe",
+        "orderId": "cml50atx2002wvbn35yyezm64",
+        "productId": "cml508z7x0011txu00ozd3dzu",
+        "quantity": 2,
+        "price": "45",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50au8c0031vbn3b1puc5zc",
+    "userId": null,
+    "status": "COMPLETED",
+    "total": "110",
+    "shippingAddress": null,
+    "createdAt": "2026-01-29T05:54:49.808Z",
+    "updatedAt": "2026-02-02T10:07:55.789Z",
+    "queueNumber": 39,
+    "customerName": "John Smith",
+    "customerPhone": "061-012-3456",
+    "customerDepartment": null,
+    "lineUserId": "Uqxt8rq",
+    "deliveryType": "DELIVERY",
+    "deliveryLocation": "ห้องประชุม3 ตึกA",
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50au8c0033vbn3inect653",
+        "orderId": "cml50au8c0031vbn3b1puc5zc",
+        "productId": "cml508zgz001jtxu060cga2qx",
+        "quantity": 1,
+        "price": "30",
+        "options": null
+      },
+      {
+        "id": "cml50au8c0034vbn3sbl1ilmu",
+        "orderId": "cml50au8c0031vbn3b1puc5zc",
+        "productId": "cml508z25000ptxu0e56tnycf",
+        "quantity": 1,
+        "price": "30",
+        "options": null
+      },
+      {
+        "id": "cml50au8c0035vbn3txjwgawq",
+        "orderId": "cml50au8c0031vbn3b1puc5zc",
+        "productId": "cml508yq50005txu04ljocjlk",
+        "quantity": 2,
+        "price": "25",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50auex0036vbn3qwxxgq2g",
+    "userId": null,
+    "status": "PROCESSING",
+    "total": "30",
+    "shippingAddress": null,
+    "createdAt": "2026-02-01T10:48:49.808Z",
+    "updatedAt": "2026-02-02T10:07:56.026Z",
+    "queueNumber": 17,
+    "customerName": "สุดา เก่งกาจ",
+    "customerPhone": "096-567-8901",
+    "customerDepartment": null,
+    "lineUserId": "U9wu7n",
+    "deliveryType": "PICKUP",
+    "deliveryLocation": null,
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50auey0038vbn334erkpqa",
+        "orderId": "cml50auex0036vbn3qwxxgq2g",
+        "productId": "cml508z09000ltxu0iujmfrow",
+        "quantity": 1,
+        "price": "30",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50auji0039vbn3szs21ssr",
+    "userId": null,
+    "status": "SHIPPED",
+    "total": "140",
+    "shippingAddress": null,
+    "createdAt": "2026-01-31T10:38:49.808Z",
+    "updatedAt": "2026-02-02T10:07:56.191Z",
+    "queueNumber": 20,
+    "customerName": "สุดา เก่งกาจ",
+    "customerPhone": "085-456-7890",
+    "customerDepartment": null,
+    "lineUserId": "Unpwo5s",
+    "deliveryType": "PICKUP",
+    "deliveryLocation": null,
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50auji003bvbn3vcl7nfz8",
+        "orderId": "cml50auji0039vbn3szs21ssr",
+        "productId": "cml508yq50005txu04ljocjlk",
+        "quantity": 2,
+        "price": "25",
+        "options": null
+      },
+      {
+        "id": "cml50auji003cvbn3wcnjio1r",
+        "orderId": "cml50auji0039vbn3szs21ssr",
+        "productId": "cml508z53000vtxu0tmlb34mi",
+        "quantity": 2,
+        "price": "45",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50auqk003dvbn37orrnjjm",
+    "userId": null,
+    "status": "PROCESSING",
+    "total": "165",
+    "shippingAddress": null,
+    "createdAt": "2026-02-02T04:36:49.808Z",
+    "updatedAt": "2026-02-02T10:07:56.444Z",
+    "queueNumber": 42,
+    "customerName": "ภูมิ รักเรียน",
+    "customerPhone": "084-567-8901",
+    "customerDepartment": null,
+    "lineUserId": "Ugp4k0l",
+    "deliveryType": "PICKUP",
+    "deliveryLocation": null,
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50auqk003fvbn37sebn5rb",
+        "orderId": "cml50auqk003dvbn37orrnjjm",
+        "productId": "cml508yz3000jtxu0hlfqu6oh",
+        "quantity": 1,
+        "price": "25",
+        "options": null
+      },
+      {
+        "id": "cml50auqk003gvbn3gs7yc7xw",
+        "orderId": "cml50auqk003dvbn37orrnjjm",
+        "productId": "cml508yy3000htxu0c44ipdz8",
+        "quantity": 2,
+        "price": "25",
+        "options": null
+      },
+      {
+        "id": "cml50auqk003hvbn38fwcgj0c",
+        "orderId": "cml50auqk003dvbn37orrnjjm",
+        "productId": "cml508zb10017txu0pyib8cxe",
+        "quantity": 2,
+        "price": "45",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50auzk003ivbn3axghjewt",
+    "userId": null,
+    "status": "PENDING",
+    "total": "165",
+    "shippingAddress": null,
+    "createdAt": "2026-02-02T10:58:49.808Z",
+    "updatedAt": "2026-02-02T10:07:56.769Z",
+    "queueNumber": null,
+    "customerName": "ภูมิ รักเรียน",
+    "customerPhone": "092-345-6789",
+    "customerDepartment": null,
+    "lineUserId": "Ucqnv6n",
+    "deliveryType": "PICKUP",
+    "deliveryLocation": null,
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50auzk003kvbn3gi01nbdf",
+        "orderId": "cml50auzk003ivbn3axghjewt",
+        "productId": "cml508zhz001ltxu0ndvhr058",
+        "quantity": 1,
+        "price": "30",
+        "options": null
+      },
+      {
+        "id": "cml50auzk003lvbn3dqseky8p",
+        "orderId": "cml50auzk003ivbn3axghjewt",
+        "productId": "cml508z6y000ztxu0fbr8o0x8",
+        "quantity": 2,
+        "price": "45",
+        "options": null
+      },
+      {
+        "id": "cml50auzk003mvbn3kz06aznr",
+        "orderId": "cml50auzk003ivbn3axghjewt",
+        "productId": "cml508zc80019txu0cuclg4e8",
+        "quantity": 1,
+        "price": "45",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50av5q003nvbn3m64b3mr0",
+    "userId": null,
+    "status": "PROCESSING",
+    "total": "140",
+    "shippingAddress": null,
+    "createdAt": "2026-01-27T07:52:49.808Z",
+    "updatedAt": "2026-02-02T10:07:56.991Z",
+    "queueNumber": 2,
+    "customerName": "ทอม วิลเลียมส์",
+    "customerPhone": "094-901-2345",
+    "customerDepartment": null,
+    "lineUserId": "Uj7egaf",
+    "deliveryType": "PICKUP",
+    "deliveryLocation": null,
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50av5q003pvbn30keg4wfj",
+        "orderId": "cml50av5q003nvbn3m64b3mr0",
+        "productId": "cml508zk0001ptxu0mnqpcjku",
+        "quantity": 1,
+        "price": "30",
+        "options": null
+      },
+      {
+        "id": "cml50av5q003qvbn36k9qtu1a",
+        "orderId": "cml50av5q003nvbn3m64b3mr0",
+        "productId": "cml508ywq000ftxu023skzx15",
+        "quantity": 2,
+        "price": "25",
+        "options": null
+      },
+      {
+        "id": "cml50av5q003rvbn3dt8g4ml3",
+        "orderId": "cml50av5q003nvbn3m64b3mr0",
+        "productId": "cml508z34000rtxu0iz95ljd5",
+        "quantity": 2,
+        "price": "30",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50avca003svbn3dphzxn8g",
+    "userId": null,
+    "status": "PAID",
+    "total": "145",
+    "shippingAddress": null,
+    "createdAt": "2026-02-02T01:28:49.808Z",
+    "updatedAt": "2026-02-02T10:07:57.227Z",
+    "queueNumber": 35,
+    "customerName": "บอล กลม",
+    "customerPhone": "085-456-7890",
+    "customerDepartment": null,
+    "lineUserId": "Uoc4jc",
+    "deliveryType": "DELIVERY",
+    "deliveryLocation": "แผนก HR ชั้น 3",
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50avca003uvbn3pks5vxt1",
+        "orderId": "cml50avca003svbn3dphzxn8g",
+        "productId": "cml508zgz001jtxu060cga2qx",
+        "quantity": 1,
+        "price": "30",
+        "options": null
+      },
+      {
+        "id": "cml50avca003vvbn3fb1vaefi",
+        "orderId": "cml50avca003svbn3dphzxn8g",
+        "productId": "cml508z9u0015txu000c8k2hb",
+        "quantity": 2,
+        "price": "45",
+        "options": null
+      },
+      {
+        "id": "cml50avca003wvbn3c86pr3ob",
+        "orderId": "cml50avca003svbn3dphzxn8g",
+        "productId": "cml508yto0009txu0mdivrww4",
+        "quantity": 1,
+        "price": "25",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50avig003xvbn3m6i9cf2o",
+    "userId": null,
+    "status": "PENDING",
+    "total": "130",
+    "shippingAddress": null,
+    "createdAt": "2026-01-29T03:49:49.808Z",
+    "updatedAt": "2026-02-02T10:07:57.449Z",
+    "queueNumber": null,
+    "customerName": "John Smith",
+    "customerPhone": "064-345-6789",
+    "customerDepartment": null,
+    "lineUserId": "Uu4afxu",
+    "deliveryType": "DELIVERY",
+    "deliveryLocation": "ห้องประชุมใหญ่ ชั้น 1",
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50avih003zvbn3oe0w7ns7",
+        "orderId": "cml50avig003xvbn3m6i9cf2o",
+        "productId": "cml508yto0009txu0mdivrww4",
+        "quantity": 1,
+        "price": "25",
+        "options": null
+      },
+      {
+        "id": "cml50avih0040vbn38t1sdbws",
+        "orderId": "cml50avig003xvbn3m6i9cf2o",
+        "productId": "cml508z7x0011txu00ozd3dzu",
+        "quantity": 1,
+        "price": "45",
+        "options": null
+      },
+      {
+        "id": "cml50avih0041vbn3ez429aq6",
+        "orderId": "cml50avig003xvbn3m6i9cf2o",
+        "productId": "cml508zhz001ltxu0ndvhr058",
+        "quantity": 2,
+        "price": "30",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50avol0042vbn36qbkcztu",
+    "userId": null,
+    "status": "PAID",
+    "total": "50",
+    "shippingAddress": null,
+    "createdAt": "2026-01-28T09:05:49.808Z",
+    "updatedAt": "2026-02-02T10:07:57.669Z",
+    "queueNumber": 32,
+    "customerName": "ออม เงิน",
+    "customerPhone": "083-890-1234",
+    "customerDepartment": null,
+    "lineUserId": "Ut561v7",
+    "deliveryType": "DELIVERY",
+    "deliveryLocation": "ห้องประชุม3 ตึกA",
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50avol0044vbn39iz7pse2",
+        "orderId": "cml50avol0042vbn36qbkcztu",
+        "productId": "cml508ywq000ftxu023skzx15",
+        "quantity": 2,
+        "price": "25",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50avta0045vbn33c34n0rr",
+    "userId": null,
+    "status": "PAID",
+    "total": "180",
+    "shippingAddress": null,
+    "createdAt": "2026-01-28T09:19:49.808Z",
+    "updatedAt": "2026-02-02T10:07:57.838Z",
+    "queueNumber": 43,
+    "customerName": "ทอม วิลเลียมส์",
+    "customerPhone": "085-456-7890",
+    "customerDepartment": null,
+    "lineUserId": "Uudfyq",
+    "deliveryType": "PICKUP",
+    "deliveryLocation": null,
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50avta0047vbn391lvgedk",
+        "orderId": "cml50avta0045vbn33c34n0rr",
+        "productId": "cml508z9u0015txu000c8k2hb",
+        "quantity": 2,
+        "price": "45",
+        "options": null
+      },
+      {
+        "id": "cml50avta0048vbn3743njpse",
+        "orderId": "cml50avta0045vbn33c34n0rr",
+        "productId": "cml508z46000ttxu0l8k7nc31",
+        "quantity": 1,
+        "price": "30",
+        "options": null
+      },
+      {
+        "id": "cml50avta0049vbn32m7edesq",
+        "orderId": "cml50avta0045vbn33c34n0rr",
+        "productId": "cml508zk0001ptxu0mnqpcjku",
+        "quantity": 2,
+        "price": "30",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50avzp004avbn3wbz09pz0",
+    "userId": null,
+    "status": "PENDING",
+    "total": "130",
+    "shippingAddress": null,
+    "createdAt": "2026-01-29T07:24:49.808Z",
+    "updatedAt": "2026-02-02T10:07:58.070Z",
+    "queueNumber": null,
+    "customerName": "นก น้อย",
+    "customerPhone": "095-678-9012",
+    "customerDepartment": null,
+    "lineUserId": "U4bl7oa",
+    "deliveryType": "DELIVERY",
+    "deliveryLocation": "โต๊ะพักพนักงาน ชั้น 2",
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50avzp004cvbn3hczscifh",
+        "orderId": "cml50avzp004avbn3wbz09pz0",
+        "productId": "cml508z34000rtxu0iz95ljd5",
+        "quantity": 1,
+        "price": "30",
+        "options": null
+      },
+      {
+        "id": "cml50avzp004dvbn3ef1nj3zn",
+        "orderId": "cml50avzp004avbn3wbz09pz0",
+        "productId": "cml508yy3000htxu0c44ipdz8",
+        "quantity": 2,
+        "price": "25",
+        "options": null
+      },
+      {
+        "id": "cml50avzp004evbn3ktjbqeua",
+        "orderId": "cml50avzp004avbn3wbz09pz0",
+        "productId": "cml508yz3000jtxu0hlfqu6oh",
+        "quantity": 2,
+        "price": "25",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50aw6t004fvbn31wmgprx7",
+    "userId": null,
+    "status": "SHIPPED",
+    "total": "120",
+    "shippingAddress": null,
+    "createdAt": "2026-01-31T12:33:49.808Z",
+    "updatedAt": "2026-02-02T10:07:58.325Z",
+    "queueNumber": 18,
+    "customerName": "ทอม วิลเลียมส์",
+    "customerPhone": "061-012-3456",
+    "customerDepartment": null,
+    "lineUserId": "U1ubdm",
+    "deliveryType": "DELIVERY",
+    "deliveryLocation": "โต๊ะ 204 ตึกหน้า",
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50aw6t004hvbn3ai8g44g8",
+        "orderId": "cml50aw6t004fvbn31wmgprx7",
+        "productId": "cml508z6y000ztxu0fbr8o0x8",
+        "quantity": 1,
+        "price": "45",
+        "options": null
+      },
+      {
+        "id": "cml50aw6t004ivbn3qwudxooy",
+        "orderId": "cml50aw6t004fvbn31wmgprx7",
+        "productId": "cml508zgz001jtxu060cga2qx",
+        "quantity": 1,
+        "price": "30",
+        "options": null
+      },
+      {
+        "id": "cml50aw6t004jvbn3goykwl82",
+        "orderId": "cml50aw6t004fvbn31wmgprx7",
+        "productId": "cml508z6y000ztxu0fbr8o0x8",
+        "quantity": 1,
+        "price": "45",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50awdo004kvbn3dznkeq8b",
+    "userId": null,
+    "status": "SHIPPED",
+    "total": "60",
+    "shippingAddress": null,
+    "createdAt": "2026-02-02T03:02:49.808Z",
+    "updatedAt": "2026-02-02T10:07:58.572Z",
+    "queueNumber": 25,
+    "customerName": "มิ้นต์ หอม",
+    "customerPhone": "085-456-7890",
+    "customerDepartment": null,
+    "lineUserId": "Uzfpx33",
+    "deliveryType": "DELIVERY",
+    "deliveryLocation": "ห้อง IT ชั้น 5",
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50awdo004mvbn38bb78o8b",
+        "orderId": "cml50awdo004kvbn3dznkeq8b",
+        "productId": "cml508zgz001jtxu060cga2qx",
+        "quantity": 2,
+        "price": "30",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50awie004nvbn3b8mx1sg3",
+    "userId": null,
+    "status": "CANCELLED",
+    "total": "60",
+    "shippingAddress": null,
+    "createdAt": "2026-01-30T01:47:49.808Z",
+    "updatedAt": "2026-02-02T10:07:58.742Z",
+    "queueNumber": null,
+    "customerName": "John Smith",
+    "customerPhone": "086-789-0123",
+    "customerDepartment": null,
+    "lineUserId": "Uigm2a",
+    "deliveryType": "DELIVERY",
+    "deliveryLocation": "Pantry ชั้น 4",
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50awie004pvbn3iuh2nc61",
+        "orderId": "cml50awie004nvbn3b8mx1sg3",
+        "productId": "cml508z09000ltxu0iujmfrow",
+        "quantity": 1,
+        "price": "30",
+        "options": null
+      },
+      {
+        "id": "cml50awie004qvbn3ssklvfqu",
+        "orderId": "cml50awie004nvbn3b8mx1sg3",
+        "productId": "cml508zgz001jtxu060cga2qx",
+        "quantity": 1,
+        "price": "30",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50awos004rvbn30msds71c",
+    "userId": null,
+    "status": "PROCESSING",
+    "total": "165",
+    "shippingAddress": null,
+    "createdAt": "2026-01-31T09:39:49.808Z",
+    "updatedAt": "2026-02-02T10:07:58.972Z",
+    "queueNumber": 14,
+    "customerName": "สุดา เก่งกาจ",
+    "customerPhone": "063-456-7890",
+    "customerDepartment": null,
+    "lineUserId": "Ux3yze",
+    "deliveryType": "DELIVERY",
+    "deliveryLocation": "ห้องประชุม3 ตึกA",
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50awos004tvbn346m71dmk",
+        "orderId": "cml50awos004rvbn30msds71c",
+        "productId": "cml508z7x0011txu00ozd3dzu",
+        "quantity": 2,
+        "price": "45",
+        "options": null
+      },
+      {
+        "id": "cml50awos004uvbn3hnj67nfh",
+        "orderId": "cml50awos004rvbn30msds71c",
+        "productId": "cml508z9u0015txu000c8k2hb",
+        "quantity": 1,
+        "price": "45",
+        "options": null
+      },
+      {
+        "id": "cml50awos004vvbn3762botgz",
+        "orderId": "cml50awos004rvbn30msds71c",
+        "productId": "cml508z46000ttxu0l8k7nc31",
+        "quantity": 1,
+        "price": "30",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50awv5004wvbn3xsl6tuvs",
+    "userId": null,
+    "status": "PAID",
+    "total": "55",
+    "shippingAddress": null,
+    "createdAt": "2026-01-27T08:54:49.808Z",
+    "updatedAt": "2026-02-02T10:07:59.201Z",
+    "queueNumber": 24,
+    "customerName": "สมชาย ใจดี",
+    "customerPhone": "085-456-7890",
+    "customerDepartment": null,
+    "lineUserId": "Uu2evuo",
+    "deliveryType": "DELIVERY",
+    "deliveryLocation": "โต๊ะพักพนักงาน ชั้น 2",
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50awv5004yvbn3bhk8wpdz",
+        "orderId": "cml50awv5004wvbn3xsl6tuvs",
+        "productId": "cml508yto0009txu0mdivrww4",
+        "quantity": 1,
+        "price": "25",
+        "options": null
+      },
+      {
+        "id": "cml50awv5004zvbn3vs6fz2te",
+        "orderId": "cml50awv5004wvbn3xsl6tuvs",
+        "productId": "cml508zk0001ptxu0mnqpcjku",
+        "quantity": 1,
+        "price": "30",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50ax0l0050vbn3xrliw9ne",
+    "userId": null,
+    "status": "PROCESSING",
+    "total": "45",
+    "shippingAddress": null,
+    "createdAt": "2026-02-02T08:25:49.808Z",
+    "updatedAt": "2026-02-02T10:07:59.397Z",
+    "queueNumber": 40,
+    "customerName": "ออม เงิน",
+    "customerPhone": "095-678-9012",
+    "customerDepartment": null,
+    "lineUserId": "Upoeqn",
+    "deliveryType": "PICKUP",
+    "deliveryLocation": null,
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50ax0l0052vbn34p0v3s8g",
+        "orderId": "cml50ax0l0050vbn3xrliw9ne",
+        "productId": "cml508zc80019txu0cuclg4e8",
+        "quantity": 1,
+        "price": "45",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50ax600053vbn3y6u2ut8q",
+    "userId": null,
+    "status": "PROCESSING",
+    "total": "90",
+    "shippingAddress": null,
+    "createdAt": "2026-01-29T07:29:49.808Z",
+    "updatedAt": "2026-02-02T10:07:59.592Z",
+    "queueNumber": 5,
+    "customerName": "สุดา เก่งกาจ",
+    "customerPhone": "094-901-2345",
+    "customerDepartment": null,
+    "lineUserId": "Uar3ws",
+    "deliveryType": "PICKUP",
+    "deliveryLocation": null,
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50ax600055vbn3j1zlorzr",
+        "orderId": "cml50ax600053vbn3y6u2ut8q",
+        "productId": "cml508z61000xtxu0rbn87j1h",
+        "quantity": 2,
+        "price": "45",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50axac0056vbn3a3jeb7zj",
+    "userId": null,
+    "status": "PENDING",
+    "total": "175",
+    "shippingAddress": null,
+    "createdAt": "2026-02-02T12:44:49.808Z",
+    "updatedAt": "2026-02-02T10:07:59.749Z",
+    "queueNumber": null,
+    "customerName": "มิ้นต์ หอม",
+    "customerPhone": "084-567-8901",
+    "customerDepartment": null,
+    "lineUserId": "Usnjiys",
+    "deliveryType": "PICKUP",
+    "deliveryLocation": null,
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50axac0058vbn3oi8adyhh",
+        "orderId": "cml50axac0056vbn3a3jeb7zj",
+        "productId": "cml508z8v0013txu0drne65bh",
+        "quantity": 2,
+        "price": "45",
+        "options": null
+      },
+      {
+        "id": "cml50axac0059vbn3h099m5ro",
+        "orderId": "cml50axac0056vbn3a3jeb7zj",
+        "productId": "cml508z46000ttxu0l8k7nc31",
+        "quantity": 2,
+        "price": "30",
+        "options": null
+      },
+      {
+        "id": "cml50axac005avbn336qdnqnl",
+        "orderId": "cml50axac0056vbn3a3jeb7zj",
+        "productId": "cml508yto0009txu0mdivrww4",
+        "quantity": 1,
+        "price": "25",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50axgx005bvbn3ltz0hjvj",
+    "userId": null,
+    "status": "PENDING",
+    "total": "55",
+    "shippingAddress": null,
+    "createdAt": "2026-01-29T02:24:49.808Z",
+    "updatedAt": "2026-02-02T10:07:59.985Z",
+    "queueNumber": null,
+    "customerName": "ปอนด์ โต",
+    "customerPhone": "064-345-6789",
+    "customerDepartment": null,
+    "lineUserId": "Uuzevj8",
+    "deliveryType": "DELIVERY",
+    "deliveryLocation": "แผนกบัญชี ชั้น 2",
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50axgx005dvbn3xhsrrinu",
+        "orderId": "cml50axgx005bvbn3ltz0hjvj",
+        "productId": "cml508zhz001ltxu0ndvhr058",
+        "quantity": 1,
+        "price": "30",
+        "options": null
+      },
+      {
+        "id": "cml50axgx005evbn3xic1o2hy",
+        "orderId": "cml50axgx005bvbn3ltz0hjvj",
+        "productId": "cml508yq50005txu04ljocjlk",
+        "quantity": 1,
+        "price": "25",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50axmc005fvbn31di4goq0",
+    "userId": null,
+    "status": "PROCESSING",
+    "total": "150",
+    "shippingAddress": null,
+    "createdAt": "2026-02-02T11:50:49.808Z",
+    "updatedAt": "2026-02-02T10:08:00.180Z",
+    "queueNumber": 33,
+    "customerName": "John Smith",
+    "customerPhone": "083-890-1234",
+    "customerDepartment": null,
+    "lineUserId": "Uc7851o",
+    "deliveryType": "PICKUP",
+    "deliveryLocation": null,
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50axmc005hvbn3ipfdr06c",
+        "orderId": "cml50axmc005fvbn31di4goq0",
+        "productId": "cml508z53000vtxu0tmlb34mi",
+        "quantity": 2,
+        "price": "45",
+        "options": null
+      },
+      {
+        "id": "cml50axmc005ivbn3dlrjl8ux",
+        "orderId": "cml50axmc005fvbn31di4goq0",
+        "productId": "cml508z16000ntxu0x8cacrbf",
+        "quantity": 2,
+        "price": "30",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50axtn005jvbn3zkzqsdkb",
+    "userId": null,
+    "status": "SHIPPED",
+    "total": "110",
+    "shippingAddress": null,
+    "createdAt": "2026-01-28T09:21:49.808Z",
+    "updatedAt": "2026-02-02T10:08:00.443Z",
+    "queueNumber": 38,
+    "customerName": "John Smith",
+    "customerPhone": "085-456-7890",
+    "customerDepartment": null,
+    "lineUserId": "Ujztts",
+    "deliveryType": "DELIVERY",
+    "deliveryLocation": "แผนกขาย ชั้น 2",
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50axtn005lvbn3m5sjo9v7",
+        "orderId": "cml50axtn005jvbn3zkzqsdkb",
+        "productId": "cml508yto0009txu0mdivrww4",
+        "quantity": 2,
+        "price": "25",
+        "options": null
+      },
+      {
+        "id": "cml50axtn005mvbn3mulwlf8e",
+        "orderId": "cml50axtn005jvbn3zkzqsdkb",
+        "productId": "cml508z09000ltxu0iujmfrow",
+        "quantity": 2,
+        "price": "30",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50ay0c005nvbn3gz09cx3e",
+    "userId": null,
+    "status": "PROCESSING",
+    "total": "50",
+    "shippingAddress": null,
+    "createdAt": "2026-01-31T05:32:49.808Z",
+    "updatedAt": "2026-02-02T10:08:00.685Z",
+    "queueNumber": 14,
+    "customerName": "สมชาย ใจดี",
+    "customerPhone": "082-123-4567",
+    "customerDepartment": null,
+    "lineUserId": "U6db21y",
+    "deliveryType": "PICKUP",
+    "deliveryLocation": null,
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50ay0c005pvbn3a2v81zf5",
+        "orderId": "cml50ay0c005nvbn3gz09cx3e",
+        "productId": "cml508yy3000htxu0c44ipdz8",
+        "quantity": 2,
+        "price": "25",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml50ay65005qvbn3b5mhcuyx",
+    "userId": null,
+    "status": "PENDING",
+    "total": "95",
+    "shippingAddress": null,
+    "createdAt": "2026-01-31T10:28:49.808Z",
+    "updatedAt": "2026-02-02T10:08:00.893Z",
+    "queueNumber": null,
+    "customerName": "ทอม วิลเลียมส์",
+    "customerPhone": "084-567-8901",
+    "customerDepartment": null,
+    "lineUserId": "Uvfu7ww",
+    "deliveryType": "DELIVERY",
+    "deliveryLocation": "ห้องผู้จัดการ ตึก B",
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": null,
+    "items": [
+      {
+        "id": "cml50ay65005svbn3dpc4wixa",
+        "orderId": "cml50ay65005qvbn3b5mhcuyx",
+        "productId": "cml508z8v0013txu0drne65bh",
+        "quantity": 1,
+        "price": "45",
+        "options": null
+      },
+      {
+        "id": "cml50ay65005tvbn3bg4ek1me",
+        "orderId": "cml50ay65005qvbn3b5mhcuyx",
+        "productId": "cml508yy3000htxu0c44ipdz8",
+        "quantity": 2,
+        "price": "25",
+        "options": null
+      }
+    ]
+  },
+  {
+    "id": "cml6glgh70000xjm3zn43uzx9",
+    "userId": null,
+    "status": "PENDING",
+    "total": "25",
+    "shippingAddress": null,
+    "createdAt": "2026-02-03T10:31:51.212Z",
+    "updatedAt": "2026-02-04T03:46:10.886Z",
+    "queueNumber": null,
+    "customerName": "อิศระ",
+    "customerPhone": "0636395619",
+    "customerDepartment": null,
+    "lineUserId": "U4705c60091e36513849ba962929e0254",
+    "deliveryType": "PICKUP",
+    "deliveryLocation": null,
+    "paymentSlipUrl": null,
+    "paymentVerifiedAt": null,
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": "2026-02-04T03:46:10.885Z",
+    "orderNumber": "BN0302260001",
+    "items": [
+      {
+        "id": "cml6glgh70002xjm3r68wm8pp",
+        "orderId": "cml6glgh70000xjm3zn43uzx9",
+        "productId": "cml508yq50005txu04ljocjlk",
+        "quantity": 1,
+        "price": "25",
+        "options": "{\"addons\":[],\"sweetness\":\"50%\"}"
+      }
+    ]
+  },
+  {
+    "id": "cml7w0ukd00019xuu6qen32z0",
+    "userId": null,
+    "status": "COMPLETED",
+    "total": "35",
+    "shippingAddress": null,
+    "createdAt": "2026-02-04T10:31:29.725Z",
+    "updatedAt": "2026-02-04T10:32:47.960Z",
+    "queueNumber": 1,
+    "customerName": "อิศระ",
+    "customerPhone": "0636395619",
+    "customerDepartment": "it",
+    "lineUserId": "U4705c60091e36513849ba962929e0254",
+    "deliveryType": "PICKUP",
+    "deliveryLocation": null,
+    "paymentSlipUrl": "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/slips/cml7w0ukd00019xuu6qen32z0.jpg",
+    "paymentVerifiedAt": "2026-02-04T10:32:31.222Z",
+    "shippingCarrier": null,
+    "trackingNumber": null,
+    "labelPrintedAt": null,
+    "orderNumber": "BN0402260001",
+    "items": [
+      {
+        "id": "cml7w0ukd00039xuun6f21dux",
+        "orderId": "cml7w0ukd00019xuu6qen32z0",
+        "productId": "cml605lwm00022azm3if2ie0b",
+        "quantity": 1,
+        "price": "35",
+        "options": "{\"addons\":[],\"sweetness\":\"100%\"}"
+      }
+    ]
+  }
+]

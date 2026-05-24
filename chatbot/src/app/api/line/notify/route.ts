@@ -1,0 +1,61 @@
+import { NextRequest, NextResponse } from "next/server";
+import { messagingApi } from "@line/bot-sdk";
+
+const { MessagingApiClient } = messagingApi;
+
+// Initialize Line Client
+const client = new MessagingApiClient({
+    channelAccessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN || "",
+});
+
+export async function POST(req: NextRequest) {
+    try {
+        const body = await req.json();
+        const { lineUserId, message, type, orderId, orderNumber } = body;
+
+        console.log("Notification Request:", body);
+
+        if (!lineUserId) {
+            return NextResponse.json({ error: "Missing lineUserId" }, { status: 400 });
+        }
+
+        if (type === "READY") {
+            // "Food Ready" Notification
+            await client.pushMessage({
+                to: lineUserId,
+                messages: [
+                    {
+                        type: "text",
+                        text: `🔔 ออเดอร์ของท่านเสร็จแล้วครับ! (Order #${orderNumber || orderId})\n\n🥡 เชิญรับอาหารได้ที่เคาน์เตอร์ครับ\n\n(เมื่อรับแล้ว กรุณากดยืนยันในข้อความถัดไปเพื่อสะสมแต้มครับ)`
+                    },
+                    {
+                        type: "template",
+                        altText: "ยืนยันการรับสินค้า",
+                        template: {
+                            type: "buttons",
+                            text: "ได้รับอาหารแล้วหรือยังครับ?",
+                            actions: [
+                                {
+                                    type: "postback",
+                                    label: "✅ ได้รับแล้ว (สะสมแต้ม)",
+                                    data: `action=receive&orderId=${orderId}`
+                                }
+                            ]
+                        }
+                    }
+                ]
+            });
+        } else {
+            // General Notification
+            await client.pushMessage({
+                to: lineUserId,
+                messages: [{ type: "text", text: message || "มีการแจ้งเตือนจากระบบ" }]
+            });
+        }
+
+        return NextResponse.json({ success: true });
+    } catch (error) {
+        console.error("Error sending notification:", error);
+        return NextResponse.json({ error: "Failed to send notification" }, { status: 500 });
+    }
+}

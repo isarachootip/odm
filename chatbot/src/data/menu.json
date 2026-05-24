@@ -1,0 +1,175 @@
+{
+    "categories": [
+        {
+            "id": "hot",
+            "name": "เมนูร้อน",
+            "items": [
+                {
+                    "name": "Espresso",
+                    "nameTh": "เอสเพรสโซ่",
+                    "price": 25
+                },
+                {
+                    "name": "Americano",
+                    "nameTh": "อเมริกาโน่",
+                    "price": 30
+                },
+                {
+                    "name": "Cafe Latte",
+                    "nameTh": "คาเฟ่ลาเต้",
+                    "price": 35
+                },
+                {
+                    "name": "Cappuccino",
+                    "nameTh": "คาปูชิโน่",
+                    "price": 35
+                },
+                {
+                    "name": "Mocha",
+                    "nameTh": "มอคค่า",
+                    "price": 40
+                },
+                {
+                    "name": "Hot Chocolate",
+                    "nameTh": "ช็อคโกแลตร้อน",
+                    "price": 35
+                }
+            ]
+        },
+        {
+            "id": "cold",
+            "name": "เมนูเย็น",
+            "items": [
+                {
+                    "name": "Iced Espresso",
+                    "nameTh": "เอสเพรสโซ่เย็น",
+                    "price": 30
+                },
+                {
+                    "name": "Iced Americano",
+                    "nameTh": "อเมริกาโน่เย็น",
+                    "price": 35
+                },
+                {
+                    "name": "Iced Latte",
+                    "nameTh": "ลาเต้เย็น",
+                    "price": 40
+                },
+                {
+                    "name": "Iced Mocha",
+                    "nameTh": "มอคค่าเย็น",
+                    "price": 45
+                },
+                {
+                    "name": "Cold Brew",
+                    "nameTh": "โคลด์บรูว์",
+                    "price": 45
+                }
+            ]
+        },
+        {
+            "id": "frappe",
+            "name": "เมนูปั่น",
+            "items": [
+                {
+                    "name": "Frappe Mocha",
+                    "nameTh": "ปั่นมอคค่า",
+                    "price": 50
+                },
+                {
+                    "name": "Frappe Caramel",
+                    "nameTh": "ปั่นคาราเมล",
+                    "price": 50
+                },
+                {
+                    "name": "Frappe Green Tea",
+                    "nameTh": "ปั่นชาเขียว",
+                    "price": 50
+                }
+            ]
+        },
+        {
+            "id": "tea",
+            "name": "ชา & โซดา",
+            "items": [
+                {
+                    "name": "Thai Milk Tea",
+                    "nameTh": "ชาไทย",
+                    "price": 35
+                },
+                {
+                    "name": "Green Tea Latte",
+                    "nameTh": "ชาเขียวลาเต้",
+                    "price": 40
+                },
+                {
+                    "name": "Yuzu Soda",
+                    "nameTh": "โซดายูซุ",
+                    "price": 45
+                },
+                {
+                    "name": "Lemon Soda",
+                    "nameTh": "โซดามะนาว",
+                    "price": 35
+                },
+                {
+                    "name": "Red Soda",
+                    "nameTh": "โซดาแดง",
+                    "price": 25
+                }
+            ]
+        },
+        {
+            "id": "bakery",
+            "name": "เบเกอรี่",
+            "items": [
+                {
+                    "name": "Croissant",
+                    "nameTh": "ครัวซองต์",
+                    "price": 45
+                },
+                {
+                    "name": "Chocolate Cake",
+                    "nameTh": "เค้กช็อคโกแลต",
+                    "price": 65
+                },
+                {
+                    "name": "Cheesecake",
+                    "nameTh": "ชีสเค้ก",
+                    "price": 75
+                }
+            ]
+        }
+    ],
+    "modifiers": {
+        "sweetness": [
+            "หวานปกติ (100%)",
+            "หวานน้อย (50%)",
+            "หวานน้อยมาก (25%)",
+            "ไม่หวาน (0%)"
+        ],
+        "addons": [
+            {
+                "name": "Extra Shot",
+                "nameTh": "เพิ่มช็อต",
+                "price": 15
+            },
+            {
+                "name": "Honey",
+                "nameTh": "น้ำผึ้ง",
+                "price": 15
+            },
+            {
+                "name": "Whipped Cream",
+                "nameTh": "วิปครีม",
+                "price": 10
+            }
+        ]
+    },
+    "shopInfo": {
+        "name": "Odm Vidwa",
+        "slogan": "Your Daily Odm Vidwa ☕",
+        "hours": "08:00 - 20:00",
+        "phone": "02-XXX-XXXX"
+    }
+}

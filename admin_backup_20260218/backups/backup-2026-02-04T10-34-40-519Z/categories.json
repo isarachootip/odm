@@ -1,0 +1,37 @@
+[
+  {
+    "id": "cml508y110000txu0xoqoyaxm",
+    "name": "Hot Coffee",
+    "slug": "coffee-hot",
+    "image": "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/hotgroup-nN1dICnVyPrSQOnezVEYsuWNBdryVD.png",
+    "parentId": null
+  },
+  {
+    "id": "cml508yap0001txu00ua8lljc",
+    "name": "Iced Coffee",
+    "slug": "coffee-cold",
+    "image": "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/coldgroup-qmSAFmmI5bx1JOySsQwZg5UHmGEAeZ.png",
+    "parentId": null
+  },
+  {
+    "id": "cml508yld0003txu05ovfywua",
+    "name": "Soda",
+    "slug": "soda",
+    "image": "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/sodagroup-dMkzz6nnKG5FmNgUMfQlB7zY1FzfsW.png",
+    "parentId": null
+  },
+  {
+    "id": "cml508yg50002txu0w28ggxol",
+    "name": "Tea & Milk",
+    "slug": "tea",
+    "image": "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/matchgroup-s4yHgznbmW0dspwYuR5JPcGO2CQSLd.png",
+    "parentId": null
+  },
+  {
+    "id": "cml538yf60000ya5pnjwvmfoi",
+    "name": "frappe(ปั่น)",
+    "slug": "frappe",
+    "image": "https://xyaculkm03lzrfch.public.blob.vercel-storage.com/frappegroup2-8JJ1YTS9LE47dvNrx5OKSa5sSuIph4.png",
+    "parentId": null
+  }
+]

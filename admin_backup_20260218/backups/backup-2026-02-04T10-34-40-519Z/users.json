@@ -1,0 +1,35 @@
+[
+  {
+    "id": "cml5z6sak0000rtlm5bcxgmy2",
+    "name": "Admin User",
+    "email": "admin@joycafe.com",
+    "emailVerified": null,
+    "image": null,
+    "password": "$2b$10$tChTrOWfyYyDFXoBxxk3.efFFgtdm.s8xZL3MfYqfSsPdXxGYH2Eq",
+    "role": "ADMIN",
+    "createdAt": "2026-02-03T02:24:33.211Z",
+    "updatedAt": "2026-02-03T02:24:33.211Z"
+  },
+  {
+    "id": "cml7g7c540000jklxmbabl38r",
+    "name": "อิศระ_office",
+    "email": "choisara@chg.co.th",
+    "emailVerified": null,
+    "image": null,
+    "password": "$2b$10$qnImUn4GrR40C2u2Ez23jOpBDIPviW1WBJkkZJa2fhO.avYXWwtmy",
+    "role": "ADMIN",
+    "createdAt": "2026-02-04T03:08:38.585Z",
+    "updatedAt": "2026-02-04T03:08:38.585Z"
+  },
+  {
+    "id": "cml7g8l4c0000ya8i5srprywb",
+    "name": "joybn",
+    "email": "joybn@gmail.com",
+    "emailVerified": null,
+    "image": null,
+    "password": "$2b$10$Xb9hHUB7ORMg3T0P3GUPzu3N0k1.cnqfC8AaBnsiAM2LQrlzm.g8K",
+    "role": "ADMIN",
+    "createdAt": "2026-02-04T03:09:36.876Z",
+    "updatedAt": "2026-02-04T03:09:36.876Z"
+  }
+]

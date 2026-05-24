@@ -1,0 +1,45 @@
+[0m[0m
+[0m[4mC:\atgv\meter-main\chatbot-system\okproduct-ecommerce\src\actions\admin-product.ts[24m[0m
+[0m  [2m16:14[22m  [33mwarning[39m  'error' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m76:14[22m  [33mwarning[39m  'error' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4mC:\atgv\meter-main\chatbot-system\okproduct-ecommerce\src\actions\register.ts[24m[0m
+[0m  [2m5:10[22m  [33mwarning[39m  'AuthError' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4mC:\atgv\meter-main\chatbot-system\okproduct-ecommerce\src\app\admin\layout.tsx[24m[0m
+[0m  [2m3:10[22m  [33mwarning[39m  'redirect' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m4:56[22m  [33mwarning[39m  'Settings' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4mC:\atgv\meter-main\chatbot-system\okproduct-ecommerce\src\app\checkout\page.tsx[24m[0m
+[0m  [2m17:12[22m  [33mwarning[39m  'error' is assigned a value but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4mC:\atgv\meter-main\chatbot-system\okproduct-ecommerce\src\auth.ts[24m[0m
+[0m  [2m35:34[22m  [33mwarning[39m  'trigger' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m35:43[22m  [33mwarning[39m  'session' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4mC:\atgv\meter-main\chatbot-system\okproduct-ecommerce\src\components\admin\OrderStatusSelector.tsx[24m[0m
+[0m   [2m6:10[22m  [33mwarning[39m  'Button' is defined but never used              [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m   [2m7:10[22m  [33mwarning[39m  'Check' is defined but never used               [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m   [2m7:17[22m  [33mwarning[39m  'ChevronDown' is defined but never used         [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m25:12[22m  [33mwarning[39m  'isOpen' is assigned a value but never used     [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m25:20[22m  [33mwarning[39m  'setIsOpen' is assigned a value but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4mC:\atgv\meter-main\chatbot-system\okproduct-ecommerce\src\components\layout\Navbar.tsx[24m[0m
+[0m  [2m4:32[22m  [33mwarning[39m  'User' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4mC:\atgv\meter-main\chatbot-system\okproduct-ecommerce\src\components\product\FilterSidebar.tsx[24m[0m
+[0m  [2m5:10[22m  [33mwarning[39m  'ChevronDown' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m5:23[22m  [33mwarning[39m  'ChevronUp' is defined but never used    [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m6:10[22m  [33mwarning[39m  'cn' is defined but never used           [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4mC:\atgv\meter-main\chatbot-system\okproduct-ecommerce\src\components\product\ProductCard.tsx[24m[0m
+[0m  [2m5:31[22m  [33mwarning[39m  'Eye' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4mC:\atgv\meter-main\chatbot-system\okproduct-ecommerce\src\components\product\ProductInfo.tsx[24m[0m
+[0m  [2m4:44[22m  [33mwarning[39m  'Share2' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4mC:\atgv\meter-main\chatbot-system\okproduct-ecommerce\src\types\next-auth.d.ts[24m[0m
+[0m  [2m2:8[22m  [33mwarning[39m  'NextAuth' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[33m[1m✖ 20 problems (0 errors, 20 warnings)[22m[39m[0m
+[0m[33m[1m[22m[39m[0m
