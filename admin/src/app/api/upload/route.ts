@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
 import path from 'path';
+import { uploadToMinIO } from '@/lib/minio';
 
 export async function POST(request: Request): Promise<NextResponse> {
     try {
@@ -21,26 +21,19 @@ export async function POST(request: Request): Promise<NextResponse> {
             return NextResponse.json({ error: 'File must be an image' }, { status: 400 });
         }
 
-        // Ensure upload directory exists
-        const uploadDir = path.join(process.cwd(), 'public', 'uploads');
-        if (!fs.existsSync(uploadDir)) {
-            fs.mkdirSync(uploadDir, { recursive: true });
-        }
-
         // Generate unique filename
         const ext = path.extname(file.name) || '.jpg';
         const baseName = path.basename(file.name, ext).replace(/[^a-zA-Z0-9]/g, '_');
         const randomSuffix = Math.random().toString(36).substring(2, 8);
         const fileName = `${baseName}_${randomSuffix}${ext}`;
-        const filePath = path.join(uploadDir, fileName);
 
-        // Convert file arrayBuffer to Buffer and write to disk
+        // Convert file arrayBuffer to Buffer
         const bytes = await file.arrayBuffer();
         const buffer = Buffer.from(bytes);
-        await fs.promises.writeFile(filePath, buffer);
 
-        // Return relative URL
-        const url = `/uploads/${fileName}`;
+        // Upload to MinIO under 'products' folder in bucket
+        const fileKey = `products/${fileName}`;
+        const url = await uploadToMinIO(buffer, fileKey, file.type);
 
         return NextResponse.json({ url });
     } catch (error: any) {

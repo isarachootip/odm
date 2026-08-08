@@ -1,8 +1,17 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
+import { S3Client, ListObjectsV2Command } from '@aws-sdk/client-s3';
 
 export const dynamic = 'force-dynamic';
+
+const s3Client = new S3Client({
+    endpoint: process.env.MINIO_ENDPOINT,
+    region: process.env.MINIO_REGION || 'us-east-1',
+    credentials: {
+        accessKeyId: process.env.MINIO_ACCESS_KEY || '',
+        secretAccessKey: process.env.MINIO_SECRET_KEY || '',
+    },
+    forcePathStyle: true,
+});
 
 interface LocalBlob {
     url: string;
@@ -12,32 +21,19 @@ interface LocalBlob {
 
 export async function GET() {
     try {
-        const uploadDir = path.join(process.cwd(), 'public', 'uploads');
-        const blobs: LocalBlob[] = [];
+        const bucket = process.env.MINIO_BUCKET || 'odm-uploads';
+        const publicUrlBase = process.env.MINIO_PUBLIC_URL || `${process.env.MINIO_ENDPOINT}/${bucket}`;
+        const cleanBase = publicUrlBase.endsWith('/') ? publicUrlBase.slice(0, -1) : publicUrlBase;
 
-        // Helper function to scan directory recursively
-        const scanDir = (dirPath: string, relativePathPrefix = '') => {
-            if (!fs.existsSync(dirPath)) return;
-            const entries = fs.readdirSync(dirPath, { withFileTypes: true });
+        const data = await s3Client.send(new ListObjectsV2Command({
+            Bucket: bucket,
+        }));
 
-            for (const entry of entries) {
-                const fullPath = path.join(dirPath, entry.name);
-                const relPath = relativePathPrefix ? `${relativePathPrefix}/${entry.name}` : entry.name;
-
-                if (entry.isDirectory()) {
-                    scanDir(fullPath, relPath);
-                } else if (entry.isFile()) {
-                    const stats = fs.statSync(fullPath);
-                    blobs.push({
-                        url: `/uploads/${relPath}`,
-                        pathname: relPath,
-                        uploadedAt: stats.mtime
-                    });
-                }
-            }
-        };
-
-        scanDir(uploadDir);
+        const blobs: LocalBlob[] = (data.Contents || []).map((item) => ({
+            url: `${cleanBase}/${item.Key}`,
+            pathname: item.Key || '',
+            uploadedAt: item.LastModified || new Date(),
+        }));
 
         // Sort by uploadedAt descending (newest first)
         blobs.sort((a, b) => b.uploadedAt.getTime() - a.uploadedAt.getTime());
@@ -48,6 +44,7 @@ export async function GET() {
             blobs
         });
     } catch (error: any) {
+        console.error('List objects error:', error);
         return NextResponse.json({ error: 'Failed to list blobs', details: error.message }, { status: 500 });
     }
 }

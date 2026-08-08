@@ -2,8 +2,8 @@
 
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
-import fs from "fs";
 import path from "path";
+import { uploadToMinIO } from "@/lib/minio";
 
 export async function uploadSlip(orderId: string, formData: FormData) {
     try {
@@ -12,22 +12,15 @@ export async function uploadSlip(orderId: string, formData: FormData) {
             return { error: "No file uploaded" };
         }
 
-        // Ensure directory exists
-        const uploadDir = path.join(process.cwd(), "public", "uploads", "slips");
-        if (!fs.existsSync(uploadDir)) {
-            fs.mkdirSync(uploadDir, { recursive: true });
-        }
-
-        // Write file locally
         const ext = path.extname(file.name) || ".jpg";
         const fileName = `${orderId}-${Date.now()}${ext}`;
-        const filePath = path.join(uploadDir, fileName);
 
         const bytes = await file.arrayBuffer();
         const buffer = Buffer.from(bytes);
-        await fs.promises.writeFile(filePath, buffer);
 
-        const fileUrl = `/uploads/slips/${fileName}`;
+        // Upload to MinIO under 'slips' folder
+        const fileKey = `slips/${fileName}`;
+        const fileUrl = await uploadToMinIO(buffer, fileKey, file.type || "image/jpeg");
 
         // Auto-approve for Demo: Set status to PAID and generate Queue Number
         // Queue Number: Simple increment or random for demo

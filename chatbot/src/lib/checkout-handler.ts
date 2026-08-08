@@ -7,6 +7,7 @@ import { downloadLineContent } from "./line-content";
 import { analyzePaymentSlip } from "./gemini-vision";
 import { verifySlip } from "./slip-verifier";
 import { generatePromptPayQR, uploadQRToBlob } from "./promptpay";
+import { uploadToMinIO } from "./minio";
 
 type TempData = {
     name?: string;
@@ -668,17 +669,10 @@ export async function handlePaymentSlip(
             .jpeg({ quality: 80, mozjpeg: true })
             .toBuffer();
 
-        // 3. Save locally
-        const uploadDir = path.join(process.cwd(), "public", "uploads", "slips");
-        if (!fs.existsSync(uploadDir)) {
-            fs.mkdirSync(uploadDir, { recursive: true });
-        }
-
+        // 3. Save to MinIO
         const fileName = `${session.orderId}-${Date.now()}.jpg`;
-        const filePath = path.join(uploadDir, fileName);
-        await fs.promises.writeFile(filePath, compressedBuffer);
-
-        const fileUrl = `/uploads/slips/${fileName}`;
+        const fileKey = `slips/${fileName}`;
+        const fileUrl = await uploadToMinIO(compressedBuffer, fileKey, "image/jpeg");
 
         // Find payment config to get API keys
         const order = await prisma.order.findUnique({

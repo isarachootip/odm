@@ -1,15 +1,31 @@
 import { FlexBubble, FlexCarousel, FlexMessage } from "@line/bot-sdk";
 
+function getBaseUrl(): string {
+    return process.env.CHATBOT_URL || process.env.NEXT_PUBLIC_APP_URL || process.env.NEXTAUTH_URL || "";
+}
+
 // Helper to validate HTTPS URL
 function getSafeImageUrl(url: string | null): string {
     const fallback = "https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60";
     if (!url || typeof url !== 'string') return fallback;
 
+    let targetUrl = url;
+    if (url.startsWith('/')) {
+        const baseUrl = getBaseUrl();
+        if (baseUrl) {
+            const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+            targetUrl = `${cleanBase}${url}`;
+        } else {
+            return fallback;
+        }
+    }
+
     try {
         // Ensure URL is valid and HTTPS
-        const parsed = new URL(url);
+        const parsed = new URL(targetUrl);
+        const isLocal = parsed.hostname === 'localhost' || parsed.hostname === '127.0.0.1';
         // LINE Max URL Length is 1000
-        if (parsed.protocol === "https:" && parsed.href.length < 1000) {
+        if ((parsed.protocol === "https:" || (parsed.protocol === "http:" && isLocal)) && parsed.href.length < 1000) {
             return parsed.href;
         }
     } catch (e) {
