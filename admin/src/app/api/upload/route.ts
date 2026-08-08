@@ -1,5 +1,6 @@
-import { put } from '@vercel/blob';
 import { NextResponse } from 'next/server';
+import fs from 'fs';
+import path from 'path';
 
 export async function POST(request: Request): Promise<NextResponse> {
     try {
@@ -20,14 +21,28 @@ export async function POST(request: Request): Promise<NextResponse> {
             return NextResponse.json({ error: 'File must be an image' }, { status: 400 });
         }
 
-        // Upload to Vercel Blob
-        const blob = await put(file.name, file, {
-            access: 'public',
-            addRandomSuffix: true,
-            token: process.env.BLOB_READ_WRITE_TOKEN, // Explicitly pass token
-        });
+        // Ensure upload directory exists
+        const uploadDir = path.join(process.cwd(), 'public', 'uploads');
+        if (!fs.existsSync(uploadDir)) {
+            fs.mkdirSync(uploadDir, { recursive: true });
+        }
 
-        return NextResponse.json({ url: blob.url });
+        // Generate unique filename
+        const ext = path.extname(file.name) || '.jpg';
+        const baseName = path.basename(file.name, ext).replace(/[^a-zA-Z0-9]/g, '_');
+        const randomSuffix = Math.random().toString(36).substring(2, 8);
+        const fileName = `${baseName}_${randomSuffix}${ext}`;
+        const filePath = path.join(uploadDir, fileName);
+
+        // Convert file arrayBuffer to Buffer and write to disk
+        const bytes = await file.arrayBuffer();
+        const buffer = Buffer.from(bytes);
+        await fs.promises.writeFile(filePath, buffer);
+
+        // Return relative URL
+        const url = `/uploads/${fileName}`;
+
+        return NextResponse.json({ url });
     } catch (error: any) {
         console.error('Upload error:', error);
         return NextResponse.json({ error: error.message || 'Upload failed' }, { status: 500 });

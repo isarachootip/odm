@@ -1,8 +1,9 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
-import { put } from "@vercel/blob";
 import { revalidatePath } from "next/cache";
+import fs from "fs";
+import path from "path";
 
 export async function uploadSlip(orderId: string, formData: FormData) {
     try {
@@ -11,10 +12,22 @@ export async function uploadSlip(orderId: string, formData: FormData) {
             return { error: "No file uploaded" };
         }
 
-        // Upload to Vercel Blob
-        const blob = await put(`slips/${orderId}-${file.name}`, file, {
-            access: "public",
-        });
+        // Ensure directory exists
+        const uploadDir = path.join(process.cwd(), "public", "uploads", "slips");
+        if (!fs.existsSync(uploadDir)) {
+            fs.mkdirSync(uploadDir, { recursive: true });
+        }
+
+        // Write file locally
+        const ext = path.extname(file.name) || ".jpg";
+        const fileName = `${orderId}-${Date.now()}${ext}`;
+        const filePath = path.join(uploadDir, fileName);
+
+        const bytes = await file.arrayBuffer();
+        const buffer = Buffer.from(bytes);
+        await fs.promises.writeFile(filePath, buffer);
+
+        const fileUrl = `/uploads/slips/${fileName}`;
 
         // Auto-approve for Demo: Set status to PAID and generate Queue Number
         // Queue Number: Simple increment or random for demo
@@ -23,7 +36,7 @@ export async function uploadSlip(orderId: string, formData: FormData) {
         await prisma.order.update({
             where: { id: orderId },
             data: {
-                paymentSlipUrl: blob.url,
+                paymentSlipUrl: fileUrl,
                 status: "PAID",
                 paymentVerifiedAt: new Date(),
                 queueNumber: queueNumber

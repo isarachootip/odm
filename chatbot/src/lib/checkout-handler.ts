@@ -1,6 +1,7 @@
 import { prisma } from "./db";
 import * as line from "@line/bot-sdk";
-import { put } from "@vercel/blob";
+import fs from "fs";
+import path from "path";
 import { createCarousel, createCategoryBubble, createProductBubble, createCartBubble, createQueueTicketBubble } from "./flex-templates";
 import { downloadLineContent } from "./line-content";
 import { analyzePaymentSlip } from "./gemini-vision";
@@ -667,12 +668,17 @@ export async function handlePaymentSlip(
             .jpeg({ quality: 80, mozjpeg: true })
             .toBuffer();
 
-        // 3. Upload to Blob
-        // Append Date.now() to ensure the filename is always unique and avoids Vercel Blob overwrite errors
-        const blob = await put(`slips/${session.orderId}-${Date.now()}.jpg`, compressedBuffer, {
-            access: 'public',
-            token: process.env.BLOB_READ_WRITE_TOKEN
-        });
+        // 3. Save locally
+        const uploadDir = path.join(process.cwd(), "public", "uploads", "slips");
+        if (!fs.existsSync(uploadDir)) {
+            fs.mkdirSync(uploadDir, { recursive: true });
+        }
+
+        const fileName = `${session.orderId}-${Date.now()}.jpg`;
+        const filePath = path.join(uploadDir, fileName);
+        await fs.promises.writeFile(filePath, compressedBuffer);
+
+        const fileUrl = `/uploads/slips/${fileName}`;
 
         // Find payment config to get API keys
         const order = await prisma.order.findUnique({
@@ -812,7 +818,7 @@ export async function handlePaymentSlip(
             data: {
                 status: 'PAID',
                 queueNumber,
-                paymentSlipUrl: blob.url,
+                paymentSlipUrl: fileUrl,
                 paymentVerifiedAt: new Date(),
                 transactionRef: transactionRefToSave // Save reference to prevent reuse if from API
             }
