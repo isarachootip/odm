@@ -56,6 +56,24 @@ const products = [
         tag: "Top Rated"
     },
     {
+        name: "Mango Sticky Rice (Premium)",
+        price: 160,
+        category: "Dessert",
+        image: "https://images.unsplash.com/photo-1525059696034-4967a8e1dca2?auto=format&fit=crop&w=800&q=80",
+        description: "Premium sweet sticky rice with ripe yellow mango and fresh coconut milk.",
+        zone: "food",
+        tag: "Bestseller"
+    },
+    {
+        name: "Thai Iced Tea (Elite Blend)",
+        price: 85,
+        category: "Beverage",
+        image: "https://images.unsplash.com/photo-1541658016709-82535e94bc69?auto=format&fit=crop&w=800&q=80",
+        description: "Authentic sweet creamy Thai iced milk tea, brewed from premium leaves.",
+        zone: "food",
+        tag: "Signature"
+    },
+    {
         name: "Matcha Lava Cake",
         price: 180,
         category: "Dessert",

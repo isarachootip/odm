@@ -31,6 +31,10 @@ export async function GET() {
             data: { name: "Home & Living", slug: "home-living" }
         });
 
+        const catFood = await prisma.category.create({
+            data: { name: "Food & Beverage", slug: "food-beverage" }
+        });
+
         // 3. Create Products
         const productsData = [
             {
@@ -116,6 +120,27 @@ export async function GET() {
                 price: 450,
                 categoryId: catHome.id,
                 images: ["https://images.unsplash.com/photo-1485955900006-10f4d324d411?q=80&w=2072&auto=format&fit=crop"]
+            },
+            {
+                name: "Authentic Pad Thai Goong",
+                description: "Traditional street-style Pad Thai with jumbo river prawns.",
+                price: 220,
+                categoryId: catFood.id,
+                images: ["https://images.unsplash.com/photo-1559496417-e7f25cb247f3?auto=format&fit=crop&w=800&q=80"]
+            },
+            {
+                name: "Mango Sticky Rice (Premium)",
+                description: "Premium sweet sticky rice with ripe yellow mango and fresh coconut milk.",
+                price: 160,
+                categoryId: catFood.id,
+                images: ["https://images.unsplash.com/photo-1525059696034-4967a8e1dca2?auto=format&fit=crop&w=800&q=80"]
+            },
+            {
+                name: "Thai Iced Tea (Elite Blend)",
+                description: "Authentic sweet creamy Thai iced milk tea, brewed from premium leaves.",
+                price: 85,
+                categoryId: catFood.id,
+                images: ["https://images.unsplash.com/photo-1541658016709-82535e94bc69?auto=format&fit=crop&w=800&q=80"]
             }
         ];
 

@@ -117,7 +117,7 @@ export function ChatInterface({ isEmbedded }: { isEmbedded?: boolean } = {}) {
                         <img src="/nong-enjoy.png" alt="Nong Enjoy" className="w-full h-full object-cover" />
                     </div>
                     <div>
-                        <h1 className="font-bold text-lg leading-tight">Odm Vidwa</h1>
+                        <h1 className="font-bold text-lg leading-tight">Joy Cafe</h1>
                         <p className="text-xs text-gray-700">ตอบกลับทันที • Nong Enjoy</p>
                     </div>
                 </div>
@@ -134,8 +134,8 @@ export function ChatInterface({ isEmbedded }: { isEmbedded?: boolean } = {}) {
                         <div className="w-20 h-20 rounded-full overflow-hidden mx-auto mb-4 shadow-md border-2 border-white ring-4 ring-[#FFC107]/20 bg-white">
                             <img src="/nong-enjoy.png" alt="Nong Enjoy" className="w-full h-full object-cover" />
                         </div>
-                        <p className="text-gray-600 font-medium">สวัสดีค่ะ น้อง enjoy ยินดีให้บริการค่ะ 👩‍🍳</p>
-                        <p className="text-sm text-gray-400 mt-1">Odm Vidwa ยินดีต้อนรับค่ะ 🥐☕</p>
+                        <p className="text-gray-600 font-medium">สวัสดีค่ะ ยินดีต้อนรับสู่ Elite Ecommerce Hub และ One Dish Meals นะคะ น้องใจดียินดีให้บริการค่ะ 😊</p>
+                        <p className="text-sm text-gray-400 mt-1">ถามเมนูหรือสั่งอาหารได้เลยค่ะ 🥐☕</p>
                     </div>
                 )}
 
