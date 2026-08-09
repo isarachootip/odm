@@ -87,7 +87,7 @@
 * `POSTGRES_URL` = `<URL-ฐานข้อมูล-Coolify>`
 * `POSTGRES_URL_NON_POOLING` = `<URL-ฐานข้อมูล-Coolify>`
 * `NEXTAUTH_SECRET` = `OdmVidwaSecretKey2026Generated`
-* `NEXTAUTH_URL` = `https://<โดเมนใหม่ของ-admin-บน-coolify>` (เช่น `https://admin.yourdomain.com`)
+* `NEXTAUTH_URL` = `https://admin.mamsoi8.online`
 * `BLOB_READ_WRITE_TOKEN` = `vercel_blob_rw_XyACulKm03lZRfCh_AQxss0XQNFzJpT8A9bQSrJpsiBQbfy`
 * `LINE_CHANNEL_ACCESS_TOKEN` = `OjsWYmeoNT9lQTB9GdbcyUDpQC5fhcrTxKCpEJxbRWFa60+K210rzvoJJz+GJL09sRnDXo2M+1kp/NktxpQsxCvtXJMZBDy1b/GGwT1pybfbz/WIt0N8MnTzxSat61jKUqQJkbXTNYdfgUgh8xo2lwdB04t89/1O/w1cDnyilFU=`
 
@@ -101,6 +101,7 @@
 * `GEMINI_API_KEY` = `AIzaSyAA3ACGKy17Ng6WaDqKFieEcpSBWz_dfVI`
 * `BLOB_READ_WRITE_TOKEN` = `vercel_blob_rw_XyACulKm03lZRfCh_AQxss0XQNFzJpT8A9bQSrJpsiBQbfy`
 * `API_KEY_VIDWA` = `odm_vidwa_secret_key_2026`
+* `CHATBOT_URL` = `https://mamsoi8.online`
 
 ---
 
