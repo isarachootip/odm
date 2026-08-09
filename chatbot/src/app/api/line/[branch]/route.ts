@@ -88,8 +88,7 @@ export async function POST(req: Request, props: { params: Promise<{ branch: stri
                 const results = await Promise.all([
                     prisma.shopConfig.findFirst(),
                     prisma.cartSession.findUnique({
-                        where: { lineUserId: userId },
-                        select: { state: true }
+                        where: { lineUserId: userId }
                     })
                 ]);
                 shopConfig = results[0];
