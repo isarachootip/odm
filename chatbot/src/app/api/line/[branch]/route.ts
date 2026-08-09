@@ -155,7 +155,7 @@ export async function POST(req: Request, props: { params: Promise<{ branch: stri
                 // PRIORITY 1: Check if user is in payment state
                 let handledByPayment = false;
                 if (currentSession?.state === "AWAITING_PAYMENT") {
-                    handledByPayment = await handlePaymentSlip(userId, messageId, client, replyToken);
+                    handledByPayment = await handlePaymentSlip(userId, messageId, client, replyToken, branchConfig.channelAccessToken);
                 }
 
                 if (handledByPayment) {

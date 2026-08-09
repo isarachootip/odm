@@ -1,13 +1,14 @@
 
-const LINE_ACCESS_TOKEN = process.env.LINE_CHANNEL_ACCESS_TOKEN || process.env.LINE_ACCESS_TOKEN || "";
+const FALLBACK_ACCESS_TOKEN = process.env.LINE_CHANNEL_ACCESS_TOKEN || process.env.LINE_ACCESS_TOKEN || "";
 
-export async function downloadLineContent(messageId: string): Promise<Buffer> {
+export async function downloadLineContent(messageId: string, token?: string): Promise<Buffer> {
     const url = `https://api-data.line.me/v2/bot/message/${messageId}/content`;
+    const accessToken = token || FALLBACK_ACCESS_TOKEN;
 
     const response = await fetch(url, {
         method: "GET",
         headers: {
-            "Authorization": `Bearer ${LINE_ACCESS_TOKEN}`
+            "Authorization": `Bearer ${accessToken}`
         }
     });
 

@@ -656,7 +656,7 @@ export async function handlePaymentSlip(
 
     try {
         // 2. Download Image
-        const imageBuffer = await downloadLineContent(messageId);
+        const imageBuffer = await downloadLineContent(messageId, channelAccessToken);
 
         // Resize and Compress Image
         // Target: Max width 1000px, JPEG quality 80 for clear text but small size
