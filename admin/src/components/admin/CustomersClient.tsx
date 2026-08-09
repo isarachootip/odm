@@ -166,7 +166,7 @@ export function CustomersClient({ initialCustomers }: Props) {
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                 <input
                     type="text"
-                    placeholder="ค้นหาชื่อ, เบอร์โทร, หรือแผนก..."
+                    placeholder="ค้นหาชื่อ, เบอร์โทร, หรือซอย..."
                     className="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
@@ -180,7 +180,7 @@ export function CustomersClient({ initialCustomers }: Props) {
                         <tr>
                             <th className="px-6 py-3 text-xs font-semibold text-gray-600 uppercase">ลูกค้า</th>
                             <th className="px-6 py-3 text-xs font-semibold text-gray-600 uppercase">เบอร์โทร</th>
-                            <th className="px-6 py-3 text-xs font-semibold text-gray-600 uppercase">แผนก</th>
+                            <th className="px-6 py-3 text-xs font-semibold text-gray-600 uppercase">ซอย (Soi)</th>
                             <th className="px-6 py-3 text-xs font-semibold text-gray-600 uppercase text-center">ออเดอร์</th>
                             <th className="px-6 py-3 text-xs font-semibold text-gray-600 uppercase text-right">ยอดรวม</th>
                             <th className="px-6 py-3 text-xs font-semibold text-gray-600 uppercase text-right">จัดการ</th>
@@ -325,7 +325,7 @@ export function CustomersClient({ initialCustomers }: Props) {
                                     <div className="grid grid-cols-1 gap-4">
                                         <div>
                                             <label className="block text-sm font-semibold text-gray-700 mb-1">
-                                                แผนก / หน่วยงาน
+                                                ซอย (Soi)
                                             </label>
                                             <div className="relative">
                                                 <Building2 className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
@@ -334,7 +334,7 @@ export function CustomersClient({ initialCustomers }: Props) {
                                                     value={formData.department}
                                                     onChange={(e) => setFormData({ ...formData, department: e.target.value })}
                                                     className="w-full pl-9 pr-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white"
-                                                    placeholder="เช่น การตลาด, ไอที"
+                                                    placeholder="เช่น ซอย 1, ซอย 2"
                                                 />
                                             </div>
                                         </div>

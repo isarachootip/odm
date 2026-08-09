@@ -40,6 +40,11 @@ export default async function QueuePage(props: { searchParams: Promise<{ branchI
                 include: {
                     Product: true
                 }
+            },
+            tableReservation: {
+                include: {
+                    table: true
+                }
             }
         }
     });

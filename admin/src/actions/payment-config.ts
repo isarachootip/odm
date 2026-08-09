@@ -54,6 +54,8 @@ export async function createPaymentConfig(data: {
     accountNumber?: string;
     promptpayNumber?: string;
     isDefault?: boolean;
+    slipTimeLimitMinutes?: number;
+    slipPreorderTimeLimitMinutes?: number;
 }) {
     try {
         const session = await auth();
@@ -74,7 +76,9 @@ export async function createPaymentConfig(data: {
                 accountName: data.accountName,
                 accountNumber: data.accountNumber,
                 promptpayNumber: data.promptpayNumber,
-                isDefault: data.isDefault || false
+                isDefault: data.isDefault || false,
+                slipTimeLimitMinutes: data.slipTimeLimitMinutes || 30,
+                slipPreorderTimeLimitMinutes: data.slipPreorderTimeLimitMinutes || 360
             }
         });
 
@@ -98,6 +102,8 @@ export async function updatePaymentConfig(id: string, data: {
     accountNumber?: string;
     promptpayNumber?: string;
     isDefault?: boolean;
+    slipTimeLimitMinutes?: number;
+    slipPreorderTimeLimitMinutes?: number;
 }) {
     try {
         const session = await auth();
@@ -122,7 +128,9 @@ export async function updatePaymentConfig(id: string, data: {
                 accountName: data.accountName,
                 accountNumber: data.accountNumber,
                 promptpayNumber: data.promptpayNumber,
-                isDefault: data.isDefault
+                isDefault: data.isDefault,
+                slipTimeLimitMinutes: data.slipTimeLimitMinutes,
+                slipPreorderTimeLimitMinutes: data.slipPreorderTimeLimitMinutes
             }
         });
 

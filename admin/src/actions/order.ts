@@ -15,10 +15,14 @@ interface ShippingInput {
     // Matching LINE Flow
     customerName: string;
     customerPhone: string;
-    deliveryType: "PICKUP" | "TAKEAWAY" | "DELIVERY";
+    deliveryType: "PICKUP" | "TAKEAWAY" | "DELIVERY" | "DINE_IN";
     deliveryLocation?: string;
+    reservation?: {
+        date: string;
+        timeSlot: string;
+        tableId: string;
+    }
 }
-
 
 // Helper to generate format: [Branch] + ddmmyy + 0000 (running no)
 async function generateOrderNumber(branchCode: string = 'odm') {
@@ -146,25 +150,36 @@ export async function createOrder(items: CartItemInput[], shipping: ShippingInpu
         // Fetch branch to get branchId
         const branch = await prisma.branch.findUnique({ where: { code: branchCode.toUpperCase() } });
 
+        // Prepare order data
+        const orderData: any = {
+            userId: userId || null,
+            orderNumber: customOrderNumber,
+            status: "PENDING",
+            total: total,
+            branchId: branch?.id || undefined,
+            customerName: shipping.customerName,
+            customerPhone: shipping.customerPhone,
+            deliveryType: shipping.deliveryType,
+            deliveryLocation: shipping.deliveryType === "DELIVERY" ? shipping.deliveryLocation : null,
+            items: {
+                create: orderItemsData,
+            },
+        };
+
+        if (shipping.deliveryType === "DINE_IN" && shipping.reservation) {
+            orderData.tableReservation = {
+                create: {
+                    date: shipping.reservation.date,
+                    timeSlot: shipping.reservation.timeSlot,
+                    tableId: shipping.reservation.tableId,
+                    status: "RESERVED"
+                }
+            };
+        }
+
         // 3. Create Order
         const order = await prisma.order.create({
-            data: {
-                userId: userId || null,
-                orderNumber: customOrderNumber, // Save custom ID
-                status: "PENDING", // Start as Pending
-                total: total,
-                branchId: branch?.id || undefined,
-
-                // Save Customer Info explicitly
-                customerName: shipping.customerName,
-                customerPhone: shipping.customerPhone,
-                deliveryType: shipping.deliveryType,
-                deliveryLocation: shipping.deliveryType === "DELIVERY" ? shipping.deliveryLocation : null,
-
-                items: {
-                    create: orderItemsData,
-                },
-            },
+            data: orderData,
         });
 
         revalidatePath("/admin/orders");

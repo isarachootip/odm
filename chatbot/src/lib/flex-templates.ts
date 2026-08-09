@@ -1,7 +1,8 @@
 import { FlexBubble, FlexCarousel, FlexMessage } from "@line/bot-sdk";
 
 function getBaseUrl(): string {
-    return process.env.CHATBOT_URL || process.env.NEXT_PUBLIC_APP_URL || process.env.NEXTAUTH_URL || "";
+    // Images are uploaded and served by the admin app
+    return process.env.ADMIN_URL || "https://admin.mamsoi8.online";
 }
 
 // Helper to validate HTTPS URL
@@ -213,6 +214,51 @@ export function createCarousel(bubbles: FlexBubble[]): FlexMessage {
         contents: {
             type: "carousel",
             contents: bubbles
+        }
+    };
+}
+
+export function createOrderTypeSelectionBubble(): FlexMessage {
+    return {
+        type: "flex",
+        altText: "เลือกประเภทการสั่งอาหาร",
+        contents: {
+            type: "bubble",
+            body: {
+                type: "box",
+                layout: "vertical",
+                contents: [
+                    { type: "text", text: "กรุณาเลือกประเภทออเดอร์ค่ะ", weight: "bold", size: "md", align: "center", margin: "md" }
+                ]
+            },
+            footer: {
+                type: "box",
+                layout: "vertical",
+                spacing: "sm",
+                contents: [
+                    {
+                        type: "button",
+                        style: "primary",
+                        color: "#EAB308",
+                        action: {
+                            type: "postback",
+                            label: "🍔 สั่งอาหารปกติ (รับทันที)",
+                            data: "action=select_order_type&type=normal",
+                            displayText: "สั่งอาหารปกติ"
+                        }
+                    },
+                    {
+                        type: "button",
+                        style: "secondary",
+                        action: {
+                            type: "datetimepicker",
+                            label: "📅 สั่งจองล่วงหน้า",
+                            data: "action=select_order_type&type=preorder",
+                            mode: "datetime"
+                        }
+                    }
+                ]
+            }
         }
     };
 }

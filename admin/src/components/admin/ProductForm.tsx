@@ -46,10 +46,12 @@ export function ProductForm({ categories, product, action }: ProductFormProps) {
         try {
             await action(formData);
         } catch (error: any) {
+            if (error.message === 'NEXT_REDIRECT') {
+                throw error;
+            }
             console.error(error);
             alert("Failed to save product: " + error.message);
-        } finally {
-            setLoading(false);
+            setLoading(false); // Only stop loading if it's a real error, redirect will unload the page
         }
     };
 
@@ -237,6 +239,31 @@ export function ProductForm({ categories, product, action }: ProductFormProps) {
                         />
                         <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-yellow-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#EAB308]"></div>
                     </label>
+                </div>
+
+                {/* Available Days Options */}
+                <div className="space-y-2 pt-4 border-t">
+                    <div>
+                        <label className="block text-sm font-medium text-gray-900">Pre-order Available Days</label>
+                        <p className="text-xs text-gray-500">Select which days this product is available for pre-order. Leave all unchecked to allow every day.</p>
+                    </div>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                        {['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].map((day, index) => {
+                            const isChecked = product?.availableDays?.includes(index);
+                            return (
+                                <label key={index} className="flex items-center gap-2 text-sm text-gray-700">
+                                    <input
+                                        type="checkbox"
+                                        name="availableDays"
+                                        value={index}
+                                        defaultChecked={isChecked}
+                                        className="rounded border-gray-300 text-yellow-500 focus:ring-yellow-500"
+                                    />
+                                    {day}
+                                </label>
+                            );
+                        })}
+                    </div>
                 </div>
 
                 {/* Submit Button */}

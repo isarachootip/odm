@@ -267,13 +267,29 @@ export async function POST(req: Request, props: { params: Promise<{ branch: stri
                     console.log(`Fetching products for category: ${categoryName}`);
 
                     try {
+                        const isPreorder = (currentSession?.tempData as any)?.isPreorder;
+                        const preorderDateTime = (currentSession?.tempData as any)?.preorderDateTime;
+
+                        let productWhere: any = {
+                            Category: { name: categoryName },
+                            isActive: true
+                        };
+
+                        if (isPreorder && preorderDateTime) {
+                            const datePart = typeof preorderDateTime === 'string' ? preorderDateTime.substring(0, 10) : '';
+                            const dayOfWeek = datePart ? new Date(datePart + 'T12:00:00Z').getUTCDay() : new Date().getUTCDay();
+                            
+                            productWhere = {
+                                ...productWhere,
+                                OR: [
+                                    { availableDays: { equals: [] } },
+                                    { availableDays: { has: dayOfWeek } }
+                                ]
+                            };
+                        }
+
                         const products = await prisma.product.findMany({
-                            where: {
-                                Category: {
-                                    name: categoryName
-                                },
-                                isActive: true
-                            },
+                            where: productWhere,
                             take: 10,
                             orderBy: { name: 'asc' }
                         });
@@ -416,58 +432,21 @@ export async function POST(req: Request, props: { params: Promise<{ branch: stri
                         console.error("Error checking customer profile:", e);
                     }
 
-                    console.log("Fetching categories...");
-                    let categories: any[] = [];
-
+                    // User already registered, show Order Type Selection
+                    const { createOrderTypeSelectionBubble } = require('../../../../lib/flex-templates');
                     try {
-                        categories = await prisma.category.findMany({
-                            include: {
-                                _count: {
-                                    select: { Product: true }
-                                }
-                            },
-                            orderBy: { name: 'asc' }
-                        });
-                    } catch (e) {
-                        console.error("Error fetching categories:", e);
+                        const orderTypeBubble = createOrderTypeSelectionBubble();
                         await client.replyMessage({
                             replyToken: replyToken,
-                            messages: [{ type: "text", text: "ขออภัยค่ะ ไม่สามารถดึงข้อมูลหมวดหมู่ได้ในขณะนี้" }]
+                            messages: [orderTypeBubble as any]
                         });
-                        continue;
-                    }
-
-                    // 2. Construct Payload (Standardized)
-                    console.log("Constructing Standardized Flex Carousel...");
-                    const bubbles = categories.map((c) => {
-                        return createCategoryBubble({
-                            name: c.name,
-                            image: c.image,
-                            count: c._count.Product
-                        });
-                    });
-
-                    // Add "Order via Web" Bubble (Using standardized template) - Removed to reduce clutter
-                    // bubbles.unshift(createOrderFoodBubble(branchConfig.branchCode));
-
-                    const carousel = createCarousel(bubbles);
-
-                    // 3. Send Message
-                    try {
-                        console.log("Sending Flex Carousel...");
-                        await client.replyMessage({
-                            replyToken: replyToken,
-                            messages: [carousel as any]
-                        });
-                        console.log("Flex Carousel sent!");
+                        console.log("Order Type Selection sent!");
                     } catch (flexError: any) {
                         console.error("Flex Message Failed:", flexError);
-                        // Fallback to Text
                         try {
-                            const textList = "สั่งอาหารกดที่นี่: https://liff.line.me/2006637207-Kq80Jp1l/ecommerce/food\n\nรายการหมวดหมู่สินค้า:\n" + categories.map(c => `- ${c.name}`).join("\n") + "\n\n(กดเมนูไม่ติด โปรดพิมพ์ชื่อหมวดหมู่)";
-                            await client.pushMessage({
-                                to: userId,
-                                messages: [{ type: "text", text: textList }]
+                            await client.replyMessage({
+                                replyToken: replyToken,
+                                messages: [{ type: "text", text: "กรุณาเลือกประเภทการสั่งอาหาร (เมนูไม่รองรับการแสดงผล)" }]
                             });
                         } catch (e) { }
                     }
@@ -490,6 +469,117 @@ export async function POST(req: Request, props: { params: Promise<{ branch: stri
                 const action = params.get("action");
 
 
+
+                if (action === "select_order_type") {
+                    const orderType = params.get("type"); // 'normal' or 'preorder'
+                    
+                    try {
+                        let isPreorder = false;
+                        let preorderDateTime = null;
+
+                        if (orderType === "preorder") {
+                            isPreorder = true;
+                            // @ts-ignore
+                            preorderDateTime = event.postback.params?.datetime;
+                        }
+
+                        // Update CartSession
+                        let cart = await prisma.cartSession.findUnique({ where: { lineUserId: userId } });
+                        if (cart) {
+                            const tempData: any = cart.tempData ? (typeof cart.tempData === 'object' ? cart.tempData : JSON.parse(cart.tempData as string)) : {};
+                            tempData.isPreorder = isPreorder;
+                            tempData.preorderDateTime = preorderDateTime;
+
+                            await prisma.cartSession.update({
+                                where: { lineUserId: userId },
+                                data: { tempData: tempData }
+                            });
+                        } else {
+                            await prisma.cartSession.create({
+                                data: {
+                                    lineUserId: userId,
+                                    items: [],
+                                    tempData: { isPreorder, preorderDateTime },
+                                    branchCode: branchConfig.branchCode
+                                }
+                            });
+                        }
+
+                        // Fetch categories
+                        console.log("Fetching categories for order type:", orderType);
+                        
+                        // Condition for Preorder category
+                        const preorderCondition = {
+                            OR: [
+                                { name: { contains: "ล่วงหน้า" } },
+                                { name: { contains: "จอง" } },
+                                { name: { contains: "preorder", mode: "insensitive" as const } }
+                            ]
+                        };
+
+                        let productCountWhere: any = { isActive: true };
+                        if (isPreorder && preorderDateTime) {
+                            const datePart = typeof preorderDateTime === 'string' ? preorderDateTime.substring(0, 10) : '';
+                            const dayOfWeek = datePart ? new Date(datePart + 'T12:00:00Z').getUTCDay() : new Date().getUTCDay();
+
+                            productCountWhere = {
+                                isActive: true,
+                                OR: [
+                                    { availableDays: { equals: [] } },
+                                    { availableDays: { has: dayOfWeek } }
+                                ]
+                            };
+                        }
+
+                        let categories = await prisma.category.findMany({
+                            where: isPreorder ? preorderCondition : { NOT: preorderCondition },
+                            include: {
+                                _count: { 
+                                    select: { 
+                                        Product: {
+                                            where: productCountWhere
+                                        } 
+                                    } 
+                                }
+                            },
+                            orderBy: { name: 'asc' }
+                        });
+                        
+                        if (categories.length === 0) {
+                            await client.replyMessage({
+                                replyToken: replyToken,
+                                messages: [{ type: "text", text: `ยังไม่มีหมวดหมู่สินค้าสำหรับออเดอร์ประเภทนี้ค่ะ` }]
+                            });
+                            continue;
+                        }
+
+                        const { createCategoryBubble, createCarousel } = require('../../../../lib/flex-templates');
+                        const bubbles = categories.map((c) => {
+                            return createCategoryBubble({
+                                name: c.name,
+                                image: c.image,
+                                count: c._count.Product
+                            });
+                        });
+                        const carousel = createCarousel(bubbles);
+
+                        const replyMsg = isPreorder 
+                            ? `รับออเดอร์ล่วงหน้าสำหรับ: ${preorderDateTime?.replace('T', ' ')}\nเลือกหมวดหมู่สินค้าด้านล่างได้เลยค่ะ 👇`
+                            : `เลือกหมวดหมู่สินค้าด้านล่างได้เลยค่ะ 👇`;
+
+                        await client.replyMessage({
+                            replyToken: replyToken,
+                            messages: [
+                                { type: "text", text: replyMsg },
+                                carousel as any
+                            ]
+                        });
+
+                    } catch (e) {
+                        console.error("Error in select_order_type:", e);
+                    }
+                    continue;
+                }
 
                 if (action === "quick_add") {
                     const productId = params.get("productId");

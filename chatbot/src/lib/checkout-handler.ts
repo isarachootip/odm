@@ -517,6 +517,8 @@ async function createOrderFromSession(
             status: "PENDING",
             orderNumber: customOrderNumber, // Save ID
             specialInstructions: tempData.note || null,
+            isPreorder: tempData.isPreorder || false,
+            preorderDateTime: tempData.preorderDateTime ? new Date(tempData.preorderDateTime) : null,
             branch: {
                 connect: { code: branchCode.toUpperCase() }
             },
@@ -771,11 +773,9 @@ export async function handlePaymentSlip(
             }
 
             const orderTotal = Number(order.total);
-            
-            // Loose logic for Demo
-            // If analysis failed or confidence low, we skip strict amount check for better UX in demo
             const isAmountMatch = Math.abs((analysis.amount || 0) - orderTotal) < 5.0; // Tolerance 5 baht
 
+            // Slip Validation: Amount
             if (analysis.isSlip && analysis.confidence === "high" && !isAmountMatch) {
                 await client.replyMessage({
                     replyToken,
@@ -785,6 +785,58 @@ export async function handlePaymentSlip(
                     }]
                 });
                 return true;
+            }
+
+            // Slip Validation: Receiver Name Match
+            if (analysis.isSlip && analysis.confidence === "high" && analysis.receiver && paymentConfig?.accountName) {
+                const slipName = analysis.receiver.toLowerCase().replace(/นาย|นาง|นางสาว|mr\.|ms\.|mrs\./g, "").replace(/\s/g, "");
+                const confName = paymentConfig.accountName.toLowerCase().replace(/นาย|นาง|นางสาว|mr\.|ms\.|mrs\./g, "").replace(/\s/g, "");
+                
+                if (!slipName.includes(confName) && !confName.includes(slipName)) {
+                     // Name mismatch - log for now, or could flag as manual review
+                     console.log(`Name mismatch: ${analysis.receiver} vs ${paymentConfig.accountName}`);
+                }
+            }
+
+            // Slip Validation: Time limit
+            let isTimeExpired = false;
+            if (analysis.isSlip && analysis.confidence === "high" && analysis.date && analysis.time) {
+                try {
+                    const slipDateStr = `${analysis.date}T${analysis.time}:00+07:00`;
+                    const slipDate = new Date(slipDateStr);
+                    
+                    if (!isNaN(slipDate.getTime())) {
+                        const now = new Date();
+                        const diffMinutes = (now.getTime() - slipDate.getTime()) / (1000 * 60);
+                        
+                        const timeLimit = order.isPreorder 
+                            ? (paymentConfig?.slipPreorderTimeLimitMinutes || 360) 
+                            : (paymentConfig?.slipTimeLimitMinutes || 30);
+                            
+                        if (diffMinutes > timeLimit) {
+                            isTimeExpired = true;
+                        }
+                    }
+                } catch(e) {
+                    console.error("Time parsing error", e);
+                }
+            }
+
+            if (isTimeExpired) {
+                // Send to manual review
+                await prisma.order.update({
+                    where: { id: order.id },
+                    data: { paymentSlipUrl: fileUrl } // Status remains PENDING
+                });
+
+                await client.replyMessage({
+                    replyToken,
+                    messages: [{
+                        type: "text",
+                        text: `⚠️ สลิปอยู่นอกเงื่อนไขเวลา แอดมินจะทำการตรวจสอบสลิปและยืนยันออเดอร์ให้โดยเร็วที่สุดค่ะ`
+                    }]
+                });
+                return true; // Stop here, do not generate queue number yet.
             }
             
             isSlipApproved = true; // passed loose checking

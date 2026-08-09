@@ -21,6 +21,7 @@ model Product {
   specifications Json?
   categoryId     String?
   isActive       Boolean          @default(true)
+  availableDays  Int[]
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt
   CartItem       CartItem[]
@@ -44,6 +45,8 @@ model PaymentConfig {
   isSlipokEnabled Boolean  @default(false)
   slipokBranchId  String?
   slipokApiKey    String?
+  slipTimeLimitMinutes         Int @default(30)
+  slipPreorderTimeLimitMinutes Int @default(360)
 
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
@@ -82,6 +85,8 @@ model Order {
   paymentSlipUrl    String?
   paymentVerifiedAt DateTime?
   transactionRef    String?     @unique // <--- Added for slip verification
+  isPreorder        Boolean     @default(false)
+  preorderDateTime  DateTime?
   shippingCarrier   String?
   trackingNumber    String?
   labelPrintedAt    DateTime?
@@ -89,6 +94,7 @@ model Order {
   User              User?       @relation(fields: [userId], references: [id])
   items             OrderItem[]
   review            Review?
+  tableReservation  TableReservation?
 }
 
 model Review {
@@ -299,6 +305,7 @@ model Branch {
   Users                  User[]
   Orders                 Order[]
   ShopConfigs            ShopConfig[]
+  DiningTables           DiningTable[]
 }
 
 model CustomerProfile {
@@ -311,4 +318,29 @@ model CustomerProfile {
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
   Orders         Order[]
+}
+
+model DiningTable {
+  id        String   @id @default(cuid())
+  name      String   // e.g., "Table 1"
+  capacity  Int      @default(4)
+  isActive  Boolean  @default(true)
+  branchId  String?
+  branch    Branch?  @relation(fields: [branchId], references: [id])
+  reservations TableReservation[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TableReservation {
+  id          String   @id @default(cuid())
+  tableId     String
+  table       DiningTable @relation(fields: [tableId], references: [id], onDelete: Cascade)
+  orderId     String   @unique
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  date        String   // "YYYY-MM-DD"
+  timeSlot    String   // e.g. "09:00", "12:00"
+  status      String   @default("RESERVED") // "RESERVED", "COMPLETED", "CANCELLED"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

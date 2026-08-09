@@ -151,7 +151,7 @@ export default async function AdminDashboardPage(props: { searchParams: Promise<
                 {/* Department Distribution (Pie Chart) - NEW */}
                 <Card className="col-span-3">
                     <CardHeader>
-                        <CardTitle>Orders by Department (แผนกที่สั่งซื้อ)</CardTitle>
+                        <CardTitle>Orders by Soi (ยอดสั่งซื้อแยกตามซอย)</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <DepartmentChart data={departmentData} />

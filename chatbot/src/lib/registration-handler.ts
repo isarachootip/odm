@@ -1,6 +1,6 @@
 import { prisma } from "./db";
 import * as line from "@line/bot-sdk";
-import { createCarousel, createCategoryBubble } from "./flex-templates";
+import { createCarousel, createCategoryBubble, createOrderTypeSelectionBubble } from "./flex-templates";
 
 type CartSession = {
     id: string;
@@ -176,9 +176,11 @@ export async function handleRegistrationFlow(
                 }
             });
 
-            const carousel = await getCategoriesCarousel();
-            const messages: any[] = [{ type: "text", text: "ลงทะเบียนสำเร็จ 🎉 ขอบคุณครับ\n(คุณได้รับคะแนนสะสม 100 คะแนนเรียบร้อยแล้ว)\n\nสนใจรับอะไรดีคะ? กดดูเมนูได้เลย 👇" }];
-            if (carousel) messages.push(carousel);
+            const orderTypeBubble = createOrderTypeSelectionBubble();
+            const messages: any[] = [
+                { type: "text", text: "ลงทะเบียนสำเร็จ 🎉 ขอบคุณครับ\n(คุณได้รับคะแนนสะสม 100 คะแนนเรียบร้อยแล้ว)" },
+                orderTypeBubble
+            ];
 
             await client.replyMessage({
                 replyToken,
@@ -209,9 +211,11 @@ export async function handleRegistrationFlow(
                 }
             });
 
-            const carousel = await getCategoriesCarousel();
-            const messages: any[] = [{ type: "text", text: "บันทึกข้อมูลเรียบร้อยครับ 👍\n\nสนใจรับอะไรดีคะ? กดดูเมนูได้เลย 👇" }];
-            if (carousel) messages.push(carousel);
+            const orderTypeBubble = createOrderTypeSelectionBubble();
+            const messages: any[] = [
+                { type: "text", text: "บันทึกข้อมูลเรียบร้อยครับ 👍" },
+                orderTypeBubble
+            ];
 
             await client.replyMessage({
                 replyToken,

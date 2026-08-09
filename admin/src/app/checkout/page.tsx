@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCart } from "@/context/CartContext";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, CreditCard, Truck, Banknote } from "lucide-react";
@@ -9,13 +9,29 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 import { createOrder } from "@/actions/order";
+import { getAvailableTables } from "@/actions/reservation";
+import { DiningTable } from "@prisma/client";
 
 export default function CheckoutPage() {
     const { items, cartTotal, clearCart } = useCart();
     const router = useRouter();
     const [isProcessing, setIsProcessing] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const [deliveryType, setDeliveryType] = useState<"PICKUP" | "TAKEAWAY" | "DELIVERY">("PICKUP");
+    const [deliveryType, setDeliveryType] = useState<"PICKUP" | "TAKEAWAY" | "DELIVERY" | "DINE_IN">("PICKUP");
+
+    const [reservationDate, setReservationDate] = useState(new Date().toISOString().split('T')[0]);
+    const [reservationTimeSlot, setReservationTimeSlot] = useState("");
+    const [availableTables, setAvailableTables] = useState<DiningTable[]>([]);
+    
+    useEffect(() => {
+        if (deliveryType === "DINE_IN" && reservationDate && reservationTimeSlot) {
+            getAvailableTables(reservationDate, reservationTimeSlot).then(res => {
+                if (res.success && res.availableTables) {
+                    setAvailableTables(res.availableTables);
+                }
+            });
+        }
+    }, [deliveryType, reservationDate, reservationTimeSlot]);
 
     // Mock Shipping Cost
     const shippingCost = cartTotal > 1000 ? 0 : 50;
@@ -27,12 +43,20 @@ export default function CheckoutPage() {
         setError(null);
 
         const formData = new FormData(e.currentTarget);
-        const shipping = {
+        const shipping: any = {
             customerName: formData.get("name") as string,
             customerPhone: formData.get("phone") as string,
             deliveryType: deliveryType,
             deliveryLocation: formData.get("location") as string,
         };
+
+        if (deliveryType === "DINE_IN") {
+            shipping.reservation = {
+                date: formData.get("reservationDate") as string,
+                timeSlot: formData.get("reservationTimeSlot") as string,
+                tableId: formData.get("tableId") as string
+            };
+        }
 
         const cartItemsInput = items.map(item => ({
             id: item.id,
@@ -96,18 +120,22 @@ export default function CheckoutPage() {
 
                                 <div className="space-y-3 pt-2">
                                     <label className="text-sm font-medium">วิธีการรับสินค้า</label>
-                                    <div className="flex gap-4">
-                                        <label className="flex items-center gap-2 border p-3 rounded-lg cursor-pointer hover:bg-gray-50 flex-1">
+                                    <div className="flex flex-wrap gap-4">
+                                        <label className="flex items-center gap-2 border p-3 rounded-lg cursor-pointer hover:bg-gray-50 flex-1 min-w-[120px]">
                                             <input type="radio" name="deliveryType" value="PICKUP" defaultChecked onChange={() => setDeliveryType("PICKUP")} />
                                             <span>รับเอง (Pick up)</span>
                                         </label>
-                                        <label className="flex items-center gap-2 border p-3 rounded-lg cursor-pointer hover:bg-gray-50 flex-1">
+                                        <label className="flex items-center gap-2 border p-3 rounded-lg cursor-pointer hover:bg-gray-50 flex-1 min-w-[120px]">
                                             <input type="radio" name="deliveryType" value="TAKEAWAY" onChange={() => setDeliveryType("TAKEAWAY")} />
                                             <span>Takehome</span>
                                         </label>
-                                        <label className="flex items-center gap-2 border p-3 rounded-lg cursor-pointer hover:bg-gray-50 flex-1">
+                                        <label className="flex items-center gap-2 border p-3 rounded-lg cursor-pointer hover:bg-gray-50 flex-1 min-w-[120px]">
                                             <input type="radio" name="deliveryType" value="DELIVERY" onChange={() => setDeliveryType("DELIVERY")} />
                                             <span>จัดส่ง (Delivery)</span>
+                                        </label>
+                                        <label className="flex items-center gap-2 border p-3 rounded-lg cursor-pointer hover:bg-gray-50 flex-1 min-w-[120px] bg-orange-50 border-orange-200">
+                                            <input type="radio" name="deliveryType" value="DINE_IN" onChange={() => setDeliveryType("DINE_IN")} />
+                                            <span className="font-semibold text-orange-700">ทานที่ร้าน (Dine-in)</span>
                                         </label>
                                     </div>
                                 </div>
@@ -116,6 +144,42 @@ export default function CheckoutPage() {
                                     <div className="space-y-2 animate-in fade-in slide-in-from-top-2">
                                         <label htmlFor="location" className="text-sm font-medium">ระบุสถานที่จัดส่ง</label>
                                         <input required name="location" placeholder="เช่น ตึก A ห้องประชุม 3" className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm" />
+                                    </div>
+                                )}
+                                
+                                {deliveryType === "DINE_IN" && (
+                                    <div className="space-y-4 animate-in fade-in slide-in-from-top-2 p-4 border rounded-lg bg-orange-50/50">
+                                        <h3 className="font-semibold">จองโต๊ะ (Table Reservation)</h3>
+                                        <div className="grid grid-cols-2 gap-4">
+                                            <div className="space-y-2">
+                                                <label className="text-sm font-medium">วันที่</label>
+                                                <input required type="date" name="reservationDate" value={reservationDate} onChange={(e) => setReservationDate(e.target.value)} className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm" />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="text-sm font-medium">เวลา (Time Slot)</label>
+                                                <select required name="reservationTimeSlot" value={reservationTimeSlot} onChange={(e) => setReservationTimeSlot(e.target.value)} className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
+                                                    <option value="">เลือกเวลา...</option>
+                                                    <option value="08:00">08:00 - 09:00</option>
+                                                    <option value="09:00">09:00 - 10:00</option>
+                                                    <option value="10:00">10:00 - 11:00</option>
+                                                    <option value="11:00">11:00 - 12:00</option>
+                                                    <option value="12:00">12:00 - 13:00</option>
+                                                    <option value="13:00">13:00 - 14:00</option>
+                                                    <option value="14:00">14:00 - 15:00</option>
+                                                    <option value="15:00">15:00 - 16:00</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div className="space-y-2">
+                                            <label className="text-sm font-medium">เลือกโต๊ะที่ว่าง</label>
+                                            <select required name="tableId" className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm" disabled={!reservationDate || !reservationTimeSlot}>
+                                                <option value="">{reservationTimeSlot ? 'เลือกโต๊ะ...' : 'กรุณาเลือกวันที่และเวลาก่อน'}</option>
+                                                {availableTables.map(t => (
+                                                    <option key={t.id} value={t.id}>{t.name} (นั่งได้ {t.capacity} ท่าน)</option>
+                                                ))}
+                                            </select>
+                                            <p className="text-xs text-muted-foreground mt-1">ระบบจะแสดงเฉพาะโต๊ะที่ว่างในช่วงเวลาที่คุณเลือก</p>
+                                        </div>
                                     </div>
                                 )}
                             </div>

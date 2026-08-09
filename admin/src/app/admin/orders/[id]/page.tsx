@@ -97,19 +97,53 @@ export default async function AdminOrderDetailPage({ params }: { params: Promise
                     <div className="rounded-lg border bg-card p-6 shadow-sm">
                         <h2 className="text-lg font-semibold mb-4">Customer Info</h2>
                         <div className="space-y-1 text-sm">
-                            <p><span className="font-medium">Name:</span> {order.User?.name || "Guest"}</p>
+                            <p><span className="font-medium">Name:</span> {order.customerName || order.User?.name || "Guest"}</p>
+                            {order.customerPhone && <p><span className="font-medium">Phone:</span> {order.customerPhone}</p>}
                             <p><span className="font-medium">Email:</span> {order.User?.email || "N/A"}</p>
-                            <p><span className="font-medium">User ID:</span> <span className="text-xs text-muted-foreground">{order.userId || "Guest"}</span></p>
+                            <p><span className="font-medium">User ID:</span> <span className="text-xs text-muted-foreground">{order.userId || order.lineUserId || "Guest"}</span></p>
                         </div>
                     </div>
 
+                    {order.isPreorder && (
+                        <div className="rounded-lg border bg-yellow-50 p-6 shadow-sm border-yellow-200">
+                            <h2 className="text-lg font-semibold mb-2 text-yellow-800">Pre-order Details</h2>
+                            <p className="text-sm text-yellow-900">
+                                <span className="font-medium">Requested Time:</span> {order.preorderDateTime ? new Date(order.preorderDateTime).toLocaleString('th-TH') : "N/A"}
+                            </p>
+                        </div>
+                    )}
+
+                    {order.paymentSlipUrl && (
+                        <div className="rounded-lg border bg-card p-6 shadow-sm">
+                            <h2 className="text-lg font-semibold mb-4">Payment Slip</h2>
+                            <div className="relative w-full aspect-[3/4] rounded-lg overflow-hidden border bg-muted">
+                                <Image
+                                    src={`/uploads/${order.paymentSlipUrl}`}
+                                    alt="Payment Slip"
+                                    fill
+                                    className="object-contain"
+                                    unoptimized
+                                />
+                            </div>
+                        </div>
+                    )}
+
                     <div className="rounded-lg border bg-card p-6 shadow-sm">
-                        <h2 className="text-lg font-semibold mb-4">Shipping Address</h2>
+                        <h2 className="text-lg font-semibold mb-4">Delivery Info</h2>
                         <div className="space-y-1 text-sm">
-                            <p className="font-medium">{shippingAddress.name}</p>
-                            <p>{shippingAddress.phone}</p>
-                            <p>{shippingAddress.address}</p>
-                            <p>{shippingAddress.city} {shippingAddress.zip}</p>
+                            {order.deliveryType ? (
+                                <>
+                                    <p><span className="font-medium">Type:</span> {order.deliveryType}</p>
+                                    {order.deliveryLocation && <p><span className="font-medium">Location:</span> {order.deliveryLocation}</p>}
+                                </>
+                            ) : (
+                                <>
+                                    <p className="font-medium">{shippingAddress.name}</p>
+                                    <p>{shippingAddress.phone}</p>
+                                    <p>{shippingAddress.address}</p>
+                                    <p>{shippingAddress.city} {shippingAddress.zip}</p>
+                                </>
+                            )}
                         </div>
                     </div>
                 </div>

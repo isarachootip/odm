@@ -11,6 +11,7 @@ type ExtendedOrder = Order & {
     items: (OrderItem & { Product: Product })[];
     specialInstructions?: string | null;
     branch?: { id: string, name: string } | null;
+    tableReservation?: { date: string; timeSlot: string; table: { name: string } } | null;
 };
 
 interface Props {
@@ -343,7 +344,18 @@ export function QueueMonitor({ initialOrders, addonProducts = [], branches, curr
                                                 {new Date(order.createdAt).toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' })} น.
                                             </div>
                                             <div className="font-medium text-gray-700">{order.customerName} {order.customerDepartment ? `(${order.customerDepartment})` : ''}</div>
-                                            {order.deliveryType && <div className="text-[10px] text-gray-400 uppercase tracking-wider">{order.deliveryType}</div>}
+                                            {order.deliveryType && (
+                                                <div className="flex items-center justify-between mt-1">
+                                                    <span className={`text-[10px] uppercase tracking-wider font-semibold ${order.deliveryType === 'DINE_IN' ? 'text-orange-500' : 'text-gray-400'}`}>
+                                                        {order.deliveryType === 'DINE_IN' ? 'ทานที่ร้าน (Dine-in)' : order.deliveryType}
+                                                    </span>
+                                                    {order.deliveryType === 'DINE_IN' && order.tableReservation && (
+                                                        <span className="font-bold text-orange-700 bg-orange-100 px-2 py-0.5 rounded text-xs">
+                                                            โต๊ะ {order.tableReservation.table.name} ({order.tableReservation.timeSlot})
+                                                        </span>
+                                                    )}
+                                                </div>
+                                            )}
                                         </div>
 
                                         {order.status === 'PAID' ? (

@@ -300,7 +300,7 @@ export function CustomerDetailClient({ customer: initialCustomer }: Props) {
 
                             <div>
                                 <label className="block text-sm font-semibold text-gray-700 mb-1">
-                                    แผนก / หน่วยงาน
+                                    ซอย (Soi)
                                 </label>
                                 <div className="relative">
                                     <Building2 className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
@@ -309,7 +309,7 @@ export function CustomerDetailClient({ customer: initialCustomer }: Props) {
                                         value={formData.department}
                                         onChange={(e) => setFormData({ ...formData, department: e.target.value })}
                                         className="w-full pl-9 pr-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-                                        placeholder="เช่น การตลาด, ไอที"
+                                        placeholder="เช่น ซอย 1, ซอย 2"
                                     />
                                 </div>
                             </div>

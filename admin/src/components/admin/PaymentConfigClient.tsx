@@ -35,7 +35,9 @@ export default function PaymentConfigClient({ initialConfigs }: Props) {
         accountName: "",
         accountNumber: "",
         promptpayNumber: "",
-        isDefault: false
+        isDefault: false,
+        slipTimeLimitMinutes: 30,
+        slipPreorderTimeLimitMinutes: 360
     });
 
     const [loading, setLoading] = useState(false);
@@ -59,7 +61,9 @@ export default function PaymentConfigClient({ initialConfigs }: Props) {
             accountName: "",
             accountNumber: "",
             promptpayNumber: "",
-            isDefault: false
+            isDefault: false,
+            slipTimeLimitMinutes: 30,
+            slipPreorderTimeLimitMinutes: 360
         });
         setIsEditing(null);
     };
@@ -72,7 +76,9 @@ export default function PaymentConfigClient({ initialConfigs }: Props) {
             accountName: config.accountName,
             accountNumber: config.accountNumber || "",
             promptpayNumber: config.promptpayNumber || "",
-            isDefault: config.isDefault
+            isDefault: config.isDefault,
+            slipTimeLimitMinutes: config.slipTimeLimitMinutes,
+            slipPreorderTimeLimitMinutes: config.slipPreorderTimeLimitMinutes
         });
         // Scroll to form
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -206,6 +212,32 @@ export default function PaymentConfigClient({ initialConfigs }: Props) {
                             />
                         </div>
                     )}
+
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Normal Slip Time Limit (Minutes)</label>
+                        <input
+                            type="number"
+                            min="1"
+                            required
+                            className="w-full p-2 border rounded"
+                            value={formData.slipTimeLimitMinutes}
+                            onChange={e => setFormData({ ...formData, slipTimeLimitMinutes: parseInt(e.target.value) || 30 })}
+                            placeholder="30"
+                        />
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Pre-order Slip Time Limit (Minutes)</label>
+                        <input
+                            type="number"
+                            min="1"
+                            required
+                            className="w-full p-2 border rounded"
+                            value={formData.slipPreorderTimeLimitMinutes}
+                            onChange={e => setFormData({ ...formData, slipPreorderTimeLimitMinutes: parseInt(e.target.value) || 360 })}
+                            placeholder="360"
+                        />
+                    </div>
 
                     <div className="flex items-center pt-6 md:col-span-2">
                         <label className="flex items-center gap-2 cursor-pointer select-none">
