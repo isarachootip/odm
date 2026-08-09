@@ -2,10 +2,13 @@ import { NextResponse } from 'next/server';
 import path from 'path';
 import fs from 'fs/promises';
 
-export async function GET(request: Request, { params }: { params: { path: string[] } }) {
+export async function GET(request: Request, { params }: { params: Promise<{ path: string[] }> }) {
     try {
+        // Await the params object
+        const resolvedParams = await params;
+        
         // Construct the absolute path to the file
-        const filePath = path.join(process.cwd(), 'public', 'uploads', ...params.path);
+        const filePath = path.join(process.cwd(), 'public', 'uploads', ...resolvedParams.path);
         
         // Read the file buffer
         const buffer = await fs.readFile(filePath);
