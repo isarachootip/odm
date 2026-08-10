@@ -5,9 +5,10 @@ import { CheckCircle2, MapPin, Receipt, Clock } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
-export default async function OrderSuccessPage({ params }: { params: { id: string } }) {
+export default async function OrderSuccessPage({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;
     const order = await prisma.order.findUnique({
-        where: { id: params.id },
+        where: { id: id },
         include: { items: { include: { Product: true } } }
     });
 
