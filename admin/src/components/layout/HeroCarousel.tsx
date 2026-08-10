@@ -3,9 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 export function HeroCarousel() {
     const [currentSlide, setCurrentSlide] = useState(0);
+    const t = useTranslations('Hero');
 
     // Mock slides array if we want to expand it later
     const slides = [
@@ -28,19 +30,19 @@ export function HeroCarousel() {
             <div className="relative z-10 container mx-auto px-6 lg:px-16 flex flex-col justify-center h-full">
                 <div className="max-w-2xl text-left bg-black/60 p-8 rounded-2xl backdrop-blur-sm border border-white/10">
                     <p className="text-xl md:text-2xl font-semibold text-yellow-400 mb-2">
-                        Signature Menu
+                        {t('subtitle')}
                     </p>
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
-                        Experience Authentic Thai Cuisine
+                        {t('title')}
                     </h1>
                     <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-xl">
-                        Try our exclusive Yuzu Orange Soda and premium Rice Dishes.
+                        {t('description')}
                     </p>
                     <Link
                         href="/products"
                         className="inline-block bg-primary hover:bg-primary/90 text-white font-bold py-3 px-8 rounded-full transition-colors shadow-lg"
                     >
-                        Order Now
+                        {t('orderNow')}
                     </Link>
                 </div>
             </div>

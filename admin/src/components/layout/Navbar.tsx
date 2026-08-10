@@ -6,10 +6,13 @@ import { Button } from "@/components/ui/button";
 import { useCart } from "@/context/CartContext";
 import { UserNav } from "../auth/UserNav";
 import { useState } from "react";
+import { LanguageSwitcher } from "./LanguageSwitcher";
+import { useTranslations } from "next-intl";
 
 export function Navbar() {
     const { toggleCart, cartCount } = useCart();
     const [isTopBarVisible, setIsTopBarVisible] = useState(true);
+    const t = useTranslations('Navigation');
 
     return (
         <header className="w-full bg-white flex flex-col relative z-50">
@@ -48,34 +51,35 @@ export function Navbar() {
                         {/* Shop by Categories Dropdown */}
                         <div className="hidden lg:flex items-center gap-2 cursor-pointer text-sm font-semibold text-gray-800 hover:text-blue-600 transition-colors">
                             <Menu className="w-5 h-5" />
-                            <span>Shop by Categories</span>
+                            <span>{t('shopByCategory')}</span>
                         </div>
                     </div>
 
                     {/* Center: Navigation Links */}
                     <nav className="hidden xl:flex items-center gap-8 text-sm font-bold text-gray-800">
                         <Link href="/" className="flex items-center gap-1 hover:text-blue-600 transition-colors">
-                            Demos <ChevronDown className="w-4 h-4 text-gray-400" />
+                            {t('demos')} <ChevronDown className="w-4 h-4 text-gray-400" />
                         </Link>
                         <Link href="/products" className="flex items-center gap-1 hover:text-blue-600 transition-colors">
-                            Shop <ChevronDown className="w-4 h-4 text-gray-400" />
+                            {t('shop')} <ChevronDown className="w-4 h-4 text-gray-400" />
                         </Link>
                         <Link href="#" className="flex items-center gap-1 hover:text-blue-600 transition-colors">
-                            Pages <ChevronDown className="w-4 h-4 text-gray-400" />
+                            {t('pages')} <ChevronDown className="w-4 h-4 text-gray-400" />
                         </Link>
                         <Link href="#" className="flex items-center gap-1 hover:text-blue-600 transition-colors">
-                            Elements <ChevronDown className="w-4 h-4 text-gray-400" />
+                            {t('elements')} <ChevronDown className="w-4 h-4 text-gray-400" />
                         </Link>
                         <Link href="#" className="flex items-center gap-1 hover:text-blue-600 transition-colors">
-                            Core Features <ChevronDown className="w-4 h-4 text-gray-400" />
+                            {t('features')} <ChevronDown className="w-4 h-4 text-gray-400" />
                         </Link>
                         <Link href="#" className="flex items-center gap-1 hover:text-blue-600 transition-colors">
-                            More <ChevronDown className="w-4 h-4 text-gray-400" />
+                            {t('more')} <ChevronDown className="w-4 h-4 text-gray-400" />
                         </Link>
                     </nav>
 
                     {/* Right: Actions */}
                     <div className="flex items-center gap-5 text-gray-800">
+                        <LanguageSwitcher />
                         <button className="hover:text-blue-600 transition-colors">
                             <Search className="w-5 h-5" />
                         </button>

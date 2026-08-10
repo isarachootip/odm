@@ -1,0 +1,23 @@
+{
+  "Navigation": {
+    "demos": "หน้าแรก (Demos)",
+    "shop": "สินค้า (Shop)",
+    "pages": "หน้าต่างๆ (Pages)",
+    "elements": "ส่วนประกอบ (Elements)",
+    "features": "ฟีเจอร์หลัก (Features)",
+    "more": "เพิ่มเติม (More)",
+    "shopByCategory": "เลือกตามหมวดหมู่"
+  },
+  "Hero": {
+    "subtitle": "เมนูแนะนำ",
+    "title": "สัมผัสรสชาติอาหารไทยแท้",
+    "description": "ลิ้มลองเมนูเด็ดอย่างข้าวผัดกะเพราและเครื่องดื่มสุดพิเศษ",
+    "orderNow": "สั่งอาหารเลย"
+  },
+  "Home": {
+    "exploreMenu": "เลือกดูหมวดหมู่เมนูของเรา",
+    "viewAll": "ดูเมนูทั้งหมด →",
+    "featuredProducts": "สินค้าแนะนำ",
+    "noProducts": "ไม่พบสินค้า (รัน /api/seed เพื่อเพิ่มข้อมูล)"
+  }
+}

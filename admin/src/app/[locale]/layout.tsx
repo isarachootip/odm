@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,16 +26,20 @@ import { CartSheet } from "@/components/cart/CartSheet";
 import { AuthProvider } from "@/components/auth/AuthProvider";
 import { Toaster } from "@/components/ui/sonner";
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params: { locale }
 }: Readonly<{
   children: React.ReactNode;
+  params: { locale: string };
 }>) {
+  const messages = await getMessages();
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
       >
+        <NextIntlClientProvider messages={messages}>
         <AuthProvider>
           <CartProvider>
             <Navbar />
@@ -45,6 +51,7 @@ export default function RootLayout({
             <Toaster />
           </CartProvider>
         </AuthProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

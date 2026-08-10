@@ -1,0 +1,23 @@
+{
+  "Navigation": {
+    "demos": "Demos",
+    "shop": "Shop",
+    "pages": "Pages",
+    "elements": "Elements",
+    "features": "Core Features",
+    "more": "More",
+    "shopByCategory": "Shop by Categories"
+  },
+  "Hero": {
+    "subtitle": "Signature Menu",
+    "title": "Experience Authentic Thai Cuisine",
+    "description": "Try our exclusive Yuzu Orange Soda and premium Rice Dishes.",
+    "orderNow": "Order Now"
+  },
+  "Home": {
+    "exploreMenu": "Explore our Menu Categories",
+    "viewAll": "View All Menu →",
+    "featuredProducts": "Featured Products",
+    "noProducts": "No products found. (Run /api/seed to populate)"
+  }
+}

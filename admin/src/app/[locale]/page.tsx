@@ -5,6 +5,7 @@ import { Product } from "@/types";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 
 export const dynamic = "force-dynamic";
 
@@ -35,6 +36,7 @@ const CATEGORIES = [
 
 export default async function Home() {
   const featuredProducts = await getFeaturedProducts();
+  const t = await getTranslations('Home');
 
   return (
     <div className="flex flex-col gap-16 pb-20 bg-white">
@@ -44,11 +46,11 @@ export default async function Home() {
       <section className="container mx-auto px-4 mt-8">
         <div className="flex flex-col sm:flex-row items-center justify-between mb-8">
           <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-gray-900">
-            Explore our <span className="font-extrabold text-orange-600">Menu Categories</span>
+             <span className="font-extrabold text-orange-600">{t('exploreMenu')}</span>
           </h2>
           <Link href="/products" className="mt-4 sm:mt-0">
             <Button variant="outline" className="bg-orange-50 text-orange-600 border-none hover:bg-orange-100 font-semibold rounded-full px-6">
-              View All Menu &rarr;
+              {t('viewAll')}
             </Button>
           </Link>
         </div>
@@ -75,13 +77,13 @@ export default async function Home() {
       {/* Product List Section */}
       <section className="container mx-auto px-4 mt-12">
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl font-bold tracking-tight text-gray-900">Featured Products</h2>
+          <h2 className="text-2xl font-bold tracking-tight text-gray-900">{t('featuredProducts')}</h2>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10">
           {featuredProducts.length === 0 ? (
             <div className="col-span-full py-12 text-center text-muted-foreground">
-              <p>No products found. (Run /api/seed to populate)</p>
+              <p>{t('noProducts')}</p>
             </div>
           ) : (
             featuredProducts.map((product) => (
