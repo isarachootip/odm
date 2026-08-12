@@ -15,7 +15,10 @@ export default function LoginPage() {
         setError("");
 
         // We invoke the server action directly
-        const result = await login(formData);
+        // Get callbackUrl from URL if it exists, otherwise it defaults to /admin in the action
+        const urlParams = new URLSearchParams(window.location.search);
+        const callbackUrl = urlParams.get("callbackUrl") || undefined;
+        const result = await login(formData, callbackUrl);
 
         if (result?.error) {
             setError(result.error);

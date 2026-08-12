@@ -3,7 +3,7 @@
 import { signIn } from "@/auth";
 import { AuthError } from "next-auth";
 
-export async function login(formData: FormData) {
+export async function login(formData: FormData, callbackUrl?: string) {
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
 
@@ -15,7 +15,7 @@ export async function login(formData: FormData) {
         await signIn("credentials", {
             email,
             password,
-            redirectTo: "/",
+            redirectTo: callbackUrl || "/admin",
         });
     } catch (error) {
         if (error instanceof AuthError) {
