@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { ShoppingCart, Search, User, RefreshCcw, Heart, Menu, ChevronDown, Package2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/context/CartContext";
@@ -26,15 +27,18 @@ export function Navbar() {
                     <div className="flex items-center gap-8">
                         {/* Logo */}
                         <Link href="/" className="flex items-center gap-2">
-                            <div className="text-blue-600">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
-                                    <line x1="3" y1="6" x2="21" y2="6"/>
-                                    <path d="M16 10a4 4 0 0 1-8 0"/>
-                                </svg>
+                            <div className="relative w-12 h-12">
+                                {/* ถ้าอัปโหลดรูป logo.png ไว้ในโฟลเดอร์ public แล้ว รูปจะแสดงตรงนี้ครับ */}
+                                <Image 
+                                    src="/logo.png" 
+                                    alt="ครัวคุณแหม่มซอย8" 
+                                    fill 
+                                    className="object-contain"
+                                    priority
+                                />
                             </div>
-                            <span className="font-extrabold text-2xl tracking-tight text-gray-900 uppercase">
-                                UNIMART
+                            <span className="font-extrabold text-xl tracking-tight text-gray-900">
+                                ครัวคุณแหม่มซอย8
                             </span>
                         </Link>
 
