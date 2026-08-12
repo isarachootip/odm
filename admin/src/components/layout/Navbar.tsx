@@ -16,17 +16,7 @@ export function Navbar() {
 
     return (
         <header className="w-full bg-white flex flex-col relative z-50">
-            {/* Top Notification Bar */}
-            {isTopBarVisible && (
-                <div className="w-full bg-[#0a3182] text-white text-xs py-2 px-4 flex justify-between items-center relative z-50">
-                    <div className="flex-1 text-center font-medium">
-                        Top products. Better prices -under $100. <Link href="/shop" className="underline font-bold hover:text-blue-200 ml-1">Shop Now</Link>
-                    </div>
-                    <button onClick={() => setIsTopBarVisible(false)} className="text-white hover:text-gray-300 absolute right-4">
-                        <X className="w-4 h-4" />
-                    </button>
-                </div>
-            )}
+            {/* Top Notification Bar Removed for cleaner look */}
 
             {/* Main Navbar */}
             <div className="w-full border-b shadow-sm sticky top-0 bg-white z-40">
@@ -48,34 +38,10 @@ export function Navbar() {
                             </span>
                         </Link>
 
-                        {/* Shop by Categories Dropdown */}
-                        <div className="hidden lg:flex items-center gap-2 cursor-pointer text-sm font-semibold text-gray-800 hover:text-blue-600 transition-colors">
-                            <Menu className="w-5 h-5" />
-                            <span>{t('shopByCategory')}</span>
-                        </div>
+                        {/* Shop by Categories Dropdown (Removed) */}
                     </div>
 
-                    {/* Center: Navigation Links */}
-                    <nav className="hidden xl:flex items-center gap-8 text-sm font-bold text-gray-800">
-                        <Link href="/" className="flex items-center gap-1 hover:text-blue-600 transition-colors">
-                            {t('demos')} <ChevronDown className="w-4 h-4 text-gray-400" />
-                        </Link>
-                        <Link href="/products" className="flex items-center gap-1 hover:text-blue-600 transition-colors">
-                            {t('shop')} <ChevronDown className="w-4 h-4 text-gray-400" />
-                        </Link>
-                        <Link href="#" className="flex items-center gap-1 hover:text-blue-600 transition-colors">
-                            {t('pages')} <ChevronDown className="w-4 h-4 text-gray-400" />
-                        </Link>
-                        <Link href="#" className="flex items-center gap-1 hover:text-blue-600 transition-colors">
-                            {t('elements')} <ChevronDown className="w-4 h-4 text-gray-400" />
-                        </Link>
-                        <Link href="#" className="flex items-center gap-1 hover:text-blue-600 transition-colors">
-                            {t('features')} <ChevronDown className="w-4 h-4 text-gray-400" />
-                        </Link>
-                        <Link href="#" className="flex items-center gap-1 hover:text-blue-600 transition-colors">
-                            {t('more')} <ChevronDown className="w-4 h-4 text-gray-400" />
-                        </Link>
-                    </nav>
+                    {/* Center: Navigation Links (Removed) */}
 
                     {/* Right: Actions */}
                     <div className="flex items-center gap-5 text-gray-800">
@@ -109,10 +75,7 @@ export function Navbar() {
                             </span>
                         </button>
                         
-                        {/* Admin Link for convenience (hidden in production typically) */}
-                        <Link href="/admin" className="hidden md:block ml-2 text-xs text-gray-400 hover:text-gray-600">
-                            Admin
-                        </Link>
+                        {/* Admin Link (Removed) */}
                     </div>
                 </div>
             </div>

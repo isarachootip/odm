@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Odm Vidwa - Food & Drink",
-  description: "Order your favorite food and drinks online from Odm Vidwa.",
+  title: "ครัวคุณแหม่มซอย8 - Food & Drink",
+  description: "Order your favorite food and drinks online from ครัวคุณแหม่มซอย8.",
 };
 
 import { Navbar } from "@/components/layout/Navbar";

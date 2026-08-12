@@ -7,7 +7,7 @@ export function LanguageSwitcher() {
   const router = useRouter();
 
   // Since next-intl injects the locale into the pathname, e.g. /th/products
-  const currentLocale = pathname.startsWith('/en') ? 'en' : 'th';
+  const currentLocale = pathname.startsWith('/en') ? 'en' : pathname.startsWith('/zh') ? 'zh' : 'th';
 
   const switchLocale = (newLocale: string) => {
     if (newLocale === currentLocale) return;
@@ -41,6 +41,13 @@ export function LanguageSwitcher() {
         className={`transition-colors ${currentLocale === 'en' ? "text-orange-600" : "text-gray-400 hover:text-gray-700"}`}
       >
         EN
+      </button>
+      <span className="text-gray-300">|</span>
+      <button 
+        onClick={() => switchLocale('zh')}
+        className={`transition-colors ${currentLocale === 'zh' ? "text-orange-600" : "text-gray-400 hover:text-gray-700"}`}
+      >
+        ZH
       </button>
     </div>
   );

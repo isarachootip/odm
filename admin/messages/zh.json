@@ -1,0 +1,23 @@
+{
+  "Navigation": {
+    "demos": "主页 (Demos)",
+    "shop": "商店 (Shop)",
+    "pages": "页面 (Pages)",
+    "elements": "元素 (Elements)",
+    "features": "核心功能 (Features)",
+    "more": "更多 (More)",
+    "shopByCategory": "按类别购物"
+  },
+  "Hero": {
+    "subtitle": "招牌菜单",
+    "title": "体验正宗泰国菜",
+    "description": "品尝我们独家的柚子橙子苏打和优质米饭菜肴。",
+    "orderNow": "立即下单"
+  },
+  "Home": {
+    "exploreMenu": "浏览我们的菜单类别",
+    "viewAll": "查看所有菜单 →",
+    "featuredProducts": "特色产品",
+    "noProducts": "未找到产品。(运行 /api/seed 填充)"
+  }
+}
