@@ -7,7 +7,8 @@ const nextConfig: any = {
   eslint: { ignoreDuringBuilds: true },
   images: {
     remotePatterns: [
-      { protocol: "https", hostname: "**" }
+      { protocol: "https", hostname: "**" },
+      { protocol: "http", hostname: "**" }
     ]
   }
 };
