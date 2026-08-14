@@ -10,7 +10,7 @@ import { useState } from "react";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { useTranslations } from "next-intl";
 
-export function Navbar() {
+export function Navbar({ logoUrl }: { logoUrl?: string | null }) {
     const { toggleCart, cartCount } = useCart();
     const [isTopBarVisible, setIsTopBarVisible] = useState(true);
     const t = useTranslations('Navigation');
@@ -27,13 +27,13 @@ export function Navbar() {
                     <div className="flex items-center gap-8">
                         {/* Logo */}
                         <Link href="/" className="flex items-center gap-2">
-                            <div className="relative w-12 h-12">
+                            <div className="relative w-12 h-12 rounded-full overflow-hidden">
                                 {/* ถ้าอัปโหลดรูป logo.png ไว้ในโฟลเดอร์ public แล้ว รูปจะแสดงตรงนี้ครับ */}
                                 <Image 
-                                    src="/logo.png" 
+                                    src={logoUrl || "/logo.png"} 
                                     alt="ครัวคุณแหม่มซอย8" 
                                     fill 
-                                    className="object-contain"
+                                    className="object-cover"
                                     priority
                                 />
                             </div>

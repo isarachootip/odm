@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Odm Vidwa",
-  description: "Experience the best food and beverages at Odm Vidwa",
+  title: "ครัวคุณแหม่มซอย8",
+  description: "เตี๋ยวเรือ + ข้าวแกง รสเด็ด",
 };
 
 export default function RootLayout({

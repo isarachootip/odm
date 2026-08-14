@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useState, useTransition, useRef } from 'react';
 import { updateShopConfig } from '@/actions/shop-config';
+import Image from 'next/image';
 
 interface ShopConfigProps {
     initialConfig: {
@@ -10,6 +11,7 @@ interface ShopConfigProps {
         isScheduleEnabled: boolean;
         openTime: string | null;
         closeTime: string | null;
+        logoUrl: string | null;
     };
 }
 
@@ -22,7 +24,42 @@ export default function ShopConfigClient({ initialConfig }: ShopConfigProps) {
     const [openTime, setOpenTime] = useState(initialConfig.openTime || "08:00");
     const [closeTime, setCloseTime] = useState(initialConfig.closeTime || "17:00");
 
+    // Logo state
+    const [logoUrl, setLogoUrl] = useState(initialConfig.logoUrl || null);
+    const [isUploading, setIsUploading] = useState(false);
+    const fileInputRef = useRef<HTMLInputElement>(null);
+
     const [isPending, startTransition] = useTransition();
+
+    const handleLogoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        try {
+            setIsUploading(true);
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const res = await fetch('/api/upload/logo', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!res.ok) {
+                throw new Error('Upload failed');
+            }
+
+            const data = await res.json();
+            if (data.url) {
+                setLogoUrl(data.url);
+            }
+        } catch (error) {
+            console.error('Logo upload error:', error);
+            alert('เกิดข้อผิดพลาดในการอัปโหลดรูปภาพ');
+        } finally {
+            setIsUploading(false);
+        }
+    };
 
     const handleSave = () => {
         startTransition(async () => {
@@ -32,7 +69,8 @@ export default function ShopConfigClient({ initialConfig }: ShopConfigProps) {
                     busyMessage,
                     isScheduleEnabled,
                     openTime,
-                    closeTime
+                    closeTime,
+                    logoUrl
                 });
                 alert('บันทึกการตั้งค่าเรียบร้อยแล้ว');
             } catch (error) {
@@ -49,6 +87,39 @@ export default function ShopConfigClient({ initialConfig }: ShopConfigProps) {
             </h2>
 
             <div className="space-y-8">
+                {/* Logo Section */}
+                <div className="space-y-4">
+                    <div className="font-medium text-gray-900">🖼️ โลโก้ร้านค้า (Shop Logo)</div>
+                    <div className="flex items-center gap-6">
+                        <div className="relative w-24 h-24 border border-gray-200 rounded-full overflow-hidden bg-gray-50 flex items-center justify-center">
+                            {logoUrl ? (
+                                <Image src={logoUrl} alt="Shop Logo" fill className="object-cover" />
+                            ) : (
+                                <span className="text-gray-400 text-sm">No Logo</span>
+                            )}
+                        </div>
+                        <div>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                className="hidden"
+                                ref={fileInputRef}
+                                onChange={handleLogoUpload}
+                            />
+                            <button
+                                onClick={() => fileInputRef.current?.click()}
+                                disabled={isUploading}
+                                className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-md text-sm font-medium transition-colors"
+                            >
+                                {isUploading ? 'กำลังอัปโหลด...' : 'เปลี่ยนโลโก้ (Change Logo)'}
+                            </button>
+                            <p className="text-xs text-gray-500 mt-2">รองรับไฟล์ JPG, PNG ขนาดไม่เกิน 5MB</p>
+                        </div>
+                    </div>
+                </div>
+
+                <hr className="border-gray-100" />
+
                 {/* Section 1: Opening Hours */}
                 <div className="space-y-4">
                     <div className="flex items-center justify-between p-4 bg-blue-50/50 rounded-lg border border-blue-100">

@@ -21,6 +21,7 @@ export async function updateShopConfig(data: {
     isScheduleEnabled?: boolean;
     openTime?: string;
     closeTime?: string;
+    logoUrl?: string;
 }) {
     const session = await auth()
 
@@ -36,7 +37,8 @@ export async function updateShopConfig(data: {
         busyMessage: data.busyMessage,
         isScheduleEnabled: data.isScheduleEnabled ?? false,
         openTime: data.openTime ?? null,
-        closeTime: data.closeTime ?? null
+        closeTime: data.closeTime ?? null,
+        logoUrl: data.logoUrl ?? null
     }
 
     if (config) {

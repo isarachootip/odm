@@ -288,6 +288,7 @@ model ShopConfig {
   isScheduleEnabled Boolean @default(false)
   openTime          String? 
   closeTime         String?
+  logoUrl           String?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 }

@@ -37,10 +37,15 @@ const CATEGORIES = [
 export default async function Home() {
   const featuredProducts = await getFeaturedProducts();
   const t = await getTranslations('Home');
+  const banners = await prisma.banner.findMany({
+      where: { isActive: true },
+      orderBy: { sortOrder: 'asc' }
+  });
 
   return (
     <div className="flex flex-col gap-16 pb-20 bg-white">
-      <HeroCarousel />
+      <HeroCarousel banners={banners} />
+
 
       {/* Discover the Menu Section */}
       <section className="container mx-auto px-4 mt-8">

@@ -56,6 +56,11 @@ export default async function AdminLayout({
                             <Users className="mr-2 h-4 w-4" /> Users
                         </Button>
                     </Link>
+                    <Link href="/admin/banners">
+                        <Button variant="ghost" className="w-full justify-start text-slate-600 hover:text-slate-900 hover:bg-slate-100">
+                            <Monitor className="mr-2 h-4 w-4" /> Banners
+                        </Button>
+                    </Link>
                     <Link href="/admin/customers">
                         <Button variant="ghost" className="w-full justify-start text-slate-600 hover:text-slate-900 hover:bg-slate-100">
                             <Users className="mr-2 h-4 w-4" /> Customers

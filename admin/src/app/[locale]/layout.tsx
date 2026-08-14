@@ -25,6 +25,7 @@ import { CartProvider } from "@/context/CartContext";
 import { CartSheet } from "@/components/cart/CartSheet";
 import { AuthProvider } from "@/components/auth/AuthProvider";
 import { Toaster } from "@/components/ui/sonner";
+import { getShopConfig } from "@/actions/shop-config";
 
 export default async function RootLayout({
   children,
@@ -35,6 +36,8 @@ export default async function RootLayout({
 }>) {
   const { locale } = await params;
   const messages = await getMessages();
+  const shopConfig = await getShopConfig();
+  
   return (
     <html lang={locale}>
       <body
@@ -43,7 +46,7 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
         <AuthProvider>
           <CartProvider>
-            <Navbar />
+            <Navbar logoUrl={shopConfig?.logoUrl} />
             <main className="flex-1">
               {children}
             </main>

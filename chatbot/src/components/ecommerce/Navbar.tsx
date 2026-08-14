@@ -20,7 +20,7 @@ const sketchedCirclePath = "M 25, 2 C 12.3, 2 2, 12.3 2, 25 C 2, 37.7 12.3, 48 2
 // A more "sketched" version with slight irregularities
 const roughCircle = "M48.5,25c0,12.7-10.3,23-23,23S2.5,37.7,2.5,25S12.8,2,25.5,2S48.5,12.3,48.5,25z M25.5,5.5c-10.8,0-19.5,8.7-19.5,19.5 s8.7,19.5,19.5,19.5s19.5-8.7,19.5-19.5S36.3,5.5,25.5,5.5z";
 
-export function EcomNavbar() {
+export function EcomNavbar({ logoUrl }: { logoUrl?: string | null }) {
     const pathname = usePathname();
     const { totalItems } = useCart();
     const [isCartOpen, setIsCartOpen] = useState(false);
@@ -57,8 +57,10 @@ export function EcomNavbar() {
                     {/* Header Row on Mobile: Logo + Cart + Menu */}
                     <div className="w-full lg:w-auto flex items-center justify-between">
                         <Link href="/ecommerce" className="flex items-center gap-2 lg:gap-3 shrink-0 group">
-                            <VlikeLogo className="w-8 h-8 lg:w-12 lg:h-12 shadow-inner group-hover:scale-110 transition-transform" />
-                            <span className="text-2xl lg:text-3xl font-black tracking-tighter text-white">Vlike</span>
+                            <div className="relative w-8 h-8 lg:w-12 lg:h-12 overflow-hidden rounded-full shadow-inner group-hover:scale-110 transition-transform bg-white">
+                                <img src={logoUrl || "/logo.png"} alt="ครัวคุณแหม่มซอย8" className="w-full h-full object-cover" />
+                            </div>
+                            <span className="text-xl lg:text-2xl font-black tracking-tighter text-white">ครัวคุณแหม่มซอย8</span>
                         </Link>
 
                         {/* Mobile Right Controls */}
