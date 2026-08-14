@@ -31,13 +31,16 @@ export function BannerForm({ initialData = null }: { initialData?: any }) {
             data.append("file", file);
 
             const res = await fetch("/api/upload/logo", { method: "POST", body: data });
-            if (!res.ok) throw new Error("Upload failed");
+            const result = await res.json().catch(() => ({}));
             
-            const result = await res.json();
+            if (!res.ok) {
+                throw new Error(result.error || "Upload failed");
+            }
+            
             setFormData(prev => ({ ...prev, imageUrl: result.url }));
-        } catch (error) {
+        } catch (error: any) {
             console.error(error);
-            alert("Failed to upload image");
+            alert(`Failed to upload image: ${error.message || 'Upload failed'}`);
         } finally {
             setUploading(false);
         }

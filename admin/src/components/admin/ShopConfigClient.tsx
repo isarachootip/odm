@@ -45,17 +45,18 @@ export default function ShopConfigClient({ initialConfig }: ShopConfigProps) {
                 body: formData
             });
 
+            const data = await res.json().catch(() => ({}));
+
             if (!res.ok) {
-                throw new Error('Upload failed');
+                throw new Error(data.error || 'Upload failed');
             }
 
-            const data = await res.json();
             if (data.url) {
                 setLogoUrl(data.url);
             }
-        } catch (error) {
+        } catch (error: any) {
             console.error('Logo upload error:', error);
-            alert('เกิดข้อผิดพลาดในการอัปโหลดรูปภาพ');
+            alert(`เกิดข้อผิดพลาดในการอัปโหลดรูปภาพ: ${error.message || 'Upload failed'}`);
         } finally {
             setIsUploading(false);
         }
