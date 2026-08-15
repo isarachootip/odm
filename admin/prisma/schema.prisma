@@ -281,16 +281,17 @@ enum Role {
 }
 
 model ShopConfig {
-  id              String   @id @default(cuid())
-  branchId        String?
-  branch          Branch?  @relation(fields: [branchId], references: [id])
-  isBusyMode      Boolean  @default(false)
-  busyMessage     String?  @default("ขออภัย ขณะนี้ร้านมีออเดอร์จำนวนมาก ของดรับออเดอร์ออนไลน์ชั่วคราวครับ")
-  isScheduleEnabled Boolean @default(false)
-  openTime          String? 
+  id                String   @id @default(cuid())
+  branchId          String?
+  branch            Branch?  @relation(fields: [branchId], references: [id])
+  isBusyMode        Boolean  @default(false)
+  busyMessage       String?  @default("ขออภัย ขณะนี้ร้านมีออเดอร์จำนวนมาก ของดรับออเดอร์ออนไลน์ชั่วคราวครับ")
+  isScheduleEnabled Boolean  @default(false)
+  openTime          String?
   closeTime         String?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  logoUrl           String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }
 
 model Branch {
