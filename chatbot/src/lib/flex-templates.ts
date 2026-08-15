@@ -224,12 +224,14 @@ export function createOrderTypeSelectionBubble(): FlexMessage {
     const tzOffset = 7 * 60 * 60 * 1000;
     const localNow = new Date(now.getTime() + tzOffset);
     
-    // Format as YYYY-MM-DDTHH:mm
+    // Format as YYYY-MM-DDTHH:mm for tomorrow at 08:00
+    // Set to next day
+    localNow.setUTCDate(localNow.getUTCDate() + 1);
     const year = localNow.getUTCFullYear();
     const month = String(localNow.getUTCMonth() + 1).padStart(2, '0');
     const day = String(localNow.getUTCDate()).padStart(2, '0');
-    const hours = String(localNow.getUTCHours()).padStart(2, '0');
-    const minutes = String(localNow.getUTCMinutes()).padStart(2, '0');
+    const hours = "08"; // Default to 08:00 AM for the next day
+    const minutes = "00";
     
     const minDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
 
