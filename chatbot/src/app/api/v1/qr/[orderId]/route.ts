@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { generatePromptPayQR } from "@/lib/promptpay";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/db";
 
 export async function GET(request: Request, props: { params: Promise<{ orderId: string }> }) {
     try {
