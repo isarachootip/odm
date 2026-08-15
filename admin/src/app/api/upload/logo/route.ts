@@ -44,7 +44,7 @@ export async function POST(request: Request): Promise<NextResponse> {
         const filePath = path.join(uploadDir, fileName);
         await fs.writeFile(filePath, buffer);
 
-        const url = `/uploads/logos/${fileName}`;
+        const url = `/api/uploads/logos/${fileName}`;
 
         return NextResponse.json({ url });
     } catch (error: any) {
