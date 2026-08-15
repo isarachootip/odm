@@ -31,7 +31,7 @@ export async function GET(request: Request, props: { params: Promise<{ orderId: 
             return new NextResponse("PromptPay not configured", { status: 404 });
         }
 
-        const buffer = await generatePromptPayQR(paymentConfig.promptpayNumber, Number(order.totalAmount));
+        const buffer = await generatePromptPayQR(paymentConfig.promptpayNumber, Number(order.total));
 
         return new NextResponse(buffer, {
             status: 200,
