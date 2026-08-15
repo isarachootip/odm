@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { uploadToMinIO } from '@/lib/minio';
 import path from 'path';
+import fs from 'fs/promises';
 
 export async function POST(request: Request): Promise<NextResponse> {
     try {
@@ -31,8 +31,16 @@ export async function POST(request: Request): Promise<NextResponse> {
         const bytes = await file.arrayBuffer();
         const buffer = Buffer.from(bytes);
 
-        // Upload to MinIO
-        const url = await uploadToMinIO(buffer, `products/${fileName}`, file.type);
+        // Save file locally to public/uploads/products
+        const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'products');
+        
+        // Ensure directory exists
+        await fs.mkdir(uploadDir, { recursive: true });
+
+        const filePath = path.join(uploadDir, fileName);
+        await fs.writeFile(filePath, buffer);
+
+        const url = `/uploads/products/${fileName}`;
 
         return NextResponse.json({ url });
     } catch (error: any) {
