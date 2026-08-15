@@ -42,6 +42,7 @@ const formatOptions = (optionsStr: string | null) => {
 };
 
 export function OrderManagement({ initialOrders }: Props) {
+    const [searchQuery, setSearchQuery] = useState("");
     const [filterStatus, setFilterStatus] = useState<string>("ALL");
     // Initialize with local date (YYYY-MM-DD) instead of UTC to avoid timezone issues
     const [selectedDate, setSelectedDate] = useState<string>(() => {
@@ -59,8 +60,17 @@ export function OrderManagement({ initialOrders }: Props) {
     fifteenDaysAgo.setDate(fifteenDaysAgo.getDate() - 15);
 
     // Filter Logic
-    // Filter Logic
     const filteredOrders = initialOrders.filter(order => {
+        // Search Filter
+        if (searchQuery) {
+            const query = searchQuery.toLowerCase();
+            const orderNumMatch = order.orderNumber?.toLowerCase().includes(query);
+            const nameMatch = (order.customerName || order.User?.name || "").toLowerCase().includes(query);
+            const phoneMatch = (order.customerPhone || "").toLowerCase().includes(query);
+            
+            if (!orderNumMatch && !nameMatch && !phoneMatch) return false;
+        }
+
         // Status Filter
         if (filterStatus !== "ALL" && order.status !== filterStatus) return false;
 
@@ -371,7 +381,19 @@ export function OrderManagement({ initialOrders }: Props) {
                     <p className="text-xs text-gray-500 mt-1">Showing: Last 15 days from selected date</p>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex flex-col md:flex-row items-center gap-2">
+                    {/* Search Input */}
+                    <input
+                        type="text"
+                        placeholder="Search by name, phone, or order no..."
+                        value={searchQuery}
+                        onChange={(e) => {
+                            setSearchQuery(e.target.value);
+                            setCurrentPage(1);
+                        }}
+                        className="h-10 px-3 rounded-md border text-sm focus:ring-2 focus:ring-yellow-400/50 outline-none w-full md:w-64"
+                    />
+                    
                     <select
                         className="h-10 pl-3 pr-8 rounded-md border text-sm focus:ring-2 focus:ring-yellow-400/50 outline-none cursor-pointer bg-white"
                         value={filterStatus}
