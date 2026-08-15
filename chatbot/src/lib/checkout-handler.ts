@@ -6,7 +6,7 @@ import { createCarousel, createCategoryBubble, createProductBubble, createCartBu
 import { downloadLineContent } from "./line-content";
 import { analyzePaymentSlip } from "./gemini-vision";
 import { verifySlip } from "./slip-verifier";
-import { generatePromptPayQR, uploadQRToBlob } from "./promptpay";
+import { generatePromptPayQR } from "./promptpay";
 import { uploadToMinIO } from "./minio";
 
 type TempData = {
@@ -590,8 +590,7 @@ async function createOrderFromSession(
 
             // Generate QR Code only for PromptPay
             if (paymentConfig.paymentType === "PROMPTPAY" && paymentConfig.promptpayNumber) {
-                const qrBuffer = await generatePromptPayQR(paymentConfig.promptpayNumber, total);
-                const qrUrl = await uploadQRToBlob(qrBuffer, order.id);
+                const qrUrl = `${process.env.CHATBOT_URL}/api/v1/qr/${order.id}`;
 
                 paymentMessage += `**(1) 📱 สแกนจ่ายง่ายๆ (แนะนำ ✨)**\n(บันทึกรูป QR ด้านล่างแล้วสแกนในแอปธนาคาร)\n\n━━━━━━━━━━━━━━━\n\n**(2) 🏦 หรือโอนเข้าพร้อมเพย์**\nเบอร์: ${paymentConfig.promptpayNumber}\nชื่อบัญชี: ${paymentConfig.accountName}\n\n*(โอนแล้วแจ้งสลิปกลับมาได้เลยครับ)*`;
 
