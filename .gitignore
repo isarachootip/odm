@@ -2,8 +2,15 @@ node_modules/
 .next/
 .env
 .env.local
+.env.production
+.env.vercel
 .vercel/
 dist/
 build/
 *.log
 .DS_Store
+*.tsbuildinfo
+*.txt
+*.html
+*.js
+data/
