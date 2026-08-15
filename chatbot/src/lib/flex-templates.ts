@@ -732,7 +732,7 @@ export function createOrderFoodBubble(branchCode?: string): FlexBubble {
             action: {
                 type: "uri",
                 label: "Order Food",
-                uri: "https://liff.line.me/2006637207-Kq80Jp1l/ecommerce/food"
+                uri: "https://liff.line.me/2011083072-8BYGcIL4/ecommerce/food"
             }
         },
         body: {
@@ -760,7 +760,7 @@ export function createOrderFoodBubble(branchCode?: string): FlexBubble {
             action: {
                 type: "uri",
                 label: "Order Food",
-                uri: "https://liff.line.me/2006637207-Kq80Jp1l/ecommerce/food"
+                uri: "https://liff.line.me/2011083072-8BYGcIL4/ecommerce/food"
             }
         },
         footer: {
