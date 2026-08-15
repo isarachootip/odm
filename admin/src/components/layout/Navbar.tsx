@@ -9,6 +9,12 @@ import { UserNav } from "../auth/UserNav";
 import { useState } from "react";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { useTranslations } from "next-intl";
+import { Charm } from "next/font/google";
+
+const charmFont = Charm({ 
+    weight: ["400", "700"], 
+    subsets: ["latin", "thai"] 
+});
 
 export function Navbar({ logoUrl }: { logoUrl?: string | null }) {
     const { toggleCart, cartCount } = useCart();
@@ -21,13 +27,13 @@ export function Navbar({ logoUrl }: { logoUrl?: string | null }) {
 
             {/* Main Navbar */}
             <div className="w-full border-b shadow-sm sticky top-0 bg-white z-40">
-                <div className="container mx-auto flex h-20 items-center justify-between px-4 xl:px-8">
+                <div className="container mx-auto flex h-24 items-center justify-between px-4 xl:px-8">
                     
                     {/* Left: Logo & Categories */}
                     <div className="flex items-center gap-8">
                         {/* Logo */}
-                        <Link href="/" className="flex items-center gap-2">
-                            <div className="relative w-12 h-12 rounded-full overflow-hidden">
+                        <Link href="/" className="flex items-center gap-3">
+                            <div className="relative w-16 h-16 rounded-full overflow-hidden shadow-sm border border-gray-100">
                                 {/* ถ้าอัปโหลดรูป logo.png ไว้ในโฟลเดอร์ public แล้ว รูปจะแสดงตรงนี้ครับ */}
                                 <Image 
                                     src={logoUrl || "/logo.png"} 
@@ -37,7 +43,7 @@ export function Navbar({ logoUrl }: { logoUrl?: string | null }) {
                                     priority
                                 />
                             </div>
-                            <span className="font-extrabold text-xl tracking-tight text-gray-900">
+                            <span className={`font-bold text-3xl tracking-tight text-gray-900 ${charmFont.className}`}>
                                 ครัวคุณแหม่มซอย8
                             </span>
                         </Link>
