@@ -26,6 +26,20 @@ export async function GET() {
             });
         }
 
+        // 4.1 Create Specific Admin User
+        const specificAdmin = await prisma.user.findUnique({ where: { email: "chapirak@gmail.com" } });
+        if (!specificAdmin) {
+            const hashedPassword = await bcrypt.hash("123456", 10);
+            await prisma.user.create({
+                data: {
+                    name: "Chapirak Admin",
+                    email: "chapirak@gmail.com",
+                    password: hashedPassword,
+                    role: "ADMIN"
+                }
+            });
+        }
+
         // Check if products exist
         const count = await prisma.product.count();
         if (count > 0) {
