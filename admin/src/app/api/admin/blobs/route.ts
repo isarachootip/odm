@@ -1,7 +1,13 @@
 import { NextResponse } from 'next/server';
 import { S3Client, ListObjectsV2Command } from '@aws-sdk/client-s3';
+import { NodeHttpHandler } from '@smithy/node-http-handler';
+import https from 'https';
 
 export const dynamic = 'force-dynamic';
+
+const httpsAgent = new https.Agent({
+    rejectUnauthorized: false,
+});
 
 const s3Client = new S3Client({
     endpoint: process.env.MINIO_ENDPOINT,
@@ -11,6 +17,9 @@ const s3Client = new S3Client({
         secretAccessKey: process.env.MINIO_SECRET_KEY || '',
     },
     forcePathStyle: true,
+    requestHandler: new NodeHttpHandler({
+        httpsAgent,
+    }),
 });
 
 interface LocalBlob {
