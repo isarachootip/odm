@@ -37,10 +37,15 @@ const CATEGORIES = [
 export default async function Home() {
   const featuredProducts = await getFeaturedProducts();
   const t = await getTranslations('Home');
-  const banners = await prisma.banner.findMany({
+  let banners: any[] = [];
+  try {
+    banners = await prisma.banner.findMany({
       where: { isActive: true },
       orderBy: { sortOrder: 'asc' }
-  });
+    });
+  } catch (error) {
+    console.error("Failed to fetch banners:", error);
+  }
 
   return (
     <div className="flex flex-col gap-16 pb-20 bg-white">
