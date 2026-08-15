@@ -65,18 +65,31 @@ export default function ShopConfigClient({ initialConfig }: ShopConfigProps) {
     const handleSave = () => {
         startTransition(async () => {
             try {
-                await updateShopConfig({
-                    isBusyMode,
-                    busyMessage,
-                    isScheduleEnabled,
-                    openTime,
-                    closeTime,
-                    logoUrl
+                const res = await fetch('/api/admin/shop-config', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        isBusyMode,
+                        busyMessage,
+                        isScheduleEnabled,
+                        openTime,
+                        closeTime,
+                        logoUrl
+                    })
                 });
+
+                const data = await res.json().catch(() => ({}));
+
+                if (!res.ok) {
+                    throw new Error(data.error || 'Failed to save');
+                }
+
                 alert('บันทึกการตั้งค่าเรียบร้อยแล้ว');
-            } catch (error) {
+                // Reload page to update Navbar logo
+                window.location.reload();
+            } catch (error: any) {
                 console.error(error);
-                alert('เกิดข้อผิดพลาดในการบันทึก');
+                alert(`เกิดข้อผิดพลาดในการบันทึก: ${error.message}`);
             }
         });
     };
