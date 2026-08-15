@@ -12,10 +12,24 @@ export async function GET() {
         // await prisma.product.deleteMany(); // Comment out if you want to keep existing
         // await prisma.category.deleteMany();
 
-        // Check if data exists
+        // 4. Create Admin User (Always check and create if missing)
+        const existingAdmin = await prisma.user.findUnique({ where: { email: "admin@example.com" } });
+        if (!existingAdmin) {
+            const hashedPassword = await bcrypt.hash("123456", 10);
+            await prisma.user.create({
+                data: {
+                    name: "Admin User",
+                    email: "admin@example.com",
+                    password: hashedPassword,
+                    role: "ADMIN"
+                }
+            });
+        }
+
+        // Check if products exist
         const count = await prisma.product.count();
         if (count > 0) {
-            return NextResponse.json({ message: "Database already seeded!" });
+            return NextResponse.json({ message: "Database already seeded! (Admin user ensured)" });
         }
 
         // 2. Create Categories
@@ -159,19 +173,7 @@ export async function GET() {
             })
         }
 
-        // 4. Create Admin User
-        const existingAdmin = await prisma.user.findUnique({ where: { email: "admin@example.com" } });
-        if (!existingAdmin) {
-            const hashedPassword = await bcrypt.hash("123456", 10);
-            await prisma.user.create({
-                data: {
-                    name: "Admin User",
-                    email: "admin@example.com",
-                    password: hashedPassword,
-                    role: "ADMIN"
-                }
-            });
-        }
+        // Admin user creation moved to the top
 
         return NextResponse.json({ message: "Seeding complete! Admin created (admin@example.com / 123456)", count: productsData.length });
     } catch (error) {
