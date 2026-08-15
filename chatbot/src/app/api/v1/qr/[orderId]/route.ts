@@ -5,11 +5,14 @@ import { prisma } from "@/lib/prisma";
 export async function GET(request: Request, props: { params: Promise<{ orderId: string }> }) {
     try {
         const params = await props.params;
-        const orderId = params.orderId;
+        const rawOrderId = params.orderId;
         
-        if (!orderId) {
+        if (!rawOrderId) {
             return new NextResponse("Missing orderId", { status: 400 });
         }
+
+        // Remove .png extension if present (required by LINE API)
+        const orderId = rawOrderId.replace(/\.png$/, '');
 
         const order = await prisma.order.findUnique({
             where: { id: orderId }
