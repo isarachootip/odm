@@ -590,7 +590,9 @@ async function createOrderFromSession(
 
             // Generate QR Code only for PromptPay
             if (paymentConfig.paymentType === "PROMPTPAY" && paymentConfig.promptpayNumber) {
-                const qrUrl = `${process.env.CHATBOT_URL}/api/v1/qr/${order.id}.png`;
+                const baseUrl = (process.env.CHATBOT_URL || "https://mamsoi8.online").replace(/\/$/, "");
+                const qrUrl = `${baseUrl}/api/v1/qr/${order.id}.png`;
+                console.log(`Generated QR URL: ${qrUrl}`);
 
                 paymentMessage += `**(1) 📱 สแกนจ่ายง่ายๆ (แนะนำ ✨)**\n(บันทึกรูป QR ด้านล่างแล้วสแกนในแอปธนาคาร)\n\n━━━━━━━━━━━━━━━\n\n**(2) 🏦 หรือโอนเข้าพร้อมเพย์**\nเบอร์: ${paymentConfig.promptpayNumber}\nชื่อบัญชี: ${paymentConfig.accountName}\n\n*(โอนแล้วแจ้งสลิปกลับมาได้เลยครับ)*`;
 
