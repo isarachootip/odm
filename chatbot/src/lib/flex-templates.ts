@@ -219,6 +219,20 @@ export function createCarousel(bubbles: FlexBubble[]): FlexMessage {
 }
 
 export function createOrderTypeSelectionBubble(): FlexMessage {
+    // Get current time in Thailand (UTC+7)
+    const now = new Date();
+    const tzOffset = 7 * 60 * 60 * 1000;
+    const localNow = new Date(now.getTime() + tzOffset);
+    
+    // Format as YYYY-MM-DDTHH:mm
+    const year = localNow.getUTCFullYear();
+    const month = String(localNow.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(localNow.getUTCDate()).padStart(2, '0');
+    const hours = String(localNow.getUTCHours()).padStart(2, '0');
+    const minutes = String(localNow.getUTCMinutes()).padStart(2, '0');
+    
+    const minDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
+
     return {
         type: "flex",
         altText: "เลือกประเภทการสั่งอาหาร",
@@ -254,7 +268,9 @@ export function createOrderTypeSelectionBubble(): FlexMessage {
                             type: "datetimepicker",
                             label: "📅 สั่งจองล่วงหน้า",
                             data: "action=select_order_type&type=preorder",
-                            mode: "datetime"
+                            mode: "datetime",
+                            initial: minDateTime,
+                            min: minDateTime
                         }
                     }
                 ]
