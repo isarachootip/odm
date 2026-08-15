@@ -25,7 +25,7 @@ export async function GET() {
         const products = await neonPrisma.product.findMany({
             include: { variants: true }
         });
-        const shopConfigs = await neonPrisma.shopConfig.findMany();
+        const shopConfigs = await neonPrisma.$queryRawUnsafe<any[]>(`SELECT * FROM "ShopConfig"`);
         const users = await neonPrisma.user.findMany();
 
         console.log(`Fetched from Neon: 
@@ -101,15 +101,15 @@ export async function GET() {
             await prisma.shopConfig.create({
                 data: {
                     id: sc.id,
-                    branchId: sc.branchId,
-                    isBusyMode: sc.isBusyMode,
-                    busyMessage: sc.busyMessage,
-                    isScheduleEnabled: sc.isScheduleEnabled,
-                    openTime: sc.openTime,
-                    closeTime: sc.closeTime,
-                    logoUrl: sc.logoUrl,
-                    createdAt: sc.createdAt,
-                    updatedAt: sc.updatedAt
+                    branchId: sc.branchId || null,
+                    isBusyMode: sc.isBusyMode ?? false,
+                    busyMessage: sc.busyMessage || null,
+                    isScheduleEnabled: sc.isScheduleEnabled ?? false,
+                    openTime: sc.openTime || null,
+                    closeTime: sc.closeTime || null,
+                    logoUrl: sc.logoUrl || null,
+                    createdAt: sc.createdAt ? new Date(sc.createdAt) : new Date(),
+                    updatedAt: sc.updatedAt ? new Date(sc.updatedAt) : new Date()
                 }
             });
         }
