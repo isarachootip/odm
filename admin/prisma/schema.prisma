@@ -21,6 +21,7 @@ model Product {
   specifications Json?
   categoryId     String?
   isActive       Boolean          @default(true)
+  isDailySpecial Boolean          @default(false)
   availableDays  Int[]
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt

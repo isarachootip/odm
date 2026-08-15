@@ -260,6 +260,61 @@ export async function POST(req: Request, props: { params: Promise<{ branch: stri
                     }
                 }
 
+                // --- LOGIC 1.5: DAILY SPECIALS ---
+                if (userMessage.match(/เมนูพิเศษ|เมนูประจำวัน|เมนูวันนี้|special/i)) {
+                    console.log("Fetching daily specials");
+
+                    try {
+                        const products = await prisma.product.findMany({
+                            where: { isDailySpecial: true, isActive: true },
+                            take: 12,
+                            orderBy: { name: 'asc' }
+                        });
+
+                        console.log(`Found ${products.length} special products`);
+
+                        if (products.length === 0) {
+                            if (replyToken === "test-token-12345") continue;
+                            await client.replyMessage({
+                                replyToken: replyToken,
+                                messages: [{ type: "text", text: `วันนี้ยังไม่มีเมนูพิเศษครับ ลองดูเมนูปกติก่อนนะครับ 🙏` }]
+                            });
+                            continue;
+                        }
+
+                        const bubbles = products.map((p: any) => createProductBubble({
+                            id: p.id,
+                            name: `🔥 ${p.name}`, // Highlight name
+                            price: Number(p.price), 
+                            image: p.images && p.images.length > 0 ? p.images[0] : null,
+                            specifications: p.specifications 
+                        }, userId, branchConfig.branchCode));
+
+                        const carousel = createCarousel(bubbles);
+
+                        if (replyToken === "test-token-12345") continue;
+
+                        await client.replyMessage({
+                            replyToken: replyToken,
+                            messages: [
+                                { type: "text", text: "🔥 เมนูพิเศษประจำวันนี้ มาแล้วครับ! 👇" },
+                                carousel as any
+                            ]
+                        });
+                        console.log("Special Product Carousel sent!");
+                        continue; 
+
+                    } catch (err) {
+                        console.error("Error fetching special products:", err);
+                        if (replyToken === "test-token-12345") continue;
+                        await client.replyMessage({
+                            replyToken: replyToken,
+                            messages: [{ type: "text", text: "เกิดข้อผิดพลาดในการดึงข้อมูลเมนูพิเศษ" }]
+                        });
+                        continue;
+                    }
+                }
+
                 // --- LOGIC 1: VIEW PRODUCTS IN CATEGORY ---
                 // Pattern: "ดูเมนู [CategoryName]"
                 if (userMessage.startsWith("ดูเมนู ")) {
@@ -290,7 +345,7 @@ export async function POST(req: Request, props: { params: Promise<{ branch: stri
 
                         const products = await prisma.product.findMany({
                             where: productWhere,
-                            take: 10,
+                            take: 12, // LINE Carousel allows up to 12 bubbles max
                             orderBy: { name: 'asc' }
                         });
 

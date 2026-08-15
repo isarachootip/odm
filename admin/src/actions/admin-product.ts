@@ -29,6 +29,7 @@ export async function createProduct(formData: FormData) {
     const image = formData.get("image") as string;
     const specificationsJson = formData.get("specifications") as string;
     const isActive = formData.get("isActive") === "true";
+    const isDailySpecial = formData.get("isDailySpecial") === "true";
     
     const availableDaysStrings = formData.getAll("availableDays") as string[];
     const availableDays = availableDaysStrings.map(d => parseInt(d)).filter(d => !isNaN(d));
@@ -68,6 +69,7 @@ export async function createProduct(formData: FormData) {
                 images: image ? [image] : [], // Fixed: use images array
                 specifications: specifications,
                 isActive,
+                isDailySpecial,
                 availableDays,
                 variants: {
                     create: variantsData.map((v: any) => ({
@@ -99,6 +101,7 @@ export async function updateProduct(id: string, formData: FormData) {
     const variantsJson = formData.get("variants") as string;
     const specificationsJson = formData.get("specifications") as string;
     const isActive = formData.get("isActive") === "true";
+    const isDailySpecial = formData.get("isDailySpecial") === "true";
 
     const availableDaysStrings = formData.getAll("availableDays") as string[];
     const availableDays = availableDaysStrings.map(d => parseInt(d)).filter(d => !isNaN(d));
@@ -132,6 +135,7 @@ export async function updateProduct(id: string, formData: FormData) {
                     price,
                     categoryId,
                     isActive,
+                    isDailySpecial,
                     availableDays,
                     ...(image ? { images: [image] } : {}), // Only update image if provided
                     ...(specifications ? { specifications } : {}),

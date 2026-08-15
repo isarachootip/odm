@@ -241,6 +241,27 @@ export function ProductForm({ categories, product, action }: ProductFormProps) {
                     </label>
                 </div>
 
+                {/* Daily Special Toggle */}
+                <div className="space-y-1 pt-4 border-t flex items-center justify-between">
+                    <div>
+                        <label className="block text-sm font-medium text-gray-900 text-orange-600 flex items-center gap-2">
+                            <span>Daily Special (เมนูพิเศษประจำวัน)</span>
+                            <span className="px-2 py-0.5 rounded-full bg-orange-100 text-orange-600 text-[10px] font-bold uppercase tracking-wider">Hot</span>
+                        </label>
+                        <p className="text-xs text-gray-500">If enabled, this product will be featured in the Today's Special section.</p>
+                    </div>
+                    <label className="relative inline-flex items-center cursor-pointer">
+                        <input
+                            type="checkbox"
+                            name="isDailySpecial"
+                            value="true"
+                            defaultChecked={product?.isDailySpecial ?? false}
+                            className="sr-only peer"
+                        />
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-orange-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500"></div>
+                    </label>
+                </div>
+
                 {/* Available Days Options */}
                 <div className="space-y-2 pt-4 border-t">
                     <div>
