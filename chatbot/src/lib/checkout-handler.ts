@@ -647,7 +647,8 @@ export async function handlePaymentSlip(
     userId: string,
     messageId: string,
     client: line.messagingApi.MessagingApiClient,
-    replyToken: string
+    replyToken: string,
+    channelAccessToken: string
 ): Promise<boolean> {
     const session = await prisma.cartSession.findUnique({
         where: { lineUserId: userId }
@@ -702,59 +703,92 @@ export async function handlePaymentSlip(
             const slipokApiKey = paymentConfig?.slipokApiKey || process.env.SLIPOK_API_KEY || "";
 
             let verificationResult;
+            let slipokFailed = false;
             try {
                 verificationResult = await verifySlip(imageBuffer, slipokBranchId, slipokApiKey);
                 console.log("Verification Result:", verificationResult);
             } catch (apiError) {
-                console.error("Slip Verification API Failed:", apiError);
-                throw new Error("ระบบตรวจสอบสลิปขัดข้อง กรุณาลองใหม่อีกครั้ง");
+                console.error("Slip Verification API Failed, falling back to Gemini Vision:", apiError);
+                slipokFailed = true;
             }
 
-            if (!verificationResult.isValid) {
-                await client.replyMessage({
-                    replyToken,
-                    messages: [{
-                        type: "text",
-                        text: `❌ ไม่สามารถตรวจสอบสลิปได้\nสาเหตุ: ${verificationResult.message || 'สลิปไม่ถูกต้อง'}\n\nกรุณาส่งภาพสลิปที่ถูกต้องเต็มใบอีกครั้ง`
-                    }]
-                });
-                return true;
-            }
+            // If SlipOK API failed, fallback to Gemini Vision
+            if (slipokFailed) {
+                console.log("SlipOK unavailable, using Gemini Vision fallback...");
+                let analysis;
+                try {
+                    analysis = await analyzePaymentSlip(imageBuffer);
+                    console.log("Gemini Fallback Analysis:", analysis);
+                } catch (geminiError) {
+                    console.error("Gemini also failed:", geminiError);
+                    analysis = { isSlip: true, amount: 0, confidence: "low" as const };
+                }
 
-            // 5. Verify Amount (Strict Matching)
-            const orderTotal = Number(order.total);
-            const isAmountMatch = verificationResult.amount === orderTotal; // Exact match required for API
+                const orderTotal = Number(order.total);
+                const isAmountMatch = Math.abs((analysis.amount || 0) - orderTotal) < 5.0;
 
-            if (!isAmountMatch) {
-                await client.replyMessage({
-                    replyToken,
-                    messages: [{
-                        type: "text",
-                        text: `⚠️ ยอดเงินในสลิป (${verificationResult.amount} บาท) ไม่ตรงกับยอดสั่งซื้อ (${orderTotal} บาท)\n\nกรุณาตรวจสอบและส่งสลิปที่ถูกต้องอีกครั้ง`
-                    }]
-                });
-                return true;
-            }
-
-            // 5.5 Prevent Slip Reuse (Check Transaction Ref)
-            if (verificationResult.transRef) {
-                const existingOrder = await prisma.order.findUnique({
-                    where: { transactionRef: verificationResult.transRef }
-                });
-
-                if (existingOrder && existingOrder.id !== order.id) {
+                if (analysis.isSlip && analysis.confidence === "high" && !isAmountMatch) {
                     await client.replyMessage({
                         replyToken,
                         messages: [{
                             type: "text",
-                            text: `⚠️ สลิปนี้ถูกใช้งานไปแล้ว (รหัสอ้างอิง: ${verificationResult.transRef})\n\nกรุณาใช้สลิปที่ถูกต้องสำหรับการสั่งซื้อนี้`
+                            text: `⚠️ ยอดเงินในสลิป (${analysis.amount} บาท) ไม่ตรงกับยอดสั่งซื้อ (${orderTotal} บาท)\n\nกรุณาตรวจสอบและส่งสลิปที่ถูกต้องอีกครั้ง`
                         }]
                     });
                     return true;
                 }
-                transactionRefToSave = verificationResult.transRef;
+
+                isSlipApproved = true;
             }
-            isSlipApproved = true;
+
+            // Only process SlipOK result if the API didn't fail
+            if (!slipokFailed) {
+                if (!verificationResult.isValid) {
+                    await client.replyMessage({
+                        replyToken,
+                        messages: [{
+                            type: "text",
+                            text: `❌ ไม่สามารถตรวจสอบสลิปได้\nสาเหตุ: ${verificationResult.message || 'สลิปไม่ถูกต้อง'}\n\nกรุณาส่งภาพสลิปที่ถูกต้องเต็มใบอีกครั้ง`
+                        }]
+                    });
+                    return true;
+                }
+
+                // 5. Verify Amount (Strict Matching)
+                const orderTotal = Number(order.total);
+                const isAmountMatch = verificationResult.amount === orderTotal; // Exact match required for API
+
+                if (!isAmountMatch) {
+                    await client.replyMessage({
+                        replyToken,
+                        messages: [{
+                            type: "text",
+                            text: `⚠️ ยอดเงินในสลิป (${verificationResult.amount} บาท) ไม่ตรงกับยอดสั่งซื้อ (${orderTotal} บาท)\n\nกรุณาตรวจสอบและส่งสลิปที่ถูกต้องอีกครั้ง`
+                        }]
+                    });
+                    return true;
+                }
+
+                // 5.5 Prevent Slip Reuse (Check Transaction Ref)
+                if (verificationResult.transRef) {
+                    const existingOrder = await prisma.order.findUnique({
+                        where: { transactionRef: verificationResult.transRef }
+                    });
+
+                    if (existingOrder && existingOrder.id !== order.id) {
+                        await client.replyMessage({
+                            replyToken,
+                            messages: [{
+                                type: "text",
+                                text: `⚠️ สลิปนี้ถูกใช้งานไปแล้ว (รหัสอ้างอิง: ${verificationResult.transRef})\n\nกรุณาใช้สลิปที่ถูกต้องสำหรับการสั่งซื้อนี้`
+                            }]
+                        });
+                        return true;
+                    }
+                    transactionRefToSave = verificationResult.transRef;
+                }
+                isSlipApproved = true;
+            }
         } 
         // --- FALLBACK MULTI-MODAL VERIFICATION (GEMINI VISION) ---
         else {

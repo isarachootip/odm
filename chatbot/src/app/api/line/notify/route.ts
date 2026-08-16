@@ -1,12 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { messagingApi } from "@line/bot-sdk";
+import { prisma } from "@/lib/db";
 
 const { MessagingApiClient } = messagingApi;
-
-// Initialize Line Client
-const client = new MessagingApiClient({
-    channelAccessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN || "",
-});
 
 export async function POST(req: NextRequest) {
     try {
@@ -18,6 +14,21 @@ export async function POST(req: NextRequest) {
         if (!lineUserId) {
             return NextResponse.json({ error: "Missing lineUserId" }, { status: 400 });
         }
+
+        // Dynamically resolve LINE access token from order's branch (multi-branch support)
+        let channelAccessToken = process.env.LINE_CHANNEL_ACCESS_TOKEN || "";
+
+        if (orderId) {
+            const order = await prisma.order.findUnique({
+                where: { id: orderId },
+                include: { branch: true }
+            });
+            if (order?.branch?.lineChannelAccessToken) {
+                channelAccessToken = order.branch.lineChannelAccessToken;
+            }
+        }
+
+        const client = new MessagingApiClient({ channelAccessToken });
 
         if (type === "READY") {
             // "Food Ready" Notification

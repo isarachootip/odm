@@ -2,33 +2,37 @@ import { NextResponse } from "next/server";
 import * as line from "@line/bot-sdk";
 import { prisma } from "@/lib/db";
 
-const config = {
-    channelAccessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN || "",
-    channelSecret: process.env.LINE_CHANNEL_SECRET || "",
-};
-
-const client = new line.messagingApi.MessagingApiClient(config);
-
 export async function POST(req: Request) {
     try {
         const body = await req.json();
         const { orderId, status } = body;
-
-        // Basic Security Check (Shared Secret could be better, but for now relying on internal Vercel/Same Network or just param)
-        // Ideally we should use a Bearer token.
-        // For this demo, we assume the caller is trusted internal app.
 
         if (!orderId || !status) {
             return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
         }
 
         const order = await prisma.order.findUnique({
-            where: { id: orderId }
+            where: { id: orderId },
+            include: { branch: true }
         });
 
         if (!order || !order.lineUserId) {
             return NextResponse.json({ message: "Order not found or not linked to LINE user" });
         }
+
+        // Dynamically resolve LINE access token from branch config (multi-branch support)
+        const channelAccessToken = order.branch?.lineChannelAccessToken
+            || process.env.LINE_CHANNEL_ACCESS_TOKEN
+            || "";
+
+        if (!channelAccessToken) {
+            console.error(`No LINE access token found for order ${orderId}, branch ${order.branchId}`);
+            return NextResponse.json({ error: "LINE access token not configured" }, { status: 500 });
+        }
+
+        const client = new line.messagingApi.MessagingApiClient({
+            channelAccessToken,
+        });
 
         let messagePayload: any = null;
         switch (status) {
