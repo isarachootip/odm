@@ -674,10 +674,15 @@ export async function handlePaymentSlip(
             .jpeg({ quality: 80, mozjpeg: true })
             .toBuffer();
 
-        // 3. Save to MinIO
+        // 3. Save to MinIO (Optional storage)
         const fileName = `${session.orderId}-${Date.now()}.jpg`;
         const fileKey = `slips/${fileName}`;
-        const fileUrl = await uploadToMinIO(compressedBuffer, fileKey, "image/jpeg");
+        let fileUrl: string | null = null;
+        try {
+            fileUrl = await uploadToMinIO(compressedBuffer, fileKey, "image/jpeg");
+        } catch (minioErr) {
+            console.warn("MinIO upload skipped or failed:", minioErr);
+        }
 
         // Find payment config to get API keys
         const order = await prisma.order.findUnique({
