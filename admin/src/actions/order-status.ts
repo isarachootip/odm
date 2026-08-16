@@ -12,7 +12,7 @@ export async function updateOrderStatus(orderId: string, newStatus: OrderStatus)
             throw new Error("Unauthorized");
         }
 
-        // Get order details INCLUDING delivery info
+        // Get order details INCLUDING delivery info and branch token
         const order = await prisma.order.findUnique({
             where: { id: orderId },
             select: {
@@ -21,7 +21,12 @@ export async function updateOrderStatus(orderId: string, newStatus: OrderStatus)
                 status: true,
                 deliveryType: true,
                 deliveryLocation: true,
-                paymentSlipUrl: true // Added for debugging/reference if needed
+                paymentSlipUrl: true,
+                branch: {
+                    select: {
+                        lineChannelAccessToken: true
+                    }
+                }
             }
         });
 
@@ -37,7 +42,7 @@ export async function updateOrderStatus(orderId: string, newStatus: OrderStatus)
 
         // Send LINE push notification if order is ready (SHIPPED or COMPLETED)
         if (["SHIPPED", "COMPLETED"].includes(newStatus) && order.lineUserId) {
-            const LINE_ACCESS_TOKEN = process.env.LINE_CHANNEL_ACCESS_TOKEN;
+            const LINE_ACCESS_TOKEN = order.branch?.lineChannelAccessToken || process.env.LINE_CHANNEL_ACCESS_TOKEN;
 
             if (LINE_ACCESS_TOKEN) {
                 let messagePayload: any = null;

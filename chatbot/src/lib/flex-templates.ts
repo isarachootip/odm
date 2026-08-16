@@ -516,27 +516,15 @@ export function createQueueTicketBubble(orderId: string, queueNumber: number, to
             contents: [
                 {
                     type: "text",
-                    text: "เมื่อได้รับสินค้าแล้ว กดปุ่มด้านล่าง",
-                    size: "xxs",
-                    color: "#888888",
+                    text: "📢 กรุณารอเรียกคิว หรือรอรับข้อความแจ้งเตือนเมื่ออาหารพร้อมเสิร์ฟค่ะ 🍲",
+                    size: "xs",
+                    color: "#777777",
                     align: "center",
-                    margin: "none"
-                },
-                {
-                    type: "button",
-                    action: {
-                        type: "postback",
-                        label: "ได้รับสินค้าแล้ว",
-                        data: `action=receive&orderId=${orderId}`,
-                        displayText: "ได้รับสินค้าแล้ว"
-                    },
-                    style: "primary",
-                    color: "#1DB446",
-                    height: "sm",
-                    margin: "md"
+                    wrap: true
                 }
             ],
-            paddingAll: "12px"
+            paddingAll: "14px",
+            backgroundColor: "#f9fafb"
         }
     };
 }
