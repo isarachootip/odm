@@ -22,19 +22,27 @@ export default function CheckoutPage() {
     const [reservationDate, setReservationDate] = useState(new Date().toISOString().split('T')[0]);
     const [reservationTimeSlot, setReservationTimeSlot] = useState("");
     const [availableTables, setAvailableTables] = useState<DiningTable[]>([]);
+    const [isLoadingTables, setIsLoadingTables] = useState(false);
     
     useEffect(() => {
         if (deliveryType === "DINE_IN" && reservationDate && reservationTimeSlot) {
+            setIsLoadingTables(true);
             getAvailableTables(reservationDate, reservationTimeSlot).then(res => {
+                setIsLoadingTables(false);
                 if (res.success && res.availableTables) {
                     setAvailableTables(res.availableTables);
+                } else {
+                    setAvailableTables([]);
                 }
+            }).catch(() => {
+                setIsLoadingTables(false);
+                setAvailableTables([]);
             });
         }
     }, [deliveryType, reservationDate, reservationTimeSlot]);
 
-    // Mock Shipping Cost
-    const shippingCost = cartTotal > 1000 ? 0 : 50;
+    // Shipping Cost: Free for Dine-in, Pickup, and Takeaway; Delivery is 50฿ (or free if > 1000฿)
+    const shippingCost = deliveryType === "DELIVERY" ? (cartTotal > 1000 ? 0 : 50) : 0;
     const total = cartTotal + shippingCost;
 
     const handlePlaceOrder = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -148,37 +156,66 @@ export default function CheckoutPage() {
                                 )}
                                 
                                 {deliveryType === "DINE_IN" && (
-                                    <div className="space-y-4 animate-in fade-in slide-in-from-top-2 p-4 border rounded-lg bg-orange-50/50">
-                                        <h3 className="font-semibold">จองโต๊ะ (Table Reservation)</h3>
-                                        <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-4 animate-in fade-in slide-in-from-top-2 p-5 border border-orange-200 rounded-xl bg-orange-50/60">
+                                        <div className="flex items-center justify-between">
+                                            <h3 className="font-bold text-orange-900 flex items-center gap-2">
+                                                🍽️ จองโต๊ะ (Table Reservation)
+                                            </h3>
+                                            <span className="text-xs text-orange-700 bg-orange-100 px-2 py-0.5 rounded-full font-medium">ทานที่ร้าน</span>
+                                        </div>
+
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                             <div className="space-y-2">
-                                                <label className="text-sm font-medium">วันที่</label>
-                                                <input required type="date" name="reservationDate" value={reservationDate} onChange={(e) => setReservationDate(e.target.value)} className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm" />
+                                                <label className="text-sm font-medium text-slate-700">วันที่</label>
+                                                <input required type="date" name="reservationDate" value={reservationDate} onChange={(e) => setReservationDate(e.target.value)} className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm shadow-sm" />
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-sm font-medium">เวลา (Time Slot)</label>
-                                                <select required name="reservationTimeSlot" value={reservationTimeSlot} onChange={(e) => setReservationTimeSlot(e.target.value)} className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
+                                                <label className="text-sm font-medium text-slate-700">เวลา (Time Slot)</label>
+                                                <select required name="reservationTimeSlot" value={reservationTimeSlot} onChange={(e) => setReservationTimeSlot(e.target.value)} className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm shadow-sm">
                                                     <option value="">เลือกเวลา...</option>
-                                                    <option value="08:00">08:00 - 09:00</option>
-                                                    <option value="09:00">09:00 - 10:00</option>
-                                                    <option value="10:00">10:00 - 11:00</option>
-                                                    <option value="11:00">11:00 - 12:00</option>
-                                                    <option value="12:00">12:00 - 13:00</option>
-                                                    <option value="13:00">13:00 - 14:00</option>
-                                                    <option value="14:00">14:00 - 15:00</option>
-                                                    <option value="15:00">15:00 - 16:00</option>
+                                                    <option value="08:00 - 09:00">08:00 - 09:00</option>
+                                                    <option value="09:00 - 10:00">09:00 - 10:00</option>
+                                                    <option value="10:00 - 11:00">10:00 - 11:00</option>
+                                                    <option value="11:00 - 12:00">11:00 - 12:00</option>
+                                                    <option value="12:00 - 13:00">12:00 - 13:00</option>
+                                                    <option value="13:00 - 14:00">13:00 - 14:00</option>
+                                                    <option value="14:00 - 15:00">14:00 - 15:00</option>
+                                                    <option value="15:00 - 16:00">15:00 - 16:00</option>
+                                                    <option value="16:00 - 17:00">16:00 - 17:00</option>
+                                                    <option value="17:00 - 18:00">17:00 - 18:00</option>
+                                                    <option value="18:00 - 19:00">18:00 - 19:00</option>
+                                                    <option value="19:00 - 20:00">19:00 - 20:00</option>
                                                 </select>
                                             </div>
                                         </div>
+
                                         <div className="space-y-2">
-                                            <label className="text-sm font-medium">เลือกโต๊ะที่ว่าง</label>
-                                            <select required name="tableId" className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm" disabled={!reservationDate || !reservationTimeSlot}>
-                                                <option value="">{reservationTimeSlot ? 'เลือกโต๊ะ...' : 'กรุณาเลือกวันที่และเวลาก่อน'}</option>
-                                                {availableTables.map(t => (
-                                                    <option key={t.id} value={t.id}>{t.name} (นั่งได้ {t.capacity} ท่าน)</option>
-                                                ))}
-                                            </select>
-                                            <p className="text-xs text-muted-foreground mt-1">ระบบจะแสดงเฉพาะโต๊ะที่ว่างในช่วงเวลาที่คุณเลือก</p>
+                                            <label className="text-sm font-medium text-slate-700">เลือกโต๊ะที่ว่าง</label>
+                                            {isLoadingTables ? (
+                                                <div className="p-3 text-sm text-slate-500 bg-white rounded-lg border text-center">
+                                                    กำลังตรวจสอบโต๊ะว่าง...
+                                                </div>
+                                            ) : (
+                                                <select required name="tableId" className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm shadow-sm" disabled={!reservationDate || !reservationTimeSlot || availableTables.length === 0}>
+                                                    <option value="">
+                                                        {!reservationTimeSlot ? 'กรุณาเลือกวันที่และเวลาก่อน' : (availableTables.length > 0 ? 'เลือกโต๊ะที่ต้องการ...' : 'ไม่มีโต๊ะว่างในช่วงเวลานี้')}
+                                                    </option>
+                                                    {availableTables.map(t => (
+                                                        <option key={t.id} value={t.id}>{t.name} (รองรับ {t.capacity} ท่าน)</option>
+                                                    ))}
+                                                </select>
+                                            )}
+
+                                            {reservationDate && reservationTimeSlot && !isLoadingTables && availableTables.length === 0 && (
+                                                <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm animate-in fade-in">
+                                                    <p className="font-semibold">⚠️ ขออภัย ไม่มีโต๊ะว่างในช่วงเวลาที่คุณเลือก</p>
+                                                    <p className="text-xs text-red-600 mt-1">โต๊ะเต็มสำหรับช่วงเวลานี้ กรุณาเลือกช่วงเวลาอื่น หรือติดต่อร้านค้า โทร 093-289-6292 / LINE Admin</p>
+                                                </div>
+                                            )}
+
+                                            {(!reservationDate || !reservationTimeSlot || availableTables.length > 0) && (
+                                                <p className="text-xs text-slate-500 mt-1">ระบบจะแสดงเฉพาะโต๊ะที่ว่างในช่วงเวลาที่คุณเลือก</p>
+                                            )}
                                         </div>
                                     </div>
                                 )}

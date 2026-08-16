@@ -71,6 +71,10 @@ export async function handleCheckoutFlow(
                 await handleLocationInput(session as any, userMessage, client, replyToken);
                 return true;
 
+            case "AWAITING_TABLE":
+                await handleTableSelectionInput(session as any, userMessage, client, replyToken);
+                return true;
+
             case "AWAITING_REVIEW_COMMENT":
                 await handleReviewCommentInput(session as any, userMessage, client, replyToken);
                 return true;
@@ -344,6 +348,7 @@ async function handleNoteInput(
             text: "📦 เลือกวิธีการรับสินค้า:",
             quickReply: {
                 items: [
+                    { type: "action", action: { type: "message", label: "🍽️ ทานที่ร้าน (Dine-in)", text: "ทานที่ร้าน" } },
                     { type: "action", action: { type: "message", label: "🏠 รับเอง (Pickup)", text: "รับเอง" } },
                     { type: "action", action: { type: "message", label: "🥡 Takehome", text: "Takehome" } },
                     { type: "action", action: { type: "message", label: "🚚 จัดส่ง (Delivery)", text: "จัดส่ง" } }
@@ -361,7 +366,67 @@ async function handleDeliveryTypeInput(
 ): Promise<void> {
     const message = input.toLowerCase();
 
-    if (message.includes("รับเอง") || message.includes("pickup") || message.includes("ทานที่นี่")) {
+    if (message.includes("ทานที่ร้าน") || message.includes("dine-in") || message.includes("จองโต๊ะ") || message.includes("โต๊ะ")) {
+        // Customer wants Dine-in (Table Reservation)
+        const today = new Date().toISOString().split('T')[0];
+        
+        // Find active tables
+        const allTables = await prisma.diningTable.findMany({
+            where: { isActive: true },
+            orderBy: { name: 'asc' }
+        });
+
+        if (allTables.length === 0) {
+            // No tables configured yet, proceed as general dine-in
+            const tempData = { ...session.tempData, deliveryType: "DINE_IN" };
+            await createOrderFromSession(session, tempData, client, replyToken);
+            return;
+        }
+
+        // Check if user already specified a table in text (e.g. "โต๊ะ 1")
+        const matchedTable = allTables.find(t => message.includes(t.name.toLowerCase()));
+        if (matchedTable) {
+            const tempData = {
+                ...session.tempData,
+                deliveryType: "DINE_IN",
+                tableId: matchedTable.id,
+                tableName: matchedTable.name,
+                reservationDate: today,
+                reservationTimeSlot: "ทันที (Now)"
+            };
+            await createOrderFromSession(session, tempData, client, replyToken);
+            return;
+        }
+
+        // Ask customer to select table via quick reply
+        const tableQuickReplies = allTables.slice(0, 10).map(t => ({
+            type: "action" as const,
+            action: {
+                type: "message" as const,
+                label: `🍽️ ${t.name} (${t.capacity} ที่)`,
+                text: `จอง ${t.name}`
+            }
+        }));
+
+        await prisma.cartSession.update({
+            where: { id: session.id },
+            data: {
+                state: "AWAITING_TABLE",
+                tempData: { ...session.tempData, deliveryType: "DINE_IN", reservationDate: today }
+            }
+        });
+
+        await client.replyMessage({
+            replyToken,
+            messages: [{
+                type: "text",
+                text: "🍽️ ทานที่ร้าน (Dine-in)\n\nกรุณาเลือกหมายเลขโต๊ะที่ต้องการนั่ง:",
+                quickReply: {
+                    items: tableQuickReplies
+                }
+            }]
+        });
+    } else if (message.includes("รับเอง") || message.includes("pickup") || message.includes("ทานที่นี่")) {
         // Customer will pickup (Eat here / Self service)
         const tempData = { ...session.tempData, deliveryType: "PICKUP" };
         await createOrderFromSession(session, tempData, client, replyToken);
@@ -393,7 +458,7 @@ async function handleDeliveryTypeInput(
             replyToken,
             messages: [{
                 type: "text",
-                text: "กรุณาเลือก:\n- พิมพ์ **รับเอง**\n- พิมพ์ **Takehome**\n*(บริการจัดส่งงดให้บริการชั่วคราว)*"
+                text: "กรุณาเลือก:\n- พิมพ์ **ทานที่ร้าน**\n- พิมพ์ **รับเอง**\n- พิมพ์ **Takehome**\n- พิมพ์ **จัดส่ง**"
             }]
         });
     }
@@ -415,6 +480,51 @@ async function handleLocationInput(
 
     const tempData = { ...session.tempData, location };
     await createOrderFromSession(session, tempData, client, replyToken);
+}
+
+async function handleTableSelectionInput(
+    session: CartSession,
+    input: string,
+    client: line.messagingApi.MessagingApiClient,
+    replyToken: string
+): Promise<void> {
+    const message = input.trim();
+
+    // Find table matching user input
+    const allTables = await prisma.diningTable.findMany({
+        where: { isActive: true }
+    });
+
+    const matchedTable = allTables.find(t => 
+        message.toLowerCase().includes(t.name.toLowerCase()) ||
+        t.name.toLowerCase().includes(message.toLowerCase())
+    );
+
+    const today = new Date().toISOString().split('T')[0];
+
+    if (matchedTable) {
+        const tempData = {
+            ...session.tempData,
+            deliveryType: "DINE_IN",
+            tableId: matchedTable.id,
+            tableName: matchedTable.name,
+            reservationDate: session.tempData?.reservationDate || today,
+            reservationTimeSlot: "ทันที (Now)"
+        };
+        await createOrderFromSession(session, tempData, client, replyToken);
+    } else {
+        // Did not match specific table, proceed with first available or generic dine-in
+        const defaultTable = allTables[0];
+        const tempData = {
+            ...session.tempData,
+            deliveryType: "DINE_IN",
+            tableId: defaultTable?.id || null,
+            tableName: defaultTable?.name || message,
+            reservationDate: today,
+            reservationTimeSlot: "ทันที (Now)"
+        };
+        await createOrderFromSession(session, tempData, client, replyToken);
+    }
 }
 
 /**
@@ -533,6 +643,23 @@ async function createOrderFromSession(
         }
     });
 
+    // If Dine-in with table reservation, create TableReservation record
+    if (tempData.deliveryType === "DINE_IN" && tempData.tableId) {
+        try {
+            await prisma.tableReservation.create({
+                data: {
+                    tableId: tempData.tableId,
+                    orderId: order.id,
+                    date: tempData.reservationDate || new Date().toISOString().split('T')[0],
+                    timeSlot: tempData.reservationTimeSlot || "ทันที (Now)",
+                    status: "RESERVED"
+                }
+            });
+        } catch (tableErr) {
+            console.warn("Failed to create TableReservation record:", tableErr);
+        }
+    }
+
     // Update session to AWAITING_PAYMENT
     await prisma.cartSession.update({
         where: { id: session.id },
@@ -569,11 +696,13 @@ async function createOrderFromSession(
         return `▫️ ${item.name}${details} x${item.quantity} = ${item.price * item.quantity} บาท`;
     }).join("\n");
 
-    const deliveryInfo = tempData.deliveryType === "PICKUP"
-        ? "🏠 รับเอง (Pickup)"
-        : tempData.deliveryType === "TAKEAWAY"
-            ? "🥡 Takehome"
-            : `🚚 จัดส่งที่: ${tempData.location}`;
+    const deliveryInfo = tempData.deliveryType === "DINE_IN"
+        ? `🍽️ ทานที่ร้าน (Dine-in)${tempData.tableName ? ` - ${tempData.tableName}` : ''}`
+        : tempData.deliveryType === "PICKUP"
+            ? "🏠 รับเอง (Pickup)"
+            : tempData.deliveryType === "TAKEAWAY"
+                ? "🥡 Takehome"
+                : `🚚 จัดส่งที่: ${tempData.location}`;
 
     const noteInfo = tempData.note ? `\n📝 คำสั่งพิเศษ: ${tempData.note}` : "";
 

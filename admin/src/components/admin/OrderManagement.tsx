@@ -161,13 +161,36 @@ export function OrderManagement({ initialOrders }: Props) {
         });
     };
 
-    const getDeliveryBadge = (type: string | null, location: string | null) => {
+    const getDeliveryBadge = (type: string | null, location: string | null, reservation?: any) => {
         if (!type) return null;
+
+        if (type === 'DINE_IN') {
+            return (
+                <div className="flex flex-col gap-0.5">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-orange-100 text-orange-800">
+                        🍽️ ทานที่ร้าน
+                    </span>
+                    {reservation?.table?.name && (
+                        <span className="text-[9px] font-bold text-orange-700">
+                            {reservation.table.name} ({reservation.timeSlot})
+                        </span>
+                    )}
+                </div>
+            );
+        }
+
+        if (type === 'TAKEAWAY') {
+            return (
+                <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-purple-100 text-purple-700">
+                    🥡 Takehome
+                </span>
+            );
+        }
 
         if (type === 'PICKUP') {
             return (
                 <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-green-100 text-green-700">
-                    รับเอง
+                    🏪 รับเอง
                 </span>
             );
         }
@@ -175,7 +198,7 @@ export function OrderManagement({ initialOrders }: Props) {
         return (
             <div className="flex flex-col gap-0.5">
                 <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-blue-100 text-blue-700">
-                    จัดส่ง
+                    🚚 จัดส่ง
                 </span>
                 {location && (
                     <span className="text-[9px] text-gray-500">📍 {location}</span>
@@ -574,7 +597,7 @@ export function OrderManagement({ initialOrders }: Props) {
 
                                         {/* DELIVERY TYPE / LOCATION */}
                                         <td className="px-4 py-3">
-                                            {getDeliveryBadge(order.deliveryType, order.deliveryLocation)}
+                                            {getDeliveryBadge(order.deliveryType, order.deliveryLocation, (order as any).tableReservation)}
                                         </td>
 
                                         {/* TOTAL */}

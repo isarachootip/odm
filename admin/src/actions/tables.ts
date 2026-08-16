@@ -23,6 +23,7 @@ export async function createTable(data: { name: string; capacity: number; isActi
                 isActive: data.isActive
             }
         });
+        revalidatePath("/admin/tables");
         revalidatePath("/admin/settings/tables");
         return { success: true, table };
     } catch (error: any) {
@@ -40,6 +41,7 @@ export async function updateTable(id: string, data: { name: string; capacity: nu
                 isActive: data.isActive
             }
         });
+        revalidatePath("/admin/tables");
         revalidatePath("/admin/settings/tables");
         return { success: true, table };
     } catch (error: any) {
@@ -52,6 +54,7 @@ export async function deleteTable(id: string) {
         await prisma.diningTable.delete({
             where: { id }
         });
+        revalidatePath("/admin/tables");
         revalidatePath("/admin/settings/tables");
         return { success: true };
     } catch (error: any) {

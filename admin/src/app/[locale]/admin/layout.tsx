@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { LayoutDashboard, ShoppingBag, Package, Users, Settings, Monitor, BookOpen } from "lucide-react";
+import { LayoutDashboard, ShoppingBag, Package, Users, Settings, Monitor, BookOpen, UtensilsCrossed } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default async function AdminLayout({
@@ -84,6 +84,11 @@ export default async function AdminLayout({
                     <Link href="/admin/branches">
                         <Button variant="ghost" className="w-full justify-start text-slate-600 hover:text-slate-900 hover:bg-slate-100">
                             <Settings className="mr-2 h-4 w-4" /> Branches
+                        </Button>
+                    </Link>
+                    <Link href="/admin/tables">
+                        <Button variant="ghost" className="w-full justify-start text-slate-600 hover:text-slate-900 hover:bg-slate-100">
+                            <UtensilsCrossed className="mr-2 h-4 w-4" /> Tables (จัดการโต๊ะ)
                         </Button>
                     </Link>
                     <Link href="/admin/km">
