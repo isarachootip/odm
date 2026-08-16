@@ -674,14 +674,20 @@ export async function handlePaymentSlip(
             .jpeg({ quality: 80, mozjpeg: true })
             .toBuffer();
 
-        // 3. Save to MinIO (Optional storage)
+        // 3. Save slip image directly to local storage (No MinIO needed)
         const fileName = `${session.orderId}-${Date.now()}.jpg`;
-        const fileKey = `slips/${fileName}`;
         let fileUrl: string | null = null;
         try {
-            fileUrl = await uploadToMinIO(compressedBuffer, fileKey, "image/jpeg");
-        } catch (minioErr) {
-            console.warn("MinIO upload skipped or failed:", minioErr);
+            const uploadDir = path.join(process.cwd(), "public", "uploads", "slips");
+            await fs.promises.mkdir(uploadDir, { recursive: true });
+            const filePath = path.join(uploadDir, fileName);
+            await fs.promises.writeFile(filePath, compressedBuffer);
+            
+            const baseUrl = (process.env.CHATBOT_URL || "https://chat.mamsoi8.online").replace(/\/$/, "");
+            fileUrl = `${baseUrl}/uploads/slips/${fileName}`;
+            console.log("Slip saved locally:", fileUrl);
+        } catch (storageErr) {
+            console.warn("Failed to save slip image locally:", storageErr);
         }
 
         // Find payment config to get API keys
