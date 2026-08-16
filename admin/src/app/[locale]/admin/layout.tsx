@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { LayoutDashboard, ShoppingBag, Package, Users, Settings, Monitor } from "lucide-react";
+import { LayoutDashboard, ShoppingBag, Package, Users, Settings, Monitor, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default async function AdminLayout({
@@ -84,6 +84,11 @@ export default async function AdminLayout({
                     <Link href="/admin/branches">
                         <Button variant="ghost" className="w-full justify-start text-slate-600 hover:text-slate-900 hover:bg-slate-100">
                             <Settings className="mr-2 h-4 w-4" /> Branches
+                        </Button>
+                    </Link>
+                    <Link href="/admin/km">
+                        <Button variant="ghost" className="w-full justify-start text-emerald-700 bg-emerald-50/60 hover:text-emerald-900 hover:bg-emerald-100/80 font-medium">
+                            <BookOpen className="mr-2 h-4 w-4 text-emerald-600" /> KM & System Manual
                         </Button>
                     </Link>
                     <div className="pt-4 mt-4 border-t border-slate-200">
