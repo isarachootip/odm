@@ -648,7 +648,7 @@ export async function handlePaymentSlip(
     messageId: string,
     client: line.messagingApi.MessagingApiClient,
     replyToken: string,
-    channelAccessToken: string
+    channelAccessToken?: string
 ): Promise<boolean> {
     const session = await prisma.cartSession.findUnique({
         where: { lineUserId: userId }
@@ -660,7 +660,8 @@ export async function handlePaymentSlip(
 
     try {
         // 2. Download Image
-        const imageBuffer = await downloadLineContent(messageId, channelAccessToken);
+        const token = channelAccessToken || process.env.LINE_CHANNEL_ACCESS_TOKEN || "";
+        const imageBuffer = await downloadLineContent(messageId, token);
 
         // Resize and Compress Image
         // Target: Max width 1000px, JPEG quality 80 for clear text but small size
