@@ -23,6 +23,10 @@ export async function GET() {
         `CREATE INDEX IF NOT EXISTS "Product_categoryId_isActive_idx" ON "Product"("categoryId", "isActive");`,
         `CREATE INDEX IF NOT EXISTS "Product_isActive_idx" ON "Product"("isActive");`,
 
+        // Schema migrations (safe if already existing)
+        `ALTER TABLE "CustomerProfile" ADD COLUMN IF NOT EXISTS "address" TEXT;`,
+        `ALTER TABLE "CustomerProfile" ADD COLUMN IF NOT EXISTS "landmark" TEXT;`,
+
         // Customer & Session indexes
         `CREATE INDEX IF NOT EXISTS "CustomerProfile_lineUserId_idx" ON "CustomerProfile"("lineUserId");`,
         `CREATE INDEX IF NOT EXISTS "CustomerProfile_phone_idx" ON "CustomerProfile"("phone");`,

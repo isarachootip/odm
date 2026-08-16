@@ -336,6 +336,8 @@ model CustomerProfile {
   nickname       String?
   phone          String?
   department     String?
+  address        String?
+  landmark       String?
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
   Orders         Order[]

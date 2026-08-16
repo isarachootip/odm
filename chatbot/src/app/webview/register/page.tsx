@@ -5,8 +5,9 @@ import { useState, useEffect } from "react";
 export default function RegisterPage() {
     const [userId, setUserId] = useState<string | null>(null);
     const [name, setName] = useState("");
-    const [department, setDepartment] = useState("");
     const [phone, setPhone] = useState("");
+    const [address, setAddress] = useState("");
+    const [landmark, setLandmark] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState("");
     const [success, setSuccess] = useState(false);
@@ -61,6 +62,10 @@ export default function RegisterPage() {
             setError("กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง (9-10 หลัก)");
             return;
         }
+        if (address.trim().length < 3) {
+            setError("กรุณาระบุ ซอย / ถนน หรือที่อยู่จัดส่ง");
+            return;
+        }
 
         setIsSubmitting(true);
 
@@ -71,8 +76,9 @@ export default function RegisterPage() {
                 body: JSON.stringify({
                     userId,
                     name: name.trim(),
-                    department: department.trim(),
                     phone: cleanPhone,
+                    address: address.trim(),
+                    landmark: landmark.trim(),
                 }),
             });
 
@@ -184,7 +190,7 @@ export default function RegisterPage() {
                     {/* Name */}
                     <div>
                         <label style={{ display: "block", fontSize: "14px", fontWeight: "600", color: "#44403c", marginBottom: "6px" }}>
-                            👤 ชื่อ-นามสกุล <span style={{ color: "#ef4444" }}>*</span>
+                            👤 ชื่อผู้สั่ง <span style={{ color: "#ef4444" }}>*</span>
                         </label>
                         <input
                             type="text"
@@ -192,24 +198,7 @@ export default function RegisterPage() {
                             value={name}
                             autoComplete="name"
                             onChange={(e) => setName(e.target.value)}
-                            placeholder="เช่น สมชาย ใจดี"
-                            style={inputStyle}
-                            onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
-                            onBlur={(e) => Object.assign(e.target.style, inputStyle)}
-                        />
-                    </div>
-
-                    {/* Department */}
-                    <div>
-                        <label style={{ display: "block", fontSize: "14px", fontWeight: "600", color: "#44403c", marginBottom: "6px" }}>
-                            🏢 คณะ / ฝ่าย
-                            <span style={{ fontSize: "12px", color: "#a8a29e", fontWeight: "400", marginLeft: "6px" }}>(ไม่บังคับ)</span>
-                        </label>
-                        <input
-                            type="text"
-                            value={department}
-                            onChange={(e) => setDepartment(e.target.value)}
-                            placeholder="เช่น วิทยาศาสตร์, IT"
+                            placeholder="เช่น คุณสมชาย"
                             style={inputStyle}
                             onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
                             onBlur={(e) => Object.assign(e.target.style, inputStyle)}
@@ -229,7 +218,41 @@ export default function RegisterPage() {
                             value={phone}
                             autoComplete="tel"
                             onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
-                            placeholder="0812345678"
+                            placeholder="เช่น 08x-xxx-xxxx"
+                            style={inputStyle}
+                            onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
+                            onBlur={(e) => Object.assign(e.target.style, inputStyle)}
+                        />
+                    </div>
+
+                    {/* Address / Soi / Street */}
+                    <div>
+                        <label style={{ display: "block", fontSize: "14px", fontWeight: "600", color: "#44403c", marginBottom: "6px" }}>
+                            🛣️ ซอย / ถนน <span style={{ color: "#ef4444" }}>*</span>
+                        </label>
+                        <input
+                            type="text"
+                            required
+                            value={address}
+                            onChange={(e) => setAddress(e.target.value)}
+                            placeholder="เช่น ซอย 8, ถ.วิภาวดี"
+                            style={inputStyle}
+                            onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
+                            onBlur={(e) => Object.assign(e.target.style, inputStyle)}
+                        />
+                    </div>
+
+                    {/* Landmark / Notes */}
+                    <div>
+                        <label style={{ display: "block", fontSize: "14px", fontWeight: "600", color: "#44403c", marginBottom: "6px" }}>
+                            📍 จุดสังเกต / รายละเอียดเพิ่มเติม
+                            <span style={{ fontSize: "12px", color: "#a8a29e", fontWeight: "400", marginLeft: "6px" }}>(ไม่บังคับ)</span>
+                        </label>
+                        <input
+                            type="text"
+                            value={landmark}
+                            onChange={(e) => setLandmark(e.target.value)}
+                            placeholder="เช่น ตรงข้ามเซเว่น, วางไว้หน้าห้องพัก"
                             style={inputStyle}
                             onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
                             onBlur={(e) => Object.assign(e.target.style, inputStyle)}
@@ -239,25 +262,25 @@ export default function RegisterPage() {
                     {/* Submit Button */}
                     <button
                         type="submit"
-                        disabled={isSubmitting || !name || !phone}
+                        disabled={isSubmitting || !name || !phone || !address}
                         style={{
                             width: "100%",
                             padding: "16px",
                             borderRadius: "14px",
                             border: "none",
-                            background: isSubmitting || !name || !phone
+                            background: isSubmitting || !name || !phone || !address
                                 ? "#e5e7eb"
                                 : "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)",
-                            color: isSubmitting || !name || !phone ? "#9ca3af" : "#fef3c7",
+                            color: isSubmitting || !name || !phone || !address ? "#9ca3af" : "#fef3c7",
                             fontSize: "16px",
                             fontWeight: "800",
-                            cursor: isSubmitting || !name || !phone ? "not-allowed" : "pointer",
+                            cursor: isSubmitting || !name || !phone || !address ? "not-allowed" : "pointer",
                             transition: "all 0.2s",
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
                             gap: "8px",
-                            boxShadow: isSubmitting || !name || !phone ? "none" : "0 4px 15px rgba(245, 158, 11, 0.4)",
+                            boxShadow: isSubmitting || !name || !phone || !address ? "none" : "0 4px 15px rgba(245, 158, 11, 0.4)",
                         }}
                     >
                         {isSubmitting ? (

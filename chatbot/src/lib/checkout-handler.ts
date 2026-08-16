@@ -160,10 +160,16 @@ export async function startCheckout(
         }
 
         // RETURNING CUSTOMER: Auto-fill data
+        const locationText = [
+            (profile as any).address ? `ซอย/ถนน: ${(profile as any).address}` : '',
+            (profile as any).landmark ? `จุดสังเกต: ${(profile as any).landmark}` : ''
+        ].filter(Boolean).join(", ");
+
         const tempData: TempData = {
             name: profile.nickname || "ลูกค้า",
             phone: profile.phone || "",
-            department: profile.department || undefined
+            department: profile.department || undefined,
+            location: locationText || undefined
         };
 
         // Update session state directly to AWAITING_NOTE

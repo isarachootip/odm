@@ -4,12 +4,11 @@ import * as line from "@line/bot-sdk";
 
 // Configuration Fallbacks
 const FALLBACK_ACCESS_TOKEN = process.env.LINE_CHANNEL_ACCESS_TOKEN || process.env.LINE_ACCESS_TOKEN || "";
-const FALLBACK_SECRET = process.env.LINE_CHANNEL_SECRET || "";
 
 export async function POST(req: Request) {
     try {
         const body = await req.json();
-        const { userId, name, department, phone } = body;
+        const { userId, name, phone, address, landmark } = body;
 
         if (!userId || !name || !phone) {
             return NextResponse.json({ error: "ข้อมูลไม่ครบถ้วน รบกวนกรอกชื่อและเบอร์โทร" }, { status: 400 });
@@ -21,13 +20,30 @@ export async function POST(req: Request) {
         });
 
         if (!session) {
-            // Cannot register if no cart session exists
             return NextResponse.json({ error: "ไม่พบตะกร้าสินค้า กรุณากลับไปเริ่มสร้างรายการใหม่" }, { status: 404 });
         }
 
-        // 2. Fetch Branch Config to get the right API Keys
-        // Joycafe had only 1 branch, but ODM is multi-branch.
-        // The webhook normally sets the branchCode in the cartSession during "SHOPPING" phase.
+        // 2. Save / Update CustomerProfile in DB
+        await prisma.customerProfile.upsert({
+            where: { lineUserId: userId },
+            update: {
+                isConsent: true,
+                nickname: name,
+                phone: phone,
+                address: address || null,
+                landmark: landmark || null
+            },
+            create: {
+                lineUserId: userId,
+                isConsent: true,
+                nickname: name,
+                phone: phone,
+                address: address || null,
+                landmark: landmark || null
+            }
+        });
+
+        // 3. Fetch Branch Config to get the right API Keys
         let channelAccessToken = FALLBACK_ACCESS_TOKEN;
         
         if (session.branchCode) {
@@ -43,8 +59,20 @@ export async function POST(req: Request) {
             channelAccessToken: channelAccessToken
         });
 
-        // 3. Update temp data and advance state
-        const tempData = { ...session.tempData as any, name, department, phone };
+        // 4. Update temp data and advance state
+        const locationText = [
+            address ? `ซอย/ถนน: ${address}` : '',
+            landmark ? `จุดสังเกต: ${landmark}` : ''
+        ].filter(Boolean).join(", ");
+
+        const tempData = {
+            ...session.tempData as any,
+            name,
+            phone,
+            address,
+            landmark,
+            location: locationText || undefined
+        };
 
         await prisma.cartSession.update({
             where: { id: session.id },
@@ -54,23 +82,28 @@ export async function POST(req: Request) {
             }
         });
 
-        // 4. Send Quick Reply to user
+        // 5. Send Quick Reply to user
         try {
-            const deptText = department ? ` ${department}` : "";
-            const phoneText = phone ? ` ${phone}` : "";
-
             await client.pushMessage({
                 to: userId,
                 messages: [
                     {
                         type: "text",
-                        text: `ลงทะเบียนเรียบร้อยค่ะ!\nสวัสดี คุณ ${name}${deptText}${phoneText} 👋`
+                        text: `🎉 ลงทะเบียนเรียบร้อยแล้วค่ะ!\nสวัสดี คุณ ${name} 👋 (${phone})`
                     },
                     {
                         type: "text",
                         text: "📦 เลือกวิธีการรับสินค้า:",
                         quickReply: {
                             items: [
+                                {
+                                    type: "action",
+                                    action: {
+                                        type: "message",
+                                        label: "🍽️ ทานที่ร้าน (Dine-in)",
+                                        text: "ทานที่ร้าน"
+                                    }
+                                },
                                 {
                                     type: "action",
                                     action: {
