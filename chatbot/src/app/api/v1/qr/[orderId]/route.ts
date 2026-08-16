@@ -33,10 +33,14 @@ export async function GET(request: Request, props: { params: Promise<{ orderId: 
 
         const buffer = await generatePromptPayQR(paymentConfig.promptpayNumber, Number(order.total));
 
-        return new NextResponse(buffer, {
+        // Convert Node Buffer to Web-standard Uint8Array (fixes standalone serialization bug)
+        const uint8Array = new Uint8Array(buffer);
+
+        return new NextResponse(uint8Array, {
             status: 200,
             headers: {
                 "Content-Type": "image/png",
+                "Content-Length": buffer.length.toString(),
                 "Cache-Control": "public, max-age=31536000, immutable"
             }
         });
