@@ -30,6 +30,9 @@ model Product {
   Category       Category?        @relation(fields: [categoryId], references: [id])
   variants       ProductVariant[]
   WishlistItem   WishlistItem[]
+
+  @@index([categoryId, isActive])
+  @@index([isActive])
 }
 
 model PaymentConfig {
@@ -51,6 +54,8 @@ model PaymentConfig {
 
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+
+  @@index([isDefault])
 }
 
 model ProductVariant {
@@ -96,6 +101,12 @@ model Order {
   items             OrderItem[]
   review            Review?
   tableReservation  TableReservation?
+
+  @@index([status, createdAt])
+  @@index([branchId, createdAt])
+  @@index([lineUserId])
+  @@index([createdAt])
+  @@index([deliveryType])
 }
 
 model Review {
@@ -118,6 +129,8 @@ model BankConfig {
   isDefault     Boolean  @default(false)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
+
+  @@index([isDefault])
 }
 
 model PaymentLog {
@@ -139,6 +152,9 @@ model OrderItem {
   options   String?
   order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
   Product   Product @relation(fields: [productId], references: [id])
+
+  @@index([orderId])
+  @@index([productId])
 }
 
 model Category {
@@ -263,6 +279,9 @@ model CartSession {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   orderId    String?
+
+  @@index([lineUserId, state])
+  @@index([updatedAt])
 }
 
 enum OrderStatus {
@@ -320,6 +339,9 @@ model CustomerProfile {
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
   Orders         Order[]
+
+  @@index([lineUserId])
+  @@index([phone])
 }
 
 model DiningTable {
@@ -332,6 +354,8 @@ model DiningTable {
   reservations TableReservation[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([isActive, branchId])
 }
 
 model TableReservation {
@@ -345,6 +369,9 @@ model TableReservation {
   status      String   @default("RESERVED") // "RESERVED", "COMPLETED", "CANCELLED"
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+
+  @@index([date, timeSlot, status])
+  @@index([tableId, date])
 }
 
 model Banner {

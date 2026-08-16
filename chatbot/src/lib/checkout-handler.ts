@@ -16,6 +16,12 @@ type TempData = {
     deliveryType?: string;
     location?: string;
     note?: string;
+    tableId?: string | null;
+    tableName?: string | null;
+    reservationDate?: string;
+    reservationTimeSlot?: string;
+    isPreorder?: boolean;
+    preorderDateTime?: string | null;
 };
 
 type CartSession = {
@@ -886,7 +892,7 @@ export async function handlePaymentSlip(
             }
 
             // Only process SlipOK result if the API didn't fail
-            if (!slipokFailed) {
+            if (!slipokFailed && verificationResult) {
                 if (!verificationResult.isValid) {
                     await client.replyMessage({
                         replyToken,

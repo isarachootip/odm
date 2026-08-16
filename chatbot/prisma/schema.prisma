@@ -30,6 +30,9 @@ model Product {
   Category       Category?        @relation(fields: [categoryId], references: [id])
   variants       ProductVariant[]
   WishlistItem   WishlistItem[]
+
+  @@index([categoryId, isActive])
+  @@index([isActive])
 }
 
 model PaymentConfig {
@@ -51,6 +54,8 @@ model PaymentConfig {
 
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+
+  @@index([isDefault])
 }
 
 model ProductVariant {
@@ -96,6 +101,12 @@ model Order {
   items             OrderItem[]
   review            Review?
   tableReservation  TableReservation?
+
+  @@index([status, createdAt])
+  @@index([branchId, createdAt])
+  @@index([lineUserId])
+  @@index([createdAt])
+  @@index([deliveryType])
 }
 
 model Review {
@@ -118,6 +129,8 @@ model BankConfig {
   isDefault     Boolean  @default(false)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
+
+  @@index([isDefault])
 }
 
 model PaymentLog {
@@ -139,6 +152,9 @@ model OrderItem {
   options   String?
   order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
   Product   Product @relation(fields: [productId], references: [id])
+
+  @@index([orderId])
+  @@index([productId])
 }
 
 model Category {
@@ -263,6 +279,9 @@ model CartSession {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   orderId    String?
+
+  @@index([lineUserId, state])
+  @@index([updatedAt])
 }
 
 enum OrderStatus {
@@ -282,17 +301,17 @@ enum Role {
 }
 
 model ShopConfig {
-  id              String   @id @default(cuid())
-  branchId        String?
-  branch          Branch?  @relation(fields: [branchId], references: [id])
-  isBusyMode      Boolean  @default(false)
-  busyMessage     String?  @default("ขออภัย ขณะนี้ร้านมีออเดอร์จำนวนมาก ของดรับออเดอร์ออนไลน์ชั่วคราวครับ")
-  isScheduleEnabled Boolean @default(false)
-  openTime          String? 
+  id                String   @id @default(cuid())
+  branchId          String?
+  branch            Branch?  @relation(fields: [branchId], references: [id])
+  isBusyMode        Boolean  @default(false)
+  busyMessage       String?  @default("ขออภัย ขณะนี้ร้านมีออเดอร์จำนวนมาก ของดรับออเดอร์ออนไลน์ชั่วคราวครับ")
+  isScheduleEnabled Boolean  @default(false)
+  openTime          String?
   closeTime         String?
   logoUrl           String?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }
 
 model Branch {
@@ -320,30 +339,51 @@ model CustomerProfile {
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
   Orders         Order[]
+
+  @@index([lineUserId])
+  @@index([phone])
 }
 
 model DiningTable {
-  id           String             @id @default(cuid())
-  name         String             // e.g., "Table 1"
-  capacity     Int                @default(4)
-  isActive     Boolean            @default(true)
-  branchId     String?
-  branch       Branch?            @relation(fields: [branchId], references: [id])
+  id        String   @id @default(cuid())
+  name      String   // e.g., "Table 1"
+  capacity  Int      @default(4)
+  isActive  Boolean  @default(true)
+  branchId  String?
+  branch    Branch?  @relation(fields: [branchId], references: [id])
   reservations TableReservation[]
-  createdAt    DateTime           @default(now())
-  updatedAt    DateTime           @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([isActive, branchId])
 }
 
 model TableReservation {
-  id          String      @id @default(cuid())
+  id          String   @id @default(cuid())
   tableId     String
   table       DiningTable @relation(fields: [tableId], references: [id], onDelete: Cascade)
-  orderId     String      @unique
-  order       Order       @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  date        String      // "YYYY-MM-DD"
-  timeSlot    String      // e.g. "09:00", "12:00"
-  status      String      @default("RESERVED") // "RESERVED", "COMPLETED", "CANCELLED"
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  orderId     String   @unique
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  date        String   // "YYYY-MM-DD"
+  timeSlot    String   // e.g. "09:00", "12:00"
+  status      String   @default("RESERVED") // "RESERVED", "COMPLETED", "CANCELLED"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([date, timeSlot, status])
+  @@index([tableId, date])
 }
 
+model Banner {
+  id          String   @id @default(cuid())
+  imageUrl    String
+  subtitle    String?
+  title       String?
+  description String?
+  buttonText  String?
+  buttonLink  String?
+  isActive    Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
