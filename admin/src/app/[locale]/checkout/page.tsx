@@ -51,11 +51,26 @@ export default function CheckoutPage() {
         setError(null);
 
         const formData = new FormData(e.currentTarget);
+        
+        let deliveryLocation = (formData.get("location") as string) || "";
+        if (deliveryType === "DELIVERY") {
+            const houseNo = (formData.get("houseNumber") as string || "").trim();
+            const soi = (formData.get("soi") as string || "").trim();
+            const landmark = (formData.get("landmark") as string || "").trim();
+            
+            const parts = [];
+            if (houseNo) parts.push(`บ้านเลขที่/อาคาร: ${houseNo}`);
+            if (soi) parts.push(`ซอย/ถนน: ${soi}`);
+            if (landmark) parts.push(`จุดสังเกต: ${landmark}`);
+            
+            deliveryLocation = parts.length > 0 ? parts.join(", ") : deliveryLocation;
+        }
+
         const shipping: any = {
             customerName: formData.get("name") as string,
             customerPhone: formData.get("phone") as string,
             deliveryType: deliveryType,
-            deliveryLocation: formData.get("location") as string,
+            deliveryLocation: deliveryLocation,
         };
 
         if (deliveryType === "DINE_IN") {
@@ -149,9 +164,24 @@ export default function CheckoutPage() {
                                 </div>
 
                                 {deliveryType === "DELIVERY" && (
-                                    <div className="space-y-2 animate-in fade-in slide-in-from-top-2">
-                                        <label htmlFor="location" className="text-sm font-medium">ระบุสถานที่จัดส่ง</label>
-                                        <input required name="location" placeholder="เช่น ตึก A ห้องประชุม 3" className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm" />
+                                    <div className="space-y-3 animate-in fade-in slide-in-from-top-2 p-4 border border-blue-200 rounded-xl bg-blue-50/50">
+                                        <h3 className="font-semibold text-blue-900 text-sm flex items-center gap-1.5">
+                                            🚚 ที่อยู่สำหรับการจัดส่ง
+                                        </h3>
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                            <div className="space-y-1">
+                                                <label htmlFor="houseNumber" className="text-xs font-medium text-slate-700">บ้านเลขที่ / อาคาร / หมู่บ้าน *</label>
+                                                <input required name="houseNumber" placeholder="เช่น 88/12 อาคาร A" className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm" />
+                                            </div>
+                                            <div className="space-y-1">
+                                                <label htmlFor="soi" className="text-xs font-medium text-slate-700">ซอย / ถนน *</label>
+                                                <input required name="soi" placeholder="เช่น ซอย 8, ถ.วิภาวดี" className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm" />
+                                            </div>
+                                        </div>
+                                        <div className="space-y-1">
+                                            <label htmlFor="landmark" className="text-xs font-medium text-slate-700">จุดสังเกต / รายละเอียดเพิ่มเติม</label>
+                                            <input name="landmark" placeholder="เช่น ตรงข้ามเซเว่น, วางไว้หน้าห้องพัก" className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm" />
+                                        </div>
                                     </div>
                                 )}
                                 

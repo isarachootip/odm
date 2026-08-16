@@ -450,7 +450,7 @@ async function handleDeliveryTypeInput(
             replyToken,
             messages: [{
                 type: "text",
-                text: "🚚 จัดส่ง\n\nกรุณาระบุ **สถานที่จัดส่ง**\n(ตัวอย่าง: ห้องประชุม3 ตึกหน้า)"
+                text: "🚚 **ข้อมูลสำหรับการจัดส่ง**\n\nกรุณาระบุรายละเอียดที่อยู่จัดส่ง:\n▫️ **ชื่อผู้รับ**\n▫️ **บ้านเลขที่ / อาคาร**\n▫️ **ซอย / ถนน**\n▫️ **จุดสังเกต (ถ้ามี)**\n\n*(ตัวอย่าง: คุณสมชาย บ้านเลขที่ 88/12 ซอย 8)*"
             }]
         });
     } else {
@@ -470,10 +470,13 @@ async function handleLocationInput(
     client: line.messagingApi.MessagingApiClient,
     replyToken: string
 ): Promise<void> {
-    if (!location || location.length < 3) {
+    if (!location || location.trim().length < 4) {
         await client.replyMessage({
             replyToken,
-            messages: [{ type: "text", text: "กรุณาระบุสถานที่จัดส่งให้ชัดเจน" }]
+            messages: [{
+                type: "text",
+                text: "⚠️ กรุณาระบุข้อมูลการจัดส่งให้ครบถ้วนครับ\n(ชื่อลูกค้า, บ้านเลขที่, ซอย, ถนน หรือจุดสังเกต)"
+            }]
         });
         return;
     }
