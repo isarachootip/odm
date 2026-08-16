@@ -29,6 +29,11 @@ export default async function AdminOrdersPage(props: { searchParams: Promise<{ b
                 include: {
                     Product: true
                 }
+            },
+            tableReservation: {
+                include: {
+                    table: true
+                }
             }
         },
     });
