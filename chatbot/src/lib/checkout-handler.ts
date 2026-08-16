@@ -590,7 +590,7 @@ async function createOrderFromSession(
 
             // Generate QR Code only for PromptPay
             if (paymentConfig.paymentType === "PROMPTPAY" && paymentConfig.promptpayNumber) {
-                const baseUrl = (process.env.CHATBOT_URL || "https://mamsoi8.online").replace(/\/$/, "");
+                const baseUrl = (process.env.CHATBOT_URL || "https://chat.mamsoi8.online").replace(/\/$/, "");
                 const qrUrl = `${baseUrl}/api/v1/qr/${order.id}.png`;
                 console.log(`Generated QR URL: ${qrUrl}`);
 
