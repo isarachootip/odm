@@ -33,25 +33,37 @@
 2. Bot อ่านหมวดหมู่และสินค้าจากฐานข้อมูล (แยกตามสินค้าของสาขานั้นๆ) และส่ง **Flex Message** จัดรูปแบบแสดงรายการ
 3. ลูกค้ากดเลือกสินค้า ระบบจะเปิด **Webview (LIFF)** ของสินค้าตัวนั้น (`webview/product/[id]`) 
 4. ใน Webview ระบบดึง Token/LINE User ID ของลูกค้า เพื่อรักษาสเตท ลูกค้าเลือก Options และกด Add to Cart
-5. เมื่อลูกค้ากดยืนยันออเดอร์ ระบบ API จะเปลี่ยนของใน Cart เป็น `Order` (สถานะ PENDING) พร้อมออก Queue Number ประจำวัน
+5. เมื่อลูกค้ากดยืนยันออเดอร์ ระบบ API จะเปลี่ยนของใน Cart เป็น `Order` (สถานะ `PENDING`)
 
-### 3.2 Flow การชำระเงิน (Payment Flow)
-1. ระบบแจ้งยอดเงิน คิวบาร์โค้ด หรือ PromptPay QR Code ให้ลูกค้าในแชท LINE
-2. ลูกค้าทำการอัปโหลดสลิปธนาคารเข้าในแชท
-3. ระบบสามารถตรวจจับการอัปโหลดรูปลงในแชท (ในโหมดรอชำระเงิน) เพื่ออัปเดตสลิปและเปลี่ยนสถานะ Order เป็น PAID หรือรอการตรวจสอบจากแอดมิน (สามารถอัปเดตสถานะผ่านเว็บหลังบ้านได้)
-4. (ในอนาคตรองรับ API ส่งไปยังเครื่อง POS อัตโนมัติเมื่อสถานะออเดอร์กลายเป็น PAID)
+### 3.2 Flow การชำระเงินและการตรวจสอบสลิป (Payment & Slip Verification Flow)
+1. **สร้าง QR Code**: ระบบส่ง Dynamic PromptPay QR Code พร้อมยอดเงินรวม (`order.total`) ผ่าน API Endpoint `/api/v1/qr/[orderId].png` (พร้อม `Content-Length` และ `Uint8Array` สำหรับ LINE Proxy)
+2. **ลูกค้าส่งสลิป**: ลูกค้าส่งรูปภาพสลิปการโอนเงินเข้ามาในแชท LINE
+3. **จัดเก็บภาพสลิป**: ระบบบันทึกภาพสลิปลงใน **Local Storage บน Server** ที่ `public/uploads/slips/` เพื่อความรวดเร็วและไม่พึ่งพา MinIO ภายนอก
+4. **AI & API Verification**:
+   - **Google Gemini 2.0 Flash Vision AI / SlipOK API**: อ่านข้อมูลสลิปเพื่อสกัด ยอดเงิน (`amount`), ชื่อผู้รับ (`receiver`), วันเวลา (`date/time`), และรหัสอ้างอิง (`transRef`)
+   - **Matching Criteria**:
+     - ยอดเงินต้องตรงกับ `order.total`
+     - ชื่อผู้รับต้องตรงกับ `paymentConfig.accountName`
+     - เวลาทำรายการต้องอยู่ภายในระยะเวลาที่กำหนด (Time Limit)
+     - รหัสธุรกรรมต้องไม่ซ้ำกับออเดอร์เดิม (ป้องกันสลิปซ้ำ)
+5. **ออกบัตรคิว (Queue Ticket)**: เมื่อสลิปผ่าน ระบบอัปเดตสถานะเป็น `PAID` และส่ง Flex Message **"บัตรคิว"** แจ้งเตือนลูกค้า โดยมีข้อความแนะนำให้ลูกค้ารอแจ้งเตือนเมื่ออาหารพร้อมเสิร์ฟ *(ไม่มีปุ่มยืนยันรับสินค้าในขั้นตอนนี้)*
 
-### 3.3 Flow ของระบบคิวและรับรายการ (Admin Tracker / Queue)
-1. ในฝั่ง **Admin Panel -> Queue Monitor** ระบบจะฟิลเตอร์ Queue ตาม `Branch` ของผู้ดูแลระบบคนนั้น
-2. ระบบจะดึง `Order` ที่เป็นสถานะค้าง (PAID, PROCESSING) มาเรียงโชว์ขึ้นบอร์ด
-3. พนักงานครัวรับออเดอร์ไปปรุงอาหาร เปลี่ยนสถานะเป็น PROGRESSING หรือ COMPLETED เมื่ออาหารเสร็จพร้อมเสิร์ฟ หรือ SHIPPED สำหรับสั่งรับส่ง
+### 3.3 Flow ของระบบครัวและการแจ้งเตือนพร้อมเสิร์ฟ (Kitchen Tracker & Completion Flow)
+1. **Admin / Kitchen Tracker**: ครัวรับออเดอร์สถานะ `PAID` ไปปรุงอาหาร
+2. **ร้านค้าแจ้ง "พร้อมเสิร์ฟ"**: เมื่อปรุงเสร็จ ร้านค้ากดเปลี่ยนสถานะเป็น **พร้อมเสิร์ฟ (`SHIPPED`)** ในหน้า Web Admin (`mamsoi8.online`)
+3. **LINE Push Notification**: ระบบดึง Token ประจำสาขา (`branch.lineChannelAccessToken`) แล้วส่ง Push Message แจ้งเตือนไปยัง LINE ลูกค้าว่าอาหารพร้อมแล้ว พร้อมแนบปุ่ม **"ได้รับสินค้าแล้ว"**
+4. **ลูกค้ายืนยันรับอาหาร**: ลูกค้ากดปุ่ม "ได้รับสินค้าแล้ว" ใน LINE ระบบอัปเดตสถานะเป็น `COMPLETED`
+5. **ประเมินความพึงพอใจ**: ระบบส่งแบบประเมินความพึงพอใจ (🌟 ให้คะแนน 1-5 ดาว) และเปิดให้ลูกค้าพิมพ์ความคิดเห็นติชมบันทึกลง Database (`Review` model) ทันที
 
 ## 4. เทคโนโลยีที่ใช้เบื้องหลัง (Tech Stack)
-- **Frontend / Backend**: Next.js (App Router สำหรับ Admin และ API Routes แบบ Serverless)
+- **Frontend / Backend**: Next.js (App Router สำหรับ Admin และ Chatbot API Routes ในรูปแบบ Standalone Node.js)
 - **Database**: PostgreSQL (เชื่อมต่อและ Query ข้อมูลด้วย Prisma ORM)
 - **Authentication**: NextAuth มอบหมาย Role สำหรับ Admin/Staff 
-- **Integrations**: LINE Messaging API (webhook สำหรับ Bot), LINE Frontend Framework (LIFF/Webview)
-- **Deployment**: Vercel (รันแอปพลิเคชันรูปแบบ Serverless Function และ Edge)
+- **AI & Slip Verification**: Google Gemini 2.0 Flash Vision API, SlipOK API
+- **Image Storage**: Local Storage (`public/uploads/slips/`)
+- **Integrations**: LINE Messaging API (webhook แบบ Multi-branch), LINE Frontend Framework (LIFF/Webview)
+- **Deployment**: Coolify / Docker Container (Self-hosted บน Linux Server พร้อมระบบ Automated SSL)
 
 ## สรุป (Conclusion)
-ระบบ ODM เป็นระบบ O2O (Online-to-Offline) หรือระบบ Food Delivery/Pickup ขนาดย่อม ที่ตอบโจทย์การแยกการจัดการระดับสาขา มีโครงสร้าง Webview ที่ช่วยให้ UI ของ LINE ลื่นไหลและรับคำสั่งซับซ้อนขึ้น และมี Tracking แดชบอร์ดให้พนักงานทำงานหลังร้านได้จริง
+ระบบ ODM เป็นระบบ O2O (Online-to-Offline) หรือระบบ Food Delivery/Pickup ขนาดย่อม ที่ตอบโจทย์การแยกการจัดการระดับสาขา มีโครงสร้าง Webview ที่ช่วยให้ UI ของ LINE ลื่นไหลและรับคำสั่งซับซ้อนขึ้น มีระบบตรวจสอบสลิปอัตโนมัติด้วย AI และมี Tracking แดชบอร์ดให้พนักงานทำงานหลังร้านได้อย่างสมบูรณ์แบบ
+
