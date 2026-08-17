@@ -158,7 +158,7 @@ export function HeroCarousel({ banners = [] }: { banners?: BannerItem[] }) {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
                         transition={{ duration: 0.5, ease: "easeOut" }}
-                        className="max-w-2xl text-left bg-black/50 p-6 sm:p-8 md:p-10 rounded-2xl backdrop-blur-md border border-white/10 pointer-events-auto shadow-2xl transition-all duration-300 hover:bg-black/60"
+                        className="max-w-2xl text-left bg-black/50 p-6 sm:p-8 md:p-10 rounded-2xl backdrop-blur-md border border-white/10 pointer-events-auto shadow-2xl transition-all duration-300 hover:bg-black/60 ml-auto"
                     >
                         <p className="text-lg sm:text-xl md:text-2xl font-bold text-amber-400 mb-2 tracking-wide flex items-center gap-2">
                             <span className="inline-block w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
