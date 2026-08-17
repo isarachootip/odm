@@ -3,12 +3,14 @@ import { prisma } from "@/lib/prisma";
 import { BannerForm } from "@/components/admin/BannerForm";
 import { notFound } from "next/navigation";
 
-export default async function EditBannerPage({ params }: { params: { id: string } }) {
+export default async function EditBannerPage({ params }: { params: Promise<{ id: string }> }) {
     const session = await auth();
     if (session?.user?.role !== "ADMIN") return <div>Unauthorized</div>;
 
+    const { id } = await params;
+
     const banner = await prisma.banner.findUnique({
-        where: { id: params.id },
+        where: { id },
     });
 
     if (!banner) notFound();
