@@ -144,8 +144,8 @@ export function HeroCarousel({ banners = [] }: { banners?: BannerItem[] }) {
                         className="object-cover object-center"
                         priority={currentIndex === 0}
                     />
-                    {/* Dark gradient overlay for text legibility */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent md:from-black/75 md:via-black/35" />
+                    {/* Subtle gradient overlay for text readability without darkening the image too much */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-black/45 via-black/15 to-transparent md:from-black/40 md:via-black/10" />
                 </motion.div>
             </AnimatePresence>
 
