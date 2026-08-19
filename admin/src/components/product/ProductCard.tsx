@@ -36,8 +36,24 @@ export function ProductCard({ product }: ProductCardProps) {
                     )}
                 </div>
 
-                {/* Wishlist Button (Top Right) */}
-                <button className="absolute right-3 top-3 z-10 rounded-full bg-white/80 p-2 text-gray-700 backdrop-blur-sm transition-colors hover:bg-white hover:text-red-500 opacity-0 group-hover:opacity-100 focus:opacity-100">
+                {/* Pre-order Badge (Top Right) */}
+                {(product.category?.includes("จองล่วงหน้า") || 
+                  product.category?.toLowerCase().includes("preorder") || 
+                  product.category?.toLowerCase().includes("pre-order") ||
+                  product.nameTh?.includes("จองล่วงหน้า")) && (
+                    <span className="absolute right-3 top-3 z-10 inline-flex items-center gap-1 rounded-md bg-orange-600/90 backdrop-blur-sm px-2 py-0.5 text-[10px] font-bold text-white shadow-md border border-orange-500 font-noto">
+                        ⏳ จองล่วงหน้า
+                    </span>
+                )}
+
+                {/* Wishlist Button (Top Right, shifted down if pre-order badge is present) */}
+                <button className={cn(
+                    "absolute right-3 z-10 rounded-full bg-white/80 p-2 text-gray-700 backdrop-blur-sm transition-colors hover:bg-white hover:text-red-500 opacity-0 group-hover:opacity-100 focus:opacity-100",
+                    (product.category?.includes("จองล่วงหน้า") || 
+                     product.category?.toLowerCase().includes("preorder") || 
+                     product.category?.toLowerCase().includes("pre-order") ||
+                     product.nameTh?.includes("จองล่วงหน้า")) ? "top-10" : "top-3"
+                )}>
                     <Heart className="h-4 w-4" />
                     <span className="sr-only">Add to wishlist</span>
                 </button>
