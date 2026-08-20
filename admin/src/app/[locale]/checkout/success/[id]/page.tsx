@@ -51,6 +51,24 @@ export default async function OrderSuccessPage({ params }: { params: Promise<{ i
                         </div>
                     </div>
 
+                    {/* LINE OA Invitation Banner */}
+                    <div className="w-full bg-slate-50 border border-slate-200 rounded-xl p-5 text-left space-y-3 mt-4">
+                        <div className="flex items-center gap-2 font-bold text-green-700">
+                            <span className="text-xl">💬</span>
+                            <span>รับการแจ้งเตือนคิวผ่าน LINE!</span>
+                        </div>
+                        <p className="text-xs text-muted-foreground leading-relaxed">
+                            เพื่อรับการแจ้งเตือนเมื่ออาหารของคุณเสร็จหรือมีโปรโมชันพิเศษ คุณสามารถเพิ่มเพื่อนไลน์ Official Account ของเรา และลงทะเบียนด้วยเบอร์โทรศัพท์ **{order.customerPhone}** ได้เลยครับ!
+                        </p>
+                        <div className="flex pt-1">
+                            <a href={process.env.NEXT_PUBLIC_LINE_OA_LINK || "https://line.me/R/ti/p/@335qptly"} target="_blank" rel="noreferrer" className="w-full">
+                                <Button className="w-full bg-[#06C755] hover:bg-[#05B34C] text-white flex items-center justify-center gap-2 text-sm h-10 font-bold">
+                                    <span>🟢 เพิ่มเพื่อนไลน์เพื่อรับการแจ้งเตือน</span>
+                                </Button>
+                            </a>
+                        </div>
+                    </div>
+
                     <div className="flex gap-4 mt-8">
                         <Link href="/">
                             <Button variant="outline">กลับหน้าหลัก</Button>
@@ -114,6 +132,24 @@ export default async function OrderSuccessPage({ params }: { params: Promise<{ i
 
                         {/* Upload Form */}
                         <SlipUploadForm orderId={order.id} />
+
+                        {/* LINE OA Invitation Banner */}
+                        <div className="w-full bg-slate-50 border border-slate-200 rounded-xl p-5 text-left space-y-3 mt-4">
+                            <div className="flex items-center gap-2 font-bold text-green-700">
+                                <span className="text-xl">💬</span>
+                                <span>รับการแจ้งเตือนคิวผ่าน LINE!</span>
+                            </div>
+                            <p className="text-xs text-muted-foreground leading-relaxed">
+                                เพื่อรับการแจ้งเตือนเมื่อการโอนเงินได้รับการยืนยันและติดตามคิวอาหาร คุณสามารถเพิ่มเพื่อนไลน์ Official Account ของเรา และลงทะเบียนด้วยเบอร์โทรศัพท์ **{order.customerPhone}** ได้เลยครับ!
+                            </p>
+                            <div className="flex pt-1">
+                                <a href={process.env.NEXT_PUBLIC_LINE_OA_LINK || "https://line.me/R/ti/p/@335qptly"} target="_blank" rel="noreferrer" className="w-full">
+                                    <Button className="w-full bg-[#06C755] hover:bg-[#05B34C] text-white flex items-center justify-center gap-2 text-sm h-10 font-bold">
+                                        <span>🟢 เพิ่มเพื่อนไลน์เพื่อรับการแจ้งเตือน</span>
+                                    </Button>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             )}

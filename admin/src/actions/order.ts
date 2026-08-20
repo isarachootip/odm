@@ -152,9 +152,23 @@ export async function createOrder(items: CartItemInput[], shipping: ShippingInpu
         // Fetch branch to get branchId
         const branch = await prisma.branch.findUnique({ where: { code: branchCode.toUpperCase() } });
 
+        // Try to link lineUserId automatically by phone number if a registered CustomerProfile exists
+        let autoLineUserId = undefined;
+        try {
+            const customer = await prisma.customerProfile.findFirst({
+                where: { phone: shipping.customerPhone }
+            });
+            if (customer && customer.lineUserId) {
+                autoLineUserId = customer.lineUserId;
+            }
+        } catch (err) {
+            console.error("Failed to auto-link customer LINE:", err);
+        }
+
         // Prepare order data
         const orderData: any = {
             userId: userId || null,
+            lineUserId: autoLineUserId || undefined,
             orderNumber: customOrderNumber,
             status: "PENDING",
             total: total,
