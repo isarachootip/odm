@@ -12,4 +12,5 @@ export interface Product {
     inStock: boolean;
     rating?: number;
     reviews?: number;
+    availableDays?: number[];
 }

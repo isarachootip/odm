@@ -17,6 +17,8 @@ interface ShippingInput {
     customerPhone: string;
     deliveryType: "PICKUP" | "TAKEAWAY" | "DELIVERY" | "DINE_IN";
     deliveryLocation?: string;
+    isPreorder?: boolean;
+    preorderDateTime?: string;
     reservation?: {
         date: string;
         timeSlot: string;
@@ -161,6 +163,8 @@ export async function createOrder(items: CartItemInput[], shipping: ShippingInpu
             customerPhone: shipping.customerPhone,
             deliveryType: shipping.deliveryType,
             deliveryLocation: shipping.deliveryType === "DELIVERY" ? shipping.deliveryLocation : null,
+            isPreorder: shipping.isPreorder || false,
+            preorderDateTime: shipping.preorderDateTime ? new Date(shipping.preorderDateTime) : null,
             items: {
                 create: orderItemsData,
             },

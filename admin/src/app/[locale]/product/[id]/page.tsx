@@ -10,6 +10,7 @@ import { notFound } from "next/navigation";
 async function getProduct(id: string) {
     const p = await prisma.product.findUnique({
         where: { id },
+        include: { Category: true }
     });
 
     if (!p) return null;
@@ -18,8 +19,9 @@ async function getProduct(id: string) {
         ...p,
         price: Number(p.price),
         salePrice: p.promotionPrice ? Number(p.promotionPrice) : undefined,
-        category: "General", // Should fetch category name relation
+        category: p.Category?.name || "General",
         inStock: true,
+        availableDays: p.availableDays || []
     } as Product;
 }
 

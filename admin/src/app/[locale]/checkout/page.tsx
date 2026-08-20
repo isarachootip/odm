@@ -19,6 +19,38 @@ export default function CheckoutPage() {
     const [error, setError] = useState<string | null>(null);
     const [deliveryType, setDeliveryType] = useState<"PICKUP" | "TAKEAWAY" | "DELIVERY" | "DINE_IN">("PICKUP");
 
+    // Pre-order detection
+    const preorderItems = items.filter(item => 
+        item.category?.includes("จองล่วงหน้า") || 
+        item.category?.toLowerCase().includes("preorder") || 
+        item.category?.toLowerCase().includes("pre-order") ||
+        item.nameTh?.includes("จองล่วงหน้า")
+    );
+    const hasPreorderItems = preorderItems.length > 0;
+
+    // Find allowed days of the week (intersection)
+    const getAllowedDays = () => {
+        let allowed = [0, 1, 2, 3, 4, 5, 6];
+        preorderItems.forEach(item => {
+            const days = item.availableDays && item.availableDays.length > 0
+                ? item.availableDays
+                : [0, 1, 2, 3, 4, 5, 6];
+            allowed = allowed.filter(d => days.includes(d));
+        });
+        return allowed;
+    };
+    const allowedDays = getAllowedDays();
+
+    const [preorderDate, setPreorderDate] = useState("");
+    const [preorderTime, setPreorderTime] = useState("");
+
+    const isPreorderDateValid = () => {
+        if (!hasPreorderItems) return true;
+        if (!preorderDate) return false;
+        const selectedDay = new Date(preorderDate).getDay();
+        return allowedDays.includes(selectedDay);
+    };
+
     const [reservationDate, setReservationDate] = useState(new Date().toISOString().split('T')[0]);
     const [reservationTimeSlot, setReservationTimeSlot] = useState("");
     const [availableTables, setAvailableTables] = useState<DiningTable[]>([]);
@@ -50,6 +82,23 @@ export default function CheckoutPage() {
         setIsProcessing(true);
         setError(null);
 
+        // Preorder date validation
+        if (hasPreorderItems) {
+            if (!preorderDate || !preorderTime) {
+                setError("กรุณาระบุวันและเวลานัดรับสินค้าสั่งจองล่วงหน้า");
+                setIsProcessing(false);
+                return;
+            }
+            const selectedDay = new Date(preorderDate).getDay();
+            if (!allowedDays.includes(selectedDay)) {
+                const thaiDays = ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์"];
+                const allowedNames = allowedDays.map(d => thaiDays[d]).join(", ");
+                setError(`กรุณาเลือกวันนัดรับให้ตรงกับวันเปิดจำหน่ายสินค้า (สินค้าเปิดขายเฉพาะวัน: ${allowedNames})`);
+                setIsProcessing(false);
+                return;
+            }
+        }
+
         const formData = new FormData(e.currentTarget);
         
         let deliveryLocation = (formData.get("location") as string) || "";
@@ -71,6 +120,8 @@ export default function CheckoutPage() {
             customerPhone: formData.get("phone") as string,
             deliveryType: deliveryType,
             deliveryLocation: deliveryLocation,
+            isPreorder: hasPreorderItems,
+            preorderDateTime: hasPreorderItems ? `${preorderDate}T${preorderTime}:00` : undefined,
         };
 
         if (deliveryType === "DINE_IN") {
@@ -162,6 +213,56 @@ export default function CheckoutPage() {
                                         </label>
                                     </div>
                                 </div>
+
+                                {hasPreorderItems && (
+                                    <div className="space-y-4 animate-in fade-in slide-in-from-top-2 p-5 border border-orange-200 rounded-xl bg-orange-50/60 my-2">
+                                        <h3 className="font-bold text-orange-950 flex items-center gap-2 text-sm sm:text-base">
+                                            📅 วันเวลาที่นัดรับสินค้าสั่งจองล่วงหน้า (Pre-order Date/Time)
+                                        </h3>
+                                        <p className="text-xs text-orange-850">
+                                            มีสินค้าสั่งจองล่วงหน้าในตะกร้าของคุณ กรุณาระบุวันนัดรับสินค้าให้ตรงกับวันเปิดขาย
+                                        </p>
+                                        
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                            <div className="space-y-2">
+                                                <label className="text-xs font-semibold text-slate-700">วันที่นัดรับ *</label>
+                                                <input 
+                                                    required 
+                                                    type="date" 
+                                                    value={preorderDate} 
+                                                    min={new Date().toISOString().split('T')[0]}
+                                                    onChange={(e) => setPreorderDate(e.target.value)} 
+                                                    className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm shadow-sm" 
+                                                />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="text-xs font-semibold text-slate-700">เวลานัดรับ *</label>
+                                                <input 
+                                                    required 
+                                                    type="time" 
+                                                    value={preorderTime} 
+                                                    onChange={(e) => setPreorderTime(e.target.value)} 
+                                                    className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm shadow-sm" 
+                                                />
+                                            </div>
+                                        </div>
+
+                                        {preorderDate && (() => {
+                                            const selectedDay = new Date(preorderDate).getDay();
+                                            const isValid = allowedDays.includes(selectedDay);
+                                            if (!isValid) {
+                                                const thaiDays = ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์"];
+                                                const allowedNames = allowedDays.map(d => thaiDays[d]).join(", ");
+                                                return (
+                                                    <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-755 text-xs font-medium">
+                                                        ⚠️ วันนัดรับไม่ตรงกับวันเปิดขายสินค้าชิ้นนี้ (เปิดขายเฉพาะวัน: {allowedNames})
+                                                    </div>
+                                                );
+                                            }
+                                            return null;
+                                        })()}
+                                    </div>
+                                )}
 
                                 {deliveryType === "DELIVERY" && (
                                     <div className="space-y-3 animate-in fade-in slide-in-from-top-2 p-4 border border-blue-200 rounded-xl bg-blue-50/50">
@@ -311,15 +412,21 @@ export default function CheckoutPage() {
                             <span>฿{total.toLocaleString()}</span>
                         </div>
 
-                        <Button
-                            type="submit"
-                            form="checkout-form"
-                            className="w-full mt-6 text-lg h-12"
-                            size="lg"
-                            disabled={isProcessing}
-                        >
-                            {isProcessing ? "Processing..." : "Place Order"}
-                        </Button>
+                        {error && (
+                             <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-xs font-semibold text-center animate-shake">
+                                 ⚠️ {error}
+                             </div>
+                         )}
+
+                         <Button
+                             type="submit"
+                             form="checkout-form"
+                             className="w-full mt-6 text-lg h-12"
+                             size="lg"
+                             disabled={isProcessing || (hasPreorderItems && !isPreorderDateValid())}
+                         >
+                             {isProcessing ? "Processing..." : "Place Order"}
+                         </Button>
 
                         <p className="mt-4 text-center text-xs text-muted-foreground">
                             Secure checkout powered by Stripe (Mock)

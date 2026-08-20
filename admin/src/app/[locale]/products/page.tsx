@@ -39,7 +39,8 @@ async function getProducts(searchParams: { category?: string; min?: string; max?
         images: p.images.length > 0 ? p.images : ['/placeholder.jpg'],
         category: p.Category?.name || "Uncategorized",
         inStock: p.inventory > 0,
-        isNew: (new Date().getTime() - new Date(p.createdAt).getTime()) < (7 * 24 * 60 * 60 * 1000)
+        isNew: (new Date().getTime() - new Date(p.createdAt).getTime()) < (7 * 24 * 60 * 60 * 1000),
+        availableDays: p.availableDays || []
     })) as Product[];
 }
 
