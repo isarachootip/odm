@@ -123,6 +123,62 @@ export async function startCheckout(
         return;
     }
 
+    // Validate pre-order items
+    const cartItems = (session.items as any[]) || [];
+    const sessionTempData: any = session.tempData ? (typeof session.tempData === 'object' ? session.tempData : JSON.parse(session.tempData as string)) : {};
+    const isPreorder = sessionTempData.isPreorder || false;
+    const preorderDateTime = sessionTempData.preorderDateTime;
+
+    for (const item of cartItems) {
+        const product = await prisma.product.findUnique({
+            where: { id: item.productId },
+            include: { Category: true }
+        });
+
+        if (!product) continue;
+
+        const categoryName = product.Category?.name || "";
+        const isPreorderCategory = 
+            categoryName.includes("ล่วงหน้า") || 
+            categoryName.includes("จอง") || 
+            categoryName.toLowerCase().includes("preorder");
+
+        if (isPreorderCategory) {
+            // Case 1: Pre-order product but checkout is not pre-order
+            if (!isPreorder || !preorderDateTime) {
+                await client.replyMessage({
+                    replyToken,
+                    messages: [{
+                        type: "text",
+                        text: `⚠️ ขออภัยค่ะ สินค้า '${product.name}' เป็นสินค้าสั่งจองล่วงหน้า กรุณากดเลือก 'สั่งจองล่วงหน้า' เพื่อระบุวันนัดรับและเวลาที่ถูกต้องก่อนสั่งซื้อค่ะ`
+                    }]
+                });
+                return;
+            }
+
+            // Case 2: Check available days
+            if (product.availableDays && product.availableDays.length > 0) {
+                const datePart = typeof preorderDateTime === 'string' ? preorderDateTime.substring(0, 10) : '';
+                const dayOfWeek = datePart ? new Date(datePart + 'T12:00:00Z').getUTCDay() : new Date().getUTCDay();
+
+                if (!product.availableDays.includes(dayOfWeek)) {
+                    const thaiDays = ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์"];
+                    const allowedDaysStr = product.availableDays.map(d => thaiDays[d]).join(", ");
+                    const selectedDayStr = thaiDays[dayOfWeek];
+
+                    await client.replyMessage({
+                        replyToken,
+                        messages: [{
+                            type: "text",
+                            text: `⚠️ ขออภัยค่ะ สินค้า '${product.name}' เปิดจำหน่ายเฉพาะวัน ${allowedDaysStr} เท่านั้น\n\nแต่วันนัดรับที่คุณเลือกคือวัน ${selectedDayStr}\n\nกรุณาพิมพ์ 'สั่งอาหาร' หรือ 'เมนู' และเลือกประเภทเป็น 'สั่งจองล่วงหน้า' เพื่อระบุวันรับสินค้าใหม่ให้ตรงกับวันที่เปิดจำหน่ายค่ะ`
+                        }]
+                    });
+                    return;
+                }
+            }
+        }
+    }
+
     // 1. Check CustomerProfile
     const profile = await prisma.customerProfile.findUnique({
         where: { lineUserId: userId }
