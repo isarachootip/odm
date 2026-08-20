@@ -18,8 +18,11 @@ export default async function OrderSuccessPage({ params }: { params: Promise<{ i
 
     const isPaid = order.status === "PAID" || order.status === "PROCESSING" || order.status === "COMPLETED";
 
-    // Demo PromptPay ID (Should come from BankConfig in real app)
-    const PROMPTPAY_ID = "0812345678";
+    // Fetch active PromptPay number from DB, fallback to the correct default "0636395619"
+    const paymentConfig = await prisma.paymentConfig.findFirst({
+        where: { paymentType: "PROMPTPAY", isDefault: true }
+    });
+    const PROMPTPAY_ID = paymentConfig?.promptpayNumber || "0636395619";
     const qrUrl = `https://promptpay.io/${PROMPTPAY_ID}/${Number(order.total)}`;
 
     return (
