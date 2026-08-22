@@ -143,6 +143,28 @@ export function ProductInfo({ product }: ProductInfoProps) {
                 </div>
             </div>
 
+            {/* Preorder Notice */}
+            {(product.category?.includes("จองล่วงหน้า") || 
+              product.category?.toLowerCase().includes("preorder") || 
+              product.category?.toLowerCase().includes("pre-order") ||
+              product.nameTh?.includes("จองล่วงหน้า")) && (
+                <div className="rounded-xl border border-orange-200 bg-orange-50/80 p-3.5 font-noto">
+                    <div className="flex items-center gap-2 text-sm font-bold text-orange-950">
+                        <span>⏳ สินค้าสั่งจองล่วงหน้า (Pre-order)</span>
+                    </div>
+                    <p className="mt-1 text-xs text-orange-850">
+                        {(() => {
+                            const thaiDayFull = ["วันอาทิตย์", "วันจันทร์", "วันอังคาร", "วันพุธ", "วันพฤหัสบดี", "วันศุกร์", "วันเสาร์"];
+                            if (product.availableDays && product.availableDays.length > 0 && product.availableDays.length < 7) {
+                                const days = [...product.availableDays].sort((a, b) => a - b).map(d => thaiDayFull[d]).join(", ");
+                                return `📅 เปิดให้เลือกวันนัดรับเฉพาะ: ${days}`;
+                            }
+                            return "📅 เปิดให้เลือกวันนัดรับสินค้าได้ทุกวัน";
+                        })()}
+                    </p>
+                </div>
+            )}
+
             <div className="h-px bg-border" />
 
             {/* Description */}

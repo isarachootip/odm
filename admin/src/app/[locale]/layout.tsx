@@ -26,6 +26,7 @@ import { CartSheet } from "@/components/cart/CartSheet";
 import { AuthProvider } from "@/components/auth/AuthProvider";
 import { Toaster } from "@/components/ui/sonner";
 import { getShopConfig } from "@/actions/shop-config";
+import { FloatingLineButton } from "@/components/layout/FloatingLineButton";
 
 export default async function RootLayout({
   children,
@@ -53,6 +54,7 @@ export default async function RootLayout({
             <Footer />
             <CartSheet />
             <Toaster />
+            <FloatingLineButton />
           </CartProvider>
         </AuthProvider>
         </NextIntlClientProvider>

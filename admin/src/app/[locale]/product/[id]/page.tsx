@@ -29,14 +29,16 @@ async function getRelatedProducts() {
     const products = await prisma.product.findMany({
         take: 4,
         orderBy: { createdAt: 'asc' }, // Just random for now
+        include: { Category: true }
     });
 
     return products.map(p => ({
         ...p,
         price: Number(p.price),
         salePrice: p.promotionPrice ? Number(p.promotionPrice) : undefined,
-        category: "General",
-        inStock: true
+        category: p.Category?.name || "General",
+        inStock: true,
+        availableDays: p.availableDays || []
     })) as Product[];
 }
 

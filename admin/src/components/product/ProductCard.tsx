@@ -41,9 +41,19 @@ export function ProductCard({ product }: ProductCardProps) {
                   product.category?.toLowerCase().includes("preorder") || 
                   product.category?.toLowerCase().includes("pre-order") ||
                   product.nameTh?.includes("จองล่วงหน้า")) && (
-                    <span className="absolute right-3 top-3 z-10 inline-flex items-center gap-1 rounded-md bg-orange-600/90 backdrop-blur-sm px-2 py-0.5 text-[10px] font-bold text-white shadow-md border border-orange-500 font-noto">
-                        ⏳ จองล่วงหน้า
-                    </span>
+                    <div className="absolute right-3 top-3 z-10 flex flex-col items-end gap-1">
+                        <span className="inline-flex items-center gap-1 rounded-md bg-orange-600/95 backdrop-blur-sm px-2 py-0.5 text-[10px] font-bold text-white shadow-md border border-orange-500 font-noto">
+                            ⏳ จองล่วงหน้า
+                        </span>
+                        <span className="inline-flex items-center rounded-md bg-amber-500/95 backdrop-blur-sm px-2 py-0.5 text-[9px] font-bold text-amber-950 shadow-md border border-amber-400 font-noto">
+                            {(() => {
+                                const thaiDayLabels = ["อา.", "จ.", "อ.", "พ.", "พฤ.", "ศ.", "ส."];
+                                return product.availableDays && product.availableDays.length > 0 && product.availableDays.length < 7
+                                    ? `📅 รับ: ${[...product.availableDays].sort((a, b) => a - b).map(d => thaiDayLabels[d]).join(", ")}`
+                                    : "📅 รับได้ทุกวัน";
+                            })()}
+                        </span>
+                    </div>
                 )}
 
                 {/* Wishlist Button (Top Right, shifted down if pre-order badge is present) */}
@@ -52,7 +62,7 @@ export function ProductCard({ product }: ProductCardProps) {
                     (product.category?.includes("จองล่วงหน้า") || 
                      product.category?.toLowerCase().includes("preorder") || 
                      product.category?.toLowerCase().includes("pre-order") ||
-                     product.nameTh?.includes("จองล่วงหน้า")) ? "top-10" : "top-3"
+                     product.nameTh?.includes("จองล่วงหน้า")) ? "top-16" : "top-3"
                 )}>
                     <Heart className="h-4 w-4" />
                     <span className="sr-only">Add to wishlist</span>

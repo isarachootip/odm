@@ -24,6 +24,7 @@ async function getFeaturedProducts() {
     category: p.Category?.name || "Featured",
     inStock: true,
     images: p.images.length > 0 ? p.images : ['/placeholder.jpg'],
+    availableDays: p.availableDays || []
   })) as Product[];
 }
 

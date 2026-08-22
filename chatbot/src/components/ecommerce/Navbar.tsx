@@ -57,7 +57,7 @@ export function EcomNavbar({ logoUrl }: { logoUrl?: string | null }) {
                     {/* Header Row on Mobile: Logo + Cart + Menu */}
                     <div className="w-full lg:w-auto flex items-center justify-between">
                         <Link href="/ecommerce" className="flex items-center gap-2 lg:gap-3 shrink-0 group">
-                            <div className="relative w-8 h-8 lg:w-12 lg:h-12 overflow-hidden rounded-full shadow-inner group-hover:scale-110 transition-transform bg-white">
+                            <div className="relative w-10 h-10 lg:w-16 lg:h-16 overflow-hidden rounded-full shadow-inner group-hover:scale-110 transition-transform bg-white">
                                 <img src={logoUrl || "/logo.png"} alt="ครัวคุณแหม่มซอย8" className="w-full h-full object-cover" />
                             </div>
                             <span className="text-xl lg:text-2xl font-black tracking-tighter text-white">ครัวคุณแหม่มซอย8</span>
