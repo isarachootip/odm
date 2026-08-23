@@ -61,7 +61,7 @@ export default async function OrderSuccessPage({ params }: { params: Promise<{ i
                             เพื่อรับการแจ้งเตือนเมื่ออาหารของคุณเสร็จหรือมีโปรโมชันพิเศษ คุณสามารถเพิ่มเพื่อนไลน์ Official Account ของเรา และลงทะเบียนด้วยเบอร์โทรศัพท์ **{order.customerPhone}** ได้เลยครับ!
                         </p>
                         <div className="flex pt-1">
-                            <a href={process.env.NEXT_PUBLIC_LINE_OA_LINK || "https://line.me/R/ti/p/@335qptly"} target="_blank" rel="noreferrer" className="w-full">
+                            <a href={process.env.NEXT_PUBLIC_LINE_OA_LINK || "https://lin.ee/NDymQoV"} target="_blank" rel="noreferrer" className="w-full">
                                 <Button className="w-full bg-[#06C755] hover:bg-[#05B34C] text-white flex items-center justify-center gap-2 text-sm h-10 font-bold">
                                     <span>🟢 เพิ่มเพื่อนไลน์เพื่อรับการแจ้งเตือน</span>
                                 </Button>
@@ -143,7 +143,7 @@ export default async function OrderSuccessPage({ params }: { params: Promise<{ i
                                 เพื่อรับการแจ้งเตือนเมื่อการโอนเงินได้รับการยืนยันและติดตามคิวอาหาร คุณสามารถเพิ่มเพื่อนไลน์ Official Account ของเรา และลงทะเบียนด้วยเบอร์โทรศัพท์ **{order.customerPhone}** ได้เลยครับ!
                             </p>
                             <div className="flex pt-1">
-                                <a href={process.env.NEXT_PUBLIC_LINE_OA_LINK || "https://line.me/R/ti/p/@335qptly"} target="_blank" rel="noreferrer" className="w-full">
+                                <a href={process.env.NEXT_PUBLIC_LINE_OA_LINK || "https://lin.ee/NDymQoV"} target="_blank" rel="noreferrer" className="w-full">
                                     <Button className="w-full bg-[#06C755] hover:bg-[#05B34C] text-white flex items-center justify-center gap-2 text-sm h-10 font-bold">
                                         <span>🟢 เพิ่มเพื่อนไลน์เพื่อรับการแจ้งเตือน</span>
                                     </Button>
