@@ -56,7 +56,7 @@ export function Navbar({ logoUrl }: { logoUrl?: string | null }) {
                     {/* Right: Actions */}
                     <div className="flex items-center gap-5 text-gray-800">
                         <Link 
-                            href="https://lin.ee/NDymQoV" 
+                            href="https://lin.ee/nk9MtP7" 
                             target="_blank" 
                             className="flex items-center gap-1.5 bg-[#06C755] hover:bg-[#05b34c] text-white p-2 sm:px-3 sm:py-1.5 rounded-full text-xs font-bold transition-all shadow-sm hover:scale-105 font-noto"
                         >
