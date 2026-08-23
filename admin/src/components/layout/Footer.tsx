@@ -37,7 +37,7 @@ export function Footer() {
                         <ul className="space-y-2 text-sm text-muted-foreground">
                             <li>
                                 <Link 
-                                    href="https://lin.ee/nk9MtP7" 
+                                    href="https://lin.ee/zHNI1PO" 
                                     target="_blank" 
                                     className="hover:underline flex items-center gap-1.5 text-[#06C755] font-bold"
                                 >

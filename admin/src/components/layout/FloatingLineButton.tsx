@@ -13,7 +13,7 @@ export function FloatingLineButton() {
 
     return (
         <Link
-            href="https://lin.ee/nk9MtP7"
+            href="https://lin.ee/zHNI1PO"
             target="_blank"
             className="fixed bottom-6 right-6 z-40 flex items-center gap-2 bg-[#06C755] hover:bg-[#05b34c] text-white p-3 rounded-full shadow-2xl transition-all duration-300 hover:scale-105 border border-green-400 font-noto"
             title="เพิ่มเพื่อนใน LINE"
